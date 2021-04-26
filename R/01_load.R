@@ -25,6 +25,8 @@ data('alon', package = 'datamicroarray')
 
 # Load data ---------------------------------------------------------------
 read_csv("data/_raw/77_cancer_proteomes_CPTAC_itraq.csv")
+read_csv("clinical_data_breast_cancer.csv")
+read_csv("PAM50_proteins.csv")
 
 
 #Data consist of 
