@@ -24,12 +24,10 @@ data('alon', package = 'datamicroarray')
 
 
 # Load data ---------------------------------------------------------------
-load("data/_raw/alon.RData")
+read_csv("data/_raw/77_cancer_proteomes_CPTAC_itraq.csv")
 
 
-#Data consist of 62 samples (rows) from 2000 genes (columns)
-# x = all measurements
-# y = classes, n = normal tissue (22), t = tumor tissue (40)
+#Data consist of 
 
 # Write data --------------------------------------------------------------
 write_tsv(x = alon %>% 
