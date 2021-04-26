@@ -20,11 +20,6 @@ alon_clean_aug <- alon_clean %>%
 #1 = tumor
 #0 = normal
 
-# Wrangle data (log10 transformation) ------------------------------------------------------------
-alon_clean_aug <- alon_clean_aug %>%
-  select(cols = -c(tissue, tissue_discrete)) %>%
-  log10(.)
-
 # Write data --------------------------------------------------------------
 write_tsv(x = alon_clean_aug,
           path = "data/alon_clean_aug.tsv.gz")

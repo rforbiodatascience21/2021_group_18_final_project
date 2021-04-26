@@ -10,6 +10,9 @@ alon_x <- read_tsv(file = "data/alon_x.tsv.gz")
 alon_y <- read_tsv(file = "data/alon_y.tsv.gz")
 
 # Wrangle data ------------------------------------------------------------
+alon_x <- alon_x %>%
+  log10(.)
+
 alon_clean <- bind_cols(alon_x, alon_y)
 #if size is different, the bind_cols can be dangerous
 
