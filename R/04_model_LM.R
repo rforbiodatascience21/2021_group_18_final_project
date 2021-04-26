@@ -16,4 +16,3 @@ tidy(geneX1) %>%
   filter(term == "X1") %>% 
   select(term, p.value)
 #P-value = 0.121
-
