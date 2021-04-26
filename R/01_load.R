@@ -8,6 +8,7 @@ library("usethis")
 library("devtools")
 install_github('ramhiser/datamicroarray')
 library("datamicroarray")
+library("patchwork")
 
 
 # Define functions --------------------------------------------------------
