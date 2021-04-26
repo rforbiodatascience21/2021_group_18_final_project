@@ -14,6 +14,8 @@ alon_clean_aug <- alon_clean %>%
   mutate(tissue = case_when(value == "n" ~ 0, 
                              value == "t" ~ 1))%>%
   select(tissue,everything(),-value)
+#1 = tumor
+#0 = normal
 
 # Write data --------------------------------------------------------------
 write_tsv(x = alon_clean_aug,
