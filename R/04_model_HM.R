@@ -24,9 +24,15 @@ alon_clean_aug_long_random <- alon_clean_aug %>%
   pivot_longer(cols = !tissue, names_to = "Gene", values_to = "Expr_level")
 
 # Heatmap of the random genes 
-############################# SPG, ved ikke helt hvordan det bestemmer Expr_level...
-ggplot(alon_clean_aug_long_random %>% 
-         group_by(Gene, tissue) %>% 
-         count(Expr_level), 
+########SPG, ved ikke helt hvordan det bestemmer Expr_level... og hvad forskellen er mellem de to HMs
+ggplot(alon_clean_aug_long_random, 
        mapping = aes(x = tissue, y = Gene, fill = Expr_level)) +
   geom_tile()
+
+ggplot(alon_clean_aug_long_random %>% 
+                group_by(Gene, tissue) %>% 
+                count(Expr_level), 
+       mapping = aes(x = tissue, y = Gene, fill = Expr_level)) +
+  geom_tile()
+
+
