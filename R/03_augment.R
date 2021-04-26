@@ -13,7 +13,10 @@ alon_clean <- read_tsv(file = "data/alon_clean.tsv.gz")
 alon_clean_aug <- alon_clean %>%
   mutate(tissue = case_when(value == "n" ~ "normal", 
                              value == "t" ~ "tumor"))%>%
-  select(tissue,everything(),-value)
+  mutate(tissue_discrete = case_when(value == "n" ~ 0, 
+                                     value == "t" ~ 1)) %>%
+  select(tissue, tissue_discrete,everything(),-value)
+
 #1 = tumor
 #0 = normal
 
