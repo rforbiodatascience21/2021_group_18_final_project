@@ -25,20 +25,8 @@ data('alon', package = 'datamicroarray')
 
 # Load data ---------------------------------------------------------------
 read_csv("data/_raw/77_cancer_proteomes_CPTAC_itraq.csv")
-read_csv("clinical_data_breast_cancer.csv")
-read_csv("PAM50_proteins.csv")
+read_csv("data/_raw/clinical_data_breast_cancer.csv")
+read_csv("data/_raw/PAM50_proteins.csv")
 
 
-#Data consist of 
-
-# Write data --------------------------------------------------------------
-write_tsv(x = alon %>% 
-            pluck("x") %>% 
-            as_tibble,
-          file = "data/alon_x.tsv.gz")
-
-write_tsv(x = alon %>% 
-            pluck("y") %>% 
-            as_tibble,
-          file = "data/alon_y.tsv.gz")
 
