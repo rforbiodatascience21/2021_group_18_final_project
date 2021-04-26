@@ -1,7 +1,10 @@
+#Load data
+alon_clean_aug <- read_tsv(file = "data/alon_clean_aug.tsv.gz")
+
 # Wrangle data
 alon_clean_aug_long = alon_clean_aug %>%  
-  pivot_longer(cols = !tissue, names_to = "Gene", values_to = "Expr_level") 
-
+  pivot_longer(cols = -c(tissue, tissue_discrete), names_to = "Gene", values_to = "Expr_level")  
+  
 
 # Heatmap
 ggplot(alon_clean_aug_long, aes(x = tissue, y = Gene, fill = Expr_level)) +
@@ -17,8 +20,8 @@ ggplot(alon_clean_aug_long %>%
 
 # Selecting few genes (100, 1001-1009)
 alon_clean_aug_long_random <- alon_clean_aug %>%
-  select(starts_with("X100") | contains("tissue")) %>% 
-  pivot_longer(cols = !tissue, names_to = "Gene", values_to = "Expr_level") 
+  select(everything("tissue") | starts_with("X100")) %>%
+  pivot_longer(cols = !tissue, names_to = "Gene", values_to = "Expr_level")
 
 # Heatmap of the random genes 
 ############################# SPG, ved ikke helt hvordan det bestemmer Expr_level...
