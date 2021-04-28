@@ -17,8 +17,7 @@ cancer_data <- joined_data %>%
 
 
 # Write data --------------------------------------------------------------
-write_tsv(x = alon_clean_aug,
-          path = "data/alon_clean_aug.tsv.gz")
+
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
