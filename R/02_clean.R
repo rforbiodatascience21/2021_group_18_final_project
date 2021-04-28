@@ -6,19 +6,20 @@ rm(list = ls())
 library("tidyverse")
 
 # Load data ---------------------------------------------------------------
-alon_x <- read_tsv(file = "data/alon_x.tsv.gz")
-alon_y <- read_tsv(file = "data/alon_y.tsv.gz")
+proteomes <- read_csv(file = "data/proteomes.csv.gz")
+proteins <- read_csv(file = "data/proteins.csv.gz")
+clinical <- read_csv((file = "data/clinical.csv.gz" ))
 
 # Wrangle data ------------------------------------------------------------
-alon_x <- alon_x %>%
-  log10(.)
 
-alon_clean <- bind_cols(alon_x, alon_y)
-#if size is different, the bind_cols can be dangerous
+# Simplify ID's (from .01 and .05 eg.)
+proteomes <- proteomes %>%
+  str_replace_all(string = .,
+                  )
+
+
 
 # Write data --------------------------------------------------------------
-write_tsv(x = alon_clean,
-          path = "data/alon_clean.tsv.gz")
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")

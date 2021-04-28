@@ -30,11 +30,11 @@ proteins <- read_csv("data/_raw/PAM50_proteins.csv")
 
 # Write data --------------------------------------------------------------
 write_csv(x = proteomes, 
-          file = "data/proteomes.tsv.gz")
+          file = "data/proteomes.csv.gz")
 
 write_csv(x = clinical, 
-          file = "data/clinical.tsv.gz")
+          file = "data/clinical.csv.gz")
 
 write_csv(x = proteins, 
-          file = "data/proteins.tsv.gz")
+          file = "data/proteins.csv.gz")
 
