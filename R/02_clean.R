@@ -12,9 +12,41 @@ clinical <- read_csv((file = "data/clinical.csv.gz" ))
 
 # Wrangle data ------------------------------------------------------------
 
+#### PROTEOME ####
+#Renaming columns to match proteins file
+proteomes_clean <- proteomes %>%
+  rename(RefSeqProteinID =  RefSeq_accession_number,
+         "Gene Name" = gene_name,
+         GeneSymbol = gene_symbol)
+
+#Removing .01TCGA from every column name in proteome to match ID's in clinical
+#And removing three duplicates 
+proteomes_clean <- proteomes_clean %>%
+  select(.,-c("AO-A12D.05TCGA","C8-A131.32TCGA","AO-A12B.34TCGA"))
+
+proteomes_clean <- proteomes_clean %>% 
+  rename_with(., ~ str_replace_all(.,"\\..*",""))
+
+#### CLINICAL ####
+
+#Aligning ID's with ID's in proteome file
+clinical_clean <- clinical %>%
+  mutate(TCGA_ID = str_sub(`Complete TCGA ID`, 
+                           start = 6,
+                           end = -1))
+
+### JOIN ###
 
 
-# Write data --------------------------------------------------------------
+proteomes_long <- proteomes_clean %>%
+  pivot_longer(cols = -c("RefSeqProteinID","GeneSymbol", "Gene Name"),
+               names_to = "TCGA_ID",
+               values_to = "Expr_lvl") %>%
+  
 
-# Define functions --------------------------------------------------------
-source(file = "R/99_project_functions.R")
+proteomes_wider <- proteomes_clean %>%
+  pivot_longer(cols = -c("RefSeqProteinID","GeneSymbol", "Gene Name"),
+               names_to = "TCGA_ID",
+               values_to = "Expr_lvl") 
+  
+  

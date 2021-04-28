@@ -6,8 +6,6 @@ rm(list = ls())
 library("tidyverse")
 library("usethis")
 library("devtools")
-install_github('ramhiser/datamicroarray')
-library("datamicroarray")
 library("patchwork")
 library(modelr)
 options(na.action = na.warn)
@@ -15,6 +13,7 @@ library(lubridate)
 library(broom)
 library(purrr)
 library(vroom)
+library(stringr)
 
 
 # Define functions --------------------------------------------------------
