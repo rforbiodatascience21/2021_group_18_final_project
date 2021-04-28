@@ -1,24 +1,20 @@
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
 
-
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
 
 # Load data ---------------------------------------------------------------
-alon_clean <- read_tsv(file = "data/alon_clean.tsv.gz")
+joined_data <- read_tsv(file = "data/proteins_joined.tsv.gz")
 
-#Usikker på om det her skal gøre - men mutate til binary factor?
 # Wrangle data ------------------------------------------------------------
-alon_clean_aug <- alon_clean %>%
-  mutate(tissue = case_when(value == "n" ~ "normal", 
-                             value == "t" ~ "tumor"))%>%
-  mutate(tissue_discrete = case_when(value == "n" ~ 0, 
-                                     value == "t" ~ 1)) %>%
-  select(tissue, tissue_discrete,everything(),-value)
 
-#1 = tumor
-#0 = normal
+#Make dataset only with cancer data
+cancer_data <- joined_data %>% 
+  filter(str_detect(TCGA_ID,"263d3f-I", negate = TRUE)) %>% 
+  filter(str_detect(TCGA_ID,"blcdb9-I", negate = TRUE)) %>% 
+  filter(str_detect(TCGA_ID,"c4155b-C", negate = TRUE))
+
 
 # Write data --------------------------------------------------------------
 write_tsv(x = alon_clean_aug,

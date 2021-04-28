@@ -61,3 +61,5 @@ joined_data <- clinical_clean %>%
   right_join(proteomes_nested,
             by = "TCGA_ID") %>%
   select(TCGA_ID, everything())
+
+#Have tried with different write functions, but it doesn't work with a list...
