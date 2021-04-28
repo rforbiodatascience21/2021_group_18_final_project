@@ -1,6 +1,12 @@
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
 
+#####
+#PCA
+#Heat map
+#K-means
+#Generelle plots for at vise data
+#####
 
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
@@ -33,20 +39,25 @@ proteomes_clean <- proteomes_clean %>%
 clinical_clean <- clinical %>%
   mutate(TCGA_ID = str_sub(`Complete TCGA ID`, 
                            start = 6,
-                           end = -1))
+                           end = -1)) %>%
+  select(-`Complete TCGA ID`)
 
-### JOIN ###
+### NESTED DATA ###
 
-
-proteomes_long <- proteomes_clean %>%
-  pivot_longer(cols = -c("RefSeqProteinID","GeneSymbol", "Gene Name"),
+#Nesting data with RefSeqProteinID and Expression level by TCGA_ID
+proteomes_nested <- proteomes_clean %>%
+  pivot_longer(cols = -c("RefSeqProteinID", GeneSymbol,"Gene Name"),
                names_to = "TCGA_ID",
-               values_to = "Expr_lvl") %>%
+               values_to = "Expr_lvl" ) %>%
+  select(-c(GeneSymbol,"Gene Name")) %>% 
+  group_by(TCGA_ID) %>% 
+  nest() %>% 
+  ungroup()
   
+### JOIN DATA ###
 
-proteomes_wider <- proteomes_clean %>%
-  pivot_longer(cols = -c("RefSeqProteinID","GeneSymbol", "Gene Name"),
-               names_to = "TCGA_ID",
-               values_to = "Expr_lvl") 
-  
-  
+#Join the clinical and nested data to have one file to work with
+joined_data <- clinical_clean %>%
+  right_join(proteomes_nested,
+            by = "TCGA_ID") %>%
+  select(TCGA_ID, everything())
