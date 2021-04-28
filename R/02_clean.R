@@ -12,11 +12,6 @@ clinical <- read_csv((file = "data/clinical.csv.gz" ))
 
 # Wrangle data ------------------------------------------------------------
 
-# Simplify ID's (from .01 and .05 eg.)
-proteomes <- proteomes %>%
-  str_replace_all(string = .,
-                  )
-
 
 
 # Write data --------------------------------------------------------------
