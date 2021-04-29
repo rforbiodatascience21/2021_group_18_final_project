@@ -17,9 +17,7 @@ library(stringr)
 
 
 # Define functions --------------------------------------------------------
-#source(file = "R/99_project_functions.R")
-data('alon', package = 'datamicroarray')
-
+source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
