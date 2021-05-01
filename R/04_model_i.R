@@ -6,7 +6,8 @@ rm(list = ls())
 library("tidyverse")
 
 # Load data ---------------------------------------------------------------
-cancer_data <- read_tsv(file = "data/cancer_data.tsv.gz")
+#cancer_data <- read_tsv(file = "data/cancer_data.tsv.gz")
+cancer_data
 
 #Fitting per gene logistic regression models
 

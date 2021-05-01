@@ -6,6 +6,7 @@ rm(list = ls())
 #Heat map
 #K-means
 #Generelle plots for at vise data
+#Linear models og p-værdier
 #####
 
 # Load libraries ----------------------------------------------------------
