@@ -59,7 +59,7 @@ proteomes_nested <- proteomes_clean %>%
 
 #Join the clinical and nested data to have one file to work with
 joined_data <- clinical_clean %>%
-  right_join(proteomes_nested,
+  inner_join(proteomes_nested,
             by = "TCGA_ID") %>%
   select(TCGA_ID, everything())
 

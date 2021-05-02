@@ -43,3 +43,15 @@ ggplot(joined_data,
   geom_point() +
   labs() + theme(legend.position = "bottom")
 
+#
+#inner join on data to create full data set
+library(ggplot2)
+
+ggplot(data = joined_data, aes(Tumor, 
+                 col = Tumor, 
+                 fill = Tumor, 
+                 alpha=0.7)) + 
+  geom_bar() + 
+  ggtitle("Proportion of patients with each tumor subtype") 
+
+
