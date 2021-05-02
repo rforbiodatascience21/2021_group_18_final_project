@@ -47,10 +47,10 @@ ggplot(joined_data,
 #inner join on data to create full data set
 library(ggplot2)
 
-ggplot(data = joined_data, aes(Tumor, 
-                 col = Tumor, 
-                 fill = Tumor)) + 
-  geom_bar() + 
-  ggtitle("Proportion of patients with each tumor subtype") 
+ggplot(data = joined_data, aes(`PAM50 mRNA`, 
+                 col = `PAM50 mRNA`, 
+                 fill = `PAM50 mRNA`)) + 
+  geom_bar(alpha=0.7) + 
+  ggtitle("Proportion of patients with each cancer subtype") 
 
 
