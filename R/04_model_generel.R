@@ -49,8 +49,7 @@ library(ggplot2)
 
 ggplot(data = joined_data, aes(Tumor, 
                  col = Tumor, 
-                 fill = Tumor, 
-                 alpha=0.7)) + 
+                 fill = Tumor)) + 
   geom_bar() + 
   ggtitle("Proportion of patients with each tumor subtype") 
 
