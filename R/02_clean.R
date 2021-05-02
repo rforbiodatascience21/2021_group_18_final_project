@@ -7,6 +7,7 @@ rm(list = ls())
 #K-means
 #Generelle plots for at vise data
 #Linear models og p-værdier
+#Cluster analysis
 #####
 
 # Load libraries ----------------------------------------------------------
