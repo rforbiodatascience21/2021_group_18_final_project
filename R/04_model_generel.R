@@ -41,6 +41,5 @@ ggplot(joined_data,
                      y = Tumor, 
                      color = `Metastasis-Coded`)) +
   geom_point() +
-  labs()
-
+  labs() + theme(legend.position = "bottom")
 
