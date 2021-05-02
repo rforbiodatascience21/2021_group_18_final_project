@@ -2,7 +2,6 @@
 rm(list = ls())
 
 # Load data ---------------------------------------------------------------
-#alon_clean <- read_tsv(file = "data/alon_clean.tsv.gz")
 joined_data
 
 # Get to know your data
@@ -43,9 +42,11 @@ ggplot(joined_data,
   geom_point() +
   labs() + theme(legend.position = "bottom")
 
-#
-#inner join on data to create full data set
-library(ggplot2)
+
+# Plot of how many patients have each type of cancer. 
+#Breast cancer is generally classified into five molecular subtypes: 
+#Luminal A, Luminal B, HER2, Basal like and Normal. 
+#Each is associated with different prognoses, treatments and therapies.
 
 ggplot(data = joined_data, aes(`PAM50 mRNA`, 
                  col = `PAM50 mRNA`, 
