@@ -15,6 +15,7 @@ cancer_data <- joined_data %>%
   filter(str_detect(TCGA_ID,"blcdb9-I", negate = TRUE)) %>% 
   filter(str_detect(TCGA_ID,"c4155b-C", negate = TRUE))
 
+# 
 
 # Write data --------------------------------------------------------------
 

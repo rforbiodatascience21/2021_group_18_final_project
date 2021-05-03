@@ -65,3 +65,10 @@ joined_data <- clinical_clean %>%
   select(TCGA_ID, everything())
 
 #Have tried with different write functions, but it doesn't work with a list...
+
+### FRACTION OF NA ###
+try <- proteomes_clean %>%
+  rowwise%>%
+  count(.,is.na)
+
+  
