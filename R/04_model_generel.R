@@ -3,20 +3,18 @@ rm(list = ls())
 
 # Load data ---------------------------------------------------------------
 proteomes_clean <- read_csv(file = "data/proteomes_clean.csv.gz")
+proteomes_clean_NA <- read_csv(file = "data/proteomes_clean_NA.csv.gz")
+clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 
 #### PLOT fraction NA ###
 ggplot(data = proteomes_clean, 
        mapping = aes(x = reorder(RefSeqProteinID,desc(Frac_NA)), y = Frac_NA)) +
   geom_col()
 
-### REMOVE VALUES ABOVE 25% NA (AND HOW MANY REMOVED) ###
+### HOW MANY REMOVED ###
 proteomes_clean %>%
   filter(Frac_NA > 0.25) %>%
   count()
-
-#removing them
-proteomes_clean <- proteomes_clean %>%
-  filter(Frac_NA < 0.25) 
 
 
 # Get to know your data

@@ -5,17 +5,12 @@ rm(list = ls())
 library("tidyverse")
 
 # Load data ---------------------------------------------------------------
-joined_data <- read_tsv(file = "data/proteins_joined.tsv.gz")
+proteomes_clean <- read_csv(file = "data/proteomes_clean.csv.gz")
+proteomes_clean_NA <- read_csv(file = "data/proteomes_clean_NA.csv.gz")
+clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 
 # Wrangle data ------------------------------------------------------------
 
-#Make dataset only with cancer data
-cancer_data <- joined_data %>% 
-  filter(str_detect(TCGA_ID,"263d3f-I", negate = TRUE)) %>% 
-  filter(str_detect(TCGA_ID,"blcdb9-I", negate = TRUE)) %>% 
-  filter(str_detect(TCGA_ID,"c4155b-C", negate = TRUE))
-
-# 
 
 # Write data --------------------------------------------------------------
 

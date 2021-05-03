@@ -44,26 +44,6 @@ clinical_clean <- clinical %>%
                            end = -1)) %>%
   select(-`Complete TCGA ID`)
 
-### NESTED DATA ###
-
-#Nesting data with RefSeqProteinID and Expression level by TCGA_ID
-proteomes_nested <- proteomes_clean %>%
-  pivot_longer(cols = -c("RefSeqProteinID", GeneSymbol,"Gene Name"),
-               names_to = "TCGA_ID",
-               values_to = "Expr_lvl" ) %>%
-  select(-c(GeneSymbol,"Gene Name")) %>% 
-  group_by(TCGA_ID) %>% 
-  nest() %>% 
-  ungroup()
-  
-### JOIN DATA ###
-
-#Join the clinical and nested data to have one file to work with
-joined_data <- clinical_clean %>%
-  inner_join(proteomes_nested,
-            by = "TCGA_ID") %>%
-  select(TCGA_ID, everything())
-
 
 ### FRACTION OF NA ###
 
@@ -71,8 +51,18 @@ proteomes_clean <- proteomes_clean %>%
   select(-c(GeneSymbol, "Gene Name")) %>%
   mutate(Frac_NA = rowSums(is.na(select(.,-RefSeqProteinID)))/80)
 
+#removing them
+proteomes_clean_NA <- proteomes_clean %>%
+  filter(Frac_NA < 0.25)
+
+
 # WRITE data
 
 write_csv(x = proteomes_clean, 
           file = "data/proteomes_clean.csv.gz")
 
+write_csv(x = proteomes_clean_NA, 
+          file = "data/proteomes_clean_NA.csv.gz")
+
+write_csv(x = clinical_clean, 
+          file = "data/clinical_clean.csv.gz")
