@@ -22,7 +22,7 @@ proteomes_clean_NA <- read_csv(file = "data/proteomes_clean_NA.csv.gz")
 
 #This analysis will illustrate the differences in gene expression for persons who do
 #not have a tumor and persons with a tumor
-#Selecting 3 ID's with T3 and T4 and lymph spread (N1-N3) and BC genes
+#Selecting sample ID's with T3 and T4 and lymph spread (N1-N3) and BC genes
 #Dropping the ones that do not have measurement of all the genes
 Tumor_sample <- joined_data %>%
   filter(Tumor == "T3" | Tumor == "T4") %>%
@@ -31,21 +31,74 @@ Tumor_sample <- joined_data %>%
   select(`TCGA_ID`, `NP_009231`,`NP_000537`, `NP_009125`, `NP_665861`, `NP_000305`,
          `NP_004351`, `NP_000446`, `NP_004439`, `NP_001002295`) %>% 
   drop_na()
-
-#Transpose
-Tumor_sample_trans <- Tumor_sample %>%
+  
+#Make longer
+Tumor_sample_longer <- Tumor_sample %>%
   pivot_longer(cols = -c("TCGA_ID"),
                names_to = "RefSeqProteinID",
-               values_to = "value" ) %>%
-  pivot_wider(names_from = "TCGA_ID",
-              values_from = "value") 
+               values_to = "value" )
 
-#Joined dataframe with sample from tumor and healthy data
+#Selecting only the same genes for the healthy data and make it longer
 # Helathy data does not have BRCA1 (NP_009231) expression, as it is only seen in BC
-Sample_Tumor_and_Healthy <- Tumor_sample_trans %>%
-  inner_join(x = joined_healthy_data, 
-             y = Tumor_sample_trans, 
-             by = "RefSeqProteinID")
+joined_healthy_longer <- joined_healthy_data %>% 
+  pivot_longer(cols = -c(RefSeqProteinID),
+               names_to = "TCGA_ID",
+               values_to = "value") %>% 
+  filter(RefSeqProteinID == "NP_009231" | RefSeqProteinID == "NP_000537" |
+         RefSeqProteinID == "NP_009125" | RefSeqProteinID == "NP_665861" |
+         RefSeqProteinID == "NP_000305" | RefSeqProteinID == "NP_004351" |
+         RefSeqProteinID == "NP_000446" | RefSeqProteinID == "NP_004439" |
+         RefSeqProteinID == "NP_001002295")
+  
+#Joined dataframe with sample from tumor and healthy data
+Sample_Tumor_and_Healthy <- full_join(joined_healthy_longer,Tumor_sample_longer)
+
+
+############ Heatmap ############
+Sample_Tumor_and_Healthy %>% 
+ggplot(mapping = aes(x = TCGA_ID, y = RefSeqProteinID, fill = value)) +
+  geom_tile(alpha=0.9) +
+  theme_minimal() +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red") +
+  theme(axis.text.x=element_text(angle=45, vjust = 1, hjust = 1), 
+        legend.position = "right", aspect.ratio = 1)
+#Den helt til venstre er healthy og de to helt til højre, skal nok lige rykkes rundt
+#saa de staar sammen 3 og 3.
+
+############# PCA ##############
+install.packages("cowplot")
+install.packages("broom")
+library(cowplot)
+library(broom)
+
+#Remove the NP_009231 from healthy samples as it is NA
+Sample_Tumor_and_Healthy_NA <- Sample_Tumor_and_Healthy %>% 
+  drop_na()
+
+pca_fit <- Sample_Tumor_and_Healthy_NA %>%
+  select(where(is.numeric)) %>% # retain only numeric columns
+  prcomp(center = TRUE, scale = TRUE) # do PCA on scaled data
+
+#The below code takes the pca values and extracts the rotation matrix
+pca_fit %>%
+  tidy(matrix = "rotation")
+
+#Code below makes the arrows
+arrow_style <- arrow(angle = 20, ends = "first", type = "closed", 
+                     length = grid::unit(8, "pt"))
+
+#Plot PCA rotation matrix
+pca_fit %>%
+  tidy(matrix = "rotation") %>%
+  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>%
+  ggplot(aes(PC1, PC2)) +
+  geom_segment(xend = 0, yend = 0, arrow = arrow_style) +
+  geom_text(aes(label = column),
+            hjust = 1, nudge_x = -0.02, 
+            color = "#904C2F") +
+  coord_fixed() + # fix aspect ratio to 1:1
+  theme_minimal_grid(12)
+
 
 
 
