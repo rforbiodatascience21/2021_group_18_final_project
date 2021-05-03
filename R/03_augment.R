@@ -27,6 +27,16 @@ joined_data <- proteomes_clean_trans %>%
              by = "TCGA_ID") %>%
   filter(!is.na(Gender))
 
+
+# Add age group to persons
+joined_data <- joined_data %>%
+mutate(Age_group = case_when(`Age at Initial Pathologic Diagnosis` < 30 ~ "<30",
+                             30 <= `Age at Initial Pathologic Diagnosis` & `Age at Initial Pathologic Diagnosis` < 40 ~ "30-40",
+                             40 <= `Age at Initial Pathologic Diagnosis` & `Age at Initial Pathologic Diagnosis` < 50 ~ "40-50",
+                             50 <= `Age at Initial Pathologic Diagnosis` & `Age at Initial Pathologic Diagnosis` < 60 ~ "50-60",
+                             60 <= `Age at Initial Pathologic Diagnosis` & `Age at Initial Pathologic Diagnosis` < 70 ~ "60-70",
+                             70 <= `Age at Initial Pathologic Diagnosis` & `Age at Initial Pathologic Diagnosis` < 80 ~ "70-80",
+                             `Age at Initial Pathologic Diagnosis` > 80 ~ ">80")) 
 # Write data --------------------------------------------------------------
 write_csv(x = joined_data, 
           file = "data/joined_data.csv.gz")
