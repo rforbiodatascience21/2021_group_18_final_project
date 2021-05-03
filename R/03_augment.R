@@ -36,7 +36,8 @@ mutate(Age_group = case_when(`Age at Initial Pathologic Diagnosis` < 30 ~ "<30",
                              50 <= `Age at Initial Pathologic Diagnosis` & `Age at Initial Pathologic Diagnosis` < 60 ~ "50-60",
                              60 <= `Age at Initial Pathologic Diagnosis` & `Age at Initial Pathologic Diagnosis` < 70 ~ "60-70",
                              70 <= `Age at Initial Pathologic Diagnosis` & `Age at Initial Pathologic Diagnosis` < 80 ~ "70-80",
-                             `Age at Initial Pathologic Diagnosis` > 80 ~ ">80")) 
+                             `Age at Initial Pathologic Diagnosis` >= 80 ~ "80+")) %>%
+  select(Age_group, everything())
 # Write data --------------------------------------------------------------
 write_csv(x = joined_data, 
           file = "data/joined_data.csv.gz")

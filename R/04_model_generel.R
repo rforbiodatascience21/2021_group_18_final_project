@@ -39,23 +39,20 @@ joined_data %>%
   count(Age_group)
 
 # The age at initial pathologic diagnosis
-##### na.rm is to remove all NAs
-ggplot(joined_data,
-       mapping = aes(x =`Age at Initial Pathologic Diagnosis`)) +
-  geom_density(na.rm = T)
-
-ggplot(joined_data,
-       mapping = aes(x = Age_group)) +
-  geom_bar(na.rm = T)
+ggplot(data = joined_data,
+       mapping = aes(x = Age_group, fill = Gender)) +
+  geom_bar(alpha = 0.7) +
+  labs(x = "Age group", y = "Number of patients", title = "Age at diagnosis")+
+  theme_classic()
 
 # Scatterplot of age vs tumor filled by gender:
 ggplot(joined_data,
-       mapping = aes(x = `Age at Initial Pathologic Diagnosis`,
-                     y = Tumor, 
-                     color = Gender)) +
-  geom_point() +
-  labs()
-
+       mapping = aes(x = Tumor,
+                     y = `Age at Initial Pathologic Diagnosis`, 
+                     fill = Gender)) +
+  geom_boxplot(alpha = 0.5) +
+  labs(x = "Tumor classification", title = "Age divided on tumor class")+
+  theme_classic()
 
 # Scatterplot of cancer stage vs tumor size filled by metastasis if positive or negative:
 ggplot(joined_data,
@@ -75,6 +72,6 @@ ggplot(data = joined_data, aes(`PAM50 mRNA`,
                  fill = `PAM50 mRNA`)) + 
   geom_bar() + 
   scale_fill_brewer(palette = "Blues") +
-  ggtitle("Proportion of patients with each cancer subtype") 
-
-
+  labs(x = "Tumor type", y = "Number of patients", 
+       title = "Proportion of patients with each cancer subtype", fill = "Tumor type")+
+  theme_classic()
