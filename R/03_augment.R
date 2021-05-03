@@ -12,7 +12,7 @@ clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 # Wrangle data ------------------------------------------------------------
 
 #Transpose data
-proteomes_clean_trans <- proteomes_clean %>%
+proteomes_clean_trans <- proteomes_clean_NA %>%
   select(-Frac_NA)%>%
   pivot_longer(cols = -c("RefSeqProteinID"),
                names_to = "TCGA_ID",
