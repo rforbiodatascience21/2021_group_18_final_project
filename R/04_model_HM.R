@@ -5,6 +5,8 @@ rm(list = ls())
 joined_data <- read_csv(file = "data/joined_data.csv.gz")
 
 # Heat Map ---------------------------------------------------------------
+
+## HM with 100 random samples - this is not optimal... ##
 ggplot(data = joined_data %>%
          select(-(1:29)) %>%
          pivot_longer(cols = -c("TCGA_ID"),
@@ -18,7 +20,7 @@ ggplot(data = joined_data %>%
   xlab("Protein ID")
 
 
-
+## Trying to make a HM from nested data ##
 ggplot(data = joined_data %>%
          select(-(1:29)) %>%
        mapping = aes(x = TCGA_ID, y = as.tibble(data,), fill = value)) + 
@@ -28,11 +30,11 @@ ggplot(data = joined_data %>%
   xlab("Patient ID")
 
 
-
 nested = proteomes_clean_NA %>%
-  group_by() %>%
+  group_by(RefSeqProteinID) %>%
   nest() %>%
   ungroup()
+
 
 
 ### Det her virker men er med forkert data #### 
