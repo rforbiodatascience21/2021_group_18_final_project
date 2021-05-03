@@ -20,7 +20,6 @@ clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 # ERRB2 / HER2 = NP_004439
 # GATA3 = NP_001002295
 
-
 # Wrangle data ------------------------------------------------------------
 
 #Transpose data (get protein ID as columns)
@@ -39,6 +38,13 @@ joined_data <- proteomes_clean_trans %>%
              by = "TCGA_ID") %>%
   filter(!is.na(Gender))
 
+###### Joined healthy data
+#263d3f-I
+#blcdb9-I
+#c4155b-C
+
+joined_healthy_data <- proteomes_clean_NA %>% 
+  select(`RefSeqProteinID`, `263d3f-I`, `blcdb9-I`, `c4155b-C`)
 
 # Add age group to persons
 joined_data <- joined_data %>%
@@ -51,16 +57,20 @@ mutate(Age_group = case_when(`Age at Initial Pathologic Diagnosis` < 30 ~ "<30",
                              `Age at Initial Pathologic Diagnosis` >= 80 ~ "80+")) %>%
   select(Age_group, everything())
 
+
 # Making the HER2 Final Status numeric with negaitve = 0 and positive = 1
-joined_data <- joined_data %>% 
-  mutate(`HER2 Numeric Final Status` = case_when(`HER2 Final Status` == "Negative" ~ 0, `HER2 Final Status` == "Positive" ~ 1)) %>%
-  select(`HER2 Numeric Final Status`, everything())
+#joined_data <- joined_data %>% 
+#  mutate(`HER2 Numeric Final Status` = case_when(`HER2 Final Status` == "Negative" ~ 0, 
+#                                                 `HER2 Final Status` == "Positive" ~ 1)) %>%
+#  select(`HER2 Numeric Final Status`, everything())
 
 
 
 # Write data --------------------------------------------------------------
 write_csv(x = joined_data, 
           file = "data/joined_data.csv.gz")
+write_csv(x = joined_healthy_data,
+          file = "data/joined_healthy_data.csv.gz")
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
