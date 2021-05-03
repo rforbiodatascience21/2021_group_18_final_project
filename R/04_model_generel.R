@@ -5,11 +5,15 @@ rm(list = ls())
 proteomes_clean <- read_csv(file = "data/proteomes_clean.csv.gz")
 proteomes_clean_NA <- read_csv(file = "data/proteomes_clean_NA.csv.gz")
 clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
+joined_data <- read_csv(file = "data/joined_data.csv.gz")
 
 #### PLOT fraction NA ###
-ggplot(data = proteomes_clean, 
-       mapping = aes(x = reorder(RefSeqProteinID,desc(Frac_NA)), y = Frac_NA)) +
-  geom_col()
+ggplot(data = proteomes_clean,
+       mapping = aes(x = reorder(RefSeqProteinID,desc(Frac_NA)), y = Frac_NA), color = blue) +
+  geom_col() +
+  labs(y = "Fraction of NA in data", x = "Proteins", title = "Amount of missing data") 
+
+
 
 ### HOW MANY REMOVED ###
 proteomes_clean %>%
@@ -19,7 +23,7 @@ proteomes_clean %>%
 
 # Get to know your data
 nrow(joined_data) #80 observations
-ncol(joined_data) #31 variables
+ncol(joined_data) #1031 variables
 
 # How many females and males in the data:
 joined_data %>% 
@@ -30,12 +34,18 @@ joined_data %>%
   group_by(Gender) %>%
   count(`OS event`)
 
-
+#Count in age group
+joined_data %>% 
+  count(Age_group)
 
 # The age at initial pathologic diagnosis
 ##### na.rm is to remove all NAs
 ggplot(joined_data,
-       mapping = aes(x =`Age at Initial Pathologic Diagnosis`, fill = Gender)) +
+       mapping = aes(x =`Age at Initial Pathologic Diagnosis`)) +
+  geom_density(na.rm = T)
+
+ggplot(joined_data,
+       mapping = aes(x = Age_group)) +
   geom_bar(na.rm = T)
 
 # Scatterplot of age vs tumor filled by gender:
