@@ -24,7 +24,8 @@ proteomes_clean_trans <- proteomes_clean_NA %>%
 joined_data <- proteomes_clean_trans %>%
   inner_join(x = clinical_clean, 
              y = proteomes_clean_trans, 
-             by = "TCGA_ID")
+             by = "TCGA_ID") %>%
+  filter(!is.na(Gender))
 
 # Write data --------------------------------------------------------------
 write_csv(x = joined_data, 
