@@ -9,6 +9,18 @@ proteomes_clean <- read_csv(file = "data/proteomes_clean.csv.gz")
 proteomes_clean_NA <- read_csv(file = "data/proteomes_clean_NA.csv.gz")
 clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 
+#Genes related to breast cancer 
+
+# BRCA1 = NP_009231
+# TP53 = NP_000537
+# CHEK2 = NP_009125, NP_665861
+# PTEN = NP_000305
+# CDH1 = NP_004351
+# STK11 = NP_000446
+# ERRB2 / HER2 = NP_004439
+# GATA3 = NP_001002295
+
+
 # Wrangle data ------------------------------------------------------------
 
 #Transpose data (get protein ID as columns)
