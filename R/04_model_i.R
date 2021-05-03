@@ -71,11 +71,16 @@ install.packages("broom")
 library(cowplot)
 library(broom)
 
-#Remove the NP_009231 from healthy samples as it is NA
-Sample_Tumor_and_Healthy_NA <- Sample_Tumor_and_Healthy %>% 
+#To make the PCA we can use all the gene expressions to see if the healthy samples cluster
+#the same way and the tumor samples cluster the same way
+#Remove all the genes that contain NA -> can evt. use the average method instead?
+#Make it wide
+Sample_Tumor_and_Healthy_wide <- Sample_Tumor_and_Healthy_NA %>% 
+  pivot_wider(names_from = "TCGA_ID",
+              values_from = "value") %>% 
   drop_na()
 
-pca_fit <- Sample_Tumor_and_Healthy_NA %>%
+pca_fit <- Sample_Tumor_and_Healthy_wide %>%
   select(where(is.numeric)) %>% # retain only numeric columns
   prcomp(center = TRUE, scale = TRUE) # do PCA on scaled data
 
