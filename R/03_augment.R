@@ -11,6 +11,20 @@ clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 
 # Wrangle data ------------------------------------------------------------
 
+#Transpose data
+proteomes_clean_trans <- proteomes_clean %>%
+  select(-Frac_NA)%>%
+  pivot_longer(cols = -c("RefSeqProteinID"),
+               names_to = "TCGA_ID",
+               values_to = "value" ) %>% 
+  pivot_wider(names_from = "RefSeqProteinID",
+              values_from = "value") 
+
+#Join data
+joined_data <- proteomes_clean_trans %>%
+  right_join(x = clinical_clean, 
+             y = ., 
+             by = "TCGA_ID")
 
 # Write data --------------------------------------------------------------
 
