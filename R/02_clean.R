@@ -30,10 +30,10 @@ proteomes_clean <- proteomes %>%
 #Removing .01TCGA from every column name in proteome to match ID's in clinical
 #And removing three duplicates 
 proteomes_clean <- proteomes_clean %>%
-  select(.,-c("AO-A12D.05TCGA","C8-A131.32TCGA","AO-A12B.34TCGA"))
+  select(-c("AO-A12D.05TCGA","C8-A131.32TCGA","AO-A12B.34TCGA"))
 
 proteomes_clean <- proteomes_clean %>% 
-  rename_with(., ~ str_replace_all(.,"\\..*",""))
+  rename_with( ~ str_replace_all(.,"\\..*",""))
 
 #### CLINICAL ####
 
@@ -69,7 +69,7 @@ joined_data <- clinical_clean %>%
 
 proteomes_clean <- proteomes_clean %>%
   select(-c(GeneSymbol, "Gene Name")) %>%
-  mutate(Frac_NA = rowSums(is.na(select(., -RefSeqProteinID)))/80)
+  mutate(Frac_NA = rowSums(is.na(select(.,-RefSeqProteinID)))/80)
 
 # WRITE data
 
