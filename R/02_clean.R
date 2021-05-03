@@ -64,11 +64,15 @@ joined_data <- clinical_clean %>%
             by = "TCGA_ID") %>%
   select(TCGA_ID, everything())
 
-#Have tried with different write functions, but it doesn't work with a list...
 
 ### FRACTION OF NA ###
-try <- proteomes_clean %>%
-  rowwise%>%
-  count(.,is.na)
 
-  
+proteomes_clean <- proteomes_clean %>%
+  select(-c(GeneSymbol, "Gene Name")) %>%
+  mutate(Frac_NA = rowSums(is.na(select(., -RefSeqProteinID)))/80)
+
+# WRITE data
+
+write_csv(x = proteomes_clean, 
+          file = "data/proteomes_clean.csv.gz")
+
