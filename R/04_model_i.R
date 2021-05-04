@@ -27,7 +27,6 @@ proteomes_clean_NA <- read_csv(file = "data/proteomes_clean_NA.csv.gz")
 Tumor_sample <- joined_data %>%
   filter(Tumor == "T3" | Tumor == "T4") %>%
   filter(Node == "N1" | Node == "N2"| Node == "N3") %>% 
-  select(-c(1:29)) %>% 
   select(`TCGA_ID`, `NP_009231`,`NP_000537`, `NP_009125`, `NP_665861`, `NP_000305`,
          `NP_004351`, `NP_000446`, `NP_004439`, `NP_001002295`) %>% 
   drop_na()
