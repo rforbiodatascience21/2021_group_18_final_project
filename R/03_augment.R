@@ -23,13 +23,14 @@ clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 # Wrangle data ------------------------------------------------------------
 
 #Transpose data (get protein ID as columns)
+#Drops the rest of the NAs in the long version, so only pr. gene
 proteomes_clean_trans <- proteomes_clean_NA %>%
   select(-Frac_NA) %>%
   pivot_longer(cols = -c("RefSeqProteinID"),
                names_to = "TCGA_ID",
                values_to = "value" ) %>% 
   pivot_wider(names_from = "RefSeqProteinID",
-              values_from = "value") 
+              values_from = "value")
 
 #Join data to get one file (inner join to make sure ID's are represented in both)
 joined_data <- proteomes_clean_trans %>%

@@ -22,17 +22,18 @@ proteomes_clean_NA <- read_csv(file = "data/proteomes_clean_NA.csv.gz")
 
 #This analysis will illustrate the differences in gene expression for persons who do
 #not have a tumor and persons with a tumor
-#Selecting sample ID's with T3 and T4 and lymph spread (N1-N3) and BC genes
+#Selecting sample ID's with T1 and T3 and lymph spread (N1-N3) and BC genes
+#This is done so we can see if there is a difference between tumor sizes also
 #Dropping the ones that do not have measurement of all the genes
 Tumor_sample <- joined_data %>%
-  filter(Tumor == "T3" | Tumor == "T4") %>%
+  filter(Tumor == "T1"  | Tumor == "T3") %>%
   filter(Node == "N1" | Node == "N2"| Node == "N3") %>% 
   select(`TCGA_ID`, `NP_009231`,`NP_000537`, `NP_009125`, `NP_665861`, `NP_000305`,
          `NP_004351`, `NP_000446`, `NP_004439`, `NP_001002295`) %>% 
   drop_na()
   
 #Make longer
-Tumor_sample_longer <- Tumor_sample %>%
+Tumor_sample_long <- Tumor_sample %>%
   pivot_longer(cols = -c("TCGA_ID"),
                names_to = "RefSeqProteinID",
                values_to = "value" )
@@ -50,7 +51,7 @@ joined_healthy_longer <- joined_healthy_data %>%
          RefSeqProteinID == "NP_001002295")
   
 #Joined dataframe with sample from tumor and healthy data
-Sample_Tumor_and_Healthy <- full_join(joined_healthy_longer,Tumor_sample_longer)
+Sample_Tumor_and_Healthy <- full_join(joined_healthy_longer,Tumor_sample_long)
 
 
 ############ Heatmap ############
@@ -61,8 +62,8 @@ ggplot(mapping = aes(x = TCGA_ID, y = RefSeqProteinID, fill = value)) +
   scale_fill_gradient2(low = "blue", mid = "white", high = "red") +
   theme(axis.text.x=element_text(angle=45, vjust = 1, hjust = 1), 
         legend.position = "right", aspect.ratio = 1)
-#Den helt til venstre er healthy og de to helt til højre, skal nok lige rykkes rundt
-#saa de staar sammen 3 og 3.
+#Kan man på en måde opdele dem så dem der er T1 kommmer først, så kommer T3 også de healthy?
+#Så man kan se expressions ved siden af hinanden, måske lave tekst i toppen?
 
 ############# PCA ##############
 install.packages("cowplot")
@@ -74,11 +75,27 @@ library(broom)
 #the same way and the tumor samples cluster the same way
 #Remove all the genes that contain NA -> can evt. use the average method instead?
 #Make it wide
-Sample_Tumor_and_Healthy_wide <- Sample_Tumor_and_Healthy_NA %>% 
-  pivot_wider(names_from = "TCGA_ID",
-              values_from = "value") %>% 
+Tumor_sample_longer <- joined_data %>%
+  filter(Tumor == "T1"  | Tumor == "T3") %>%
+  filter(Node == "N1" | Node == "N2"| Node == "N3") %>% 
+  select(-c(1:30)) %>%
+  pivot_longer(cols = -c("TCGA_ID"),
+               names_to = "RefSeqProteinID",
+               values_to = "value")
+  
+Healthy_longer <- joined_healthy_data %>% 
+  pivot_longer(cols = -c(RefSeqProteinID),
+               names_to = "TCGA_ID",
+               values_to = "value")
+
+Sample_Tumor_and_Healthy_long <- full_join(Tumor_sample_longer,Healthy_longer) %>%
   drop_na()
 
+Sample_Tumor_and_Healthy_wide <- Sample_Tumor_and_Healthy_long %>%
+  pivot_wider(names_from = "TCGA_ID",
+              values_from = "value")
+
+#Hvorfor er der stadig NA værdier i den når jeg har droppet dem??
 pca_fit <- Sample_Tumor_and_Healthy_wide %>%
   select(where(is.numeric)) %>% # retain only numeric columns
   prcomp(center = TRUE, scale = TRUE) # do PCA on scaled data
@@ -103,6 +120,8 @@ pca_fit %>%
   coord_fixed() + # fix aspect ratio to 1:1
   theme_minimal_grid(12)
 
+#Her kan vi se at de healthy cluster sammen, men ved ike lige hvilke der er T1 og T3
+#måske man kan tilføje en legend eller noget her også der kan farve dem i gruppetype?
 
 
 
