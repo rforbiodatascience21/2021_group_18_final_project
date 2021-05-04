@@ -96,6 +96,8 @@ Sample_Tumor_and_Healthy_wide <- Sample_Tumor_and_Healthy_long %>%
               values_from = "value")
 
 #Hvorfor er der stadig NA værdier i den når jeg har droppet dem??
+#Nedenstående virker fint hvis man bruger det lille datasæt med få gener.
+
 pca_fit <- Sample_Tumor_and_Healthy_wide %>%
   select(where(is.numeric)) %>% # retain only numeric columns
   prcomp(center = TRUE, scale = TRUE) # do PCA on scaled data
@@ -120,7 +122,7 @@ pca_fit %>%
   coord_fixed() + # fix aspect ratio to 1:1
   theme_minimal_grid(12)
 
-#Her kan vi se at de healthy cluster sammen, men ved ike lige hvilke der er T1 og T3
+#Her kan vi se at de healthy cluster sammen, men ved ikke lige hvilke der er T1 og T3
 #måske man kan tilføje en legend eller noget her også der kan farve dem i gruppetype?
 
 
