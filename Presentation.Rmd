@@ -1,0 +1,49 @@
+---
+title: "Frontpage of presentation"
+author: "Mie, Naja, Sille, Sofia"
+date: "10-May-2021"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## R Markdown
+Jeg tænker det er meget smart at have nedenstående e.g. for slides fremadrettet. (Ved ikke hvordan man skriver en kommentar i det her haha). Nå, jeg har lavet 4 slides (der skal helt sikkert være flere, da vi skal snakke i cirka 10 min). Men, det er de requirements Leon har til præsentation. 
+
+Som han selv skriver i præsentation: Follow the IMRAD standard scientific structure: Introduction, Materials and Methods, Results (And), Discussion
+
+## Slide with Bullets and requirements for the presentation
+
+- With a technical focus, but minding to communicate which-ever biological insights you arrived at
+- Should not include all your code (we will look into that at the individual examinations), but rather focus on the broader picture of what you did and include data summaries and visualisations
+- Bullet 3 
+
+## Slide with R Output
+
+```{r cars, echo = TRUE}
+summary(cars)
+```
+
+## Slide with Plot
+
+```{r pressure}
+plot(pressure)
+```
+This plots shows xxxx.
+
+## Introduction 
+:)
+
+
+## Materials and methods
+:)
+
+
+## Results 
+:)
+
+
+## Discussion
+:)
