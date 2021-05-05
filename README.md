@@ -1,1 +1,1 @@
-# 2021_group_18_final_project
+# Final project - group 18 - R for bio data science
