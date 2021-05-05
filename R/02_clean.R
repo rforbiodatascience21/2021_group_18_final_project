@@ -50,8 +50,6 @@ clinical_clean <- clinical %>%
 write_csv(x = proteomes_clean, 
           file = "data/proteomes_clean.csv.gz")
 
-write_csv(x = proteomes_clean_NA, 
-          file = "data/proteomes_clean_NA.csv.gz")
 
 write_csv(x = clinical_clean, 
           file = "data/clinical_clean.csv.gz")

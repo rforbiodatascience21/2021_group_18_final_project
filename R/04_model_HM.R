@@ -6,20 +6,77 @@ joined_data <- read_csv(file = "data/joined_data.csv.gz")
 
 # Heat Map ---------------------------------------------------------------
 
-## HM with 100 random samples for RefSeqProtin ID - this is not optimal... and can be removed
-## but R might crash.
-ggplot(data = joined_data %>%
-         select(-(1:31)) %>%
-         pivot_longer(cols = -c(TCGA_ID),
-                      names_to = "RefSeqProteinID",
-                      values_to = "value", 
-                      values_drop_na = T) %>%
-         sample_n(100),
-       mapping = aes(x = RefSeqProteinID, y = TCGA_ID, fill = value)) + 
-  geom_tile() +
-  scale_fill_gradient(low = "red", high = "blue") + 
-  ylab("Patient ID") + 
-  xlab("Protein ID")
+#Genes related to breast cancer (found in literature)
+
+# BRCA1 = NP_009231
+# TP53 = NP_000537
+# CHEK2 = NP_009125, NP_665861
+# PTEN = NP_000305
+# CDH1 = NP_004351
+# STK11 = NP_000446
+# ERRB2 / HER2 = NP_004439
+# GATA3 = NP_001002295
+
+#Selecting above mentioned genes, tumor class and TCGA_ID
+cancer_genes <- joined_data %>% 
+  select(TCGA_ID, 
+         Class, 
+         NP_009231, 
+         NP_000537, 
+         NP_009125, 
+         NP_000305, 
+         NP_004351, 
+         NP_000446,
+         NP_004439,
+         NP_001002295) %>%
+  # Rename to correspondent gene names
+  rename("BRCA1" = "NP_009231",
+         "TP53" = "NP_000537",
+         "CHEK2" = "NP_009125",
+         "PTEN" = "NP_000305",
+         "CDH1" = "NP_004351",
+         "STK11" = "NP_000446",
+         "ERRB2" = "NP_004439",
+         "GATA3" = "NP_001002295") %>%
+  # Create long data for heatmap
+  pivot_longer(cols = c("BRCA1", "TP53", "CHEK2", "PTEN", "CDH1", "STK11", "ERRB2", "GATA3"), 
+               names_to = "RefSeqProteinID",
+               values_to = "Expression level (log2)") %>% 
+  # Set factors and levels for the plot
+  mutate(Class = factor(Class, 
+                        levels = c("Basal-like", "HER2-enriched", "Luminal A", "Luminal B", "Healthy"))) %>%
+  mutate(RefSeqID = factor(RefSeqProteinID, 
+                           levels = c("BRCA1", "TP53", "CHEK2", "PTEN", "CDH1", "STK11", "ERRB2", "GATA3")))
 
 
-
+# The heatmap plot
+ggplot(data = cancer_genes, mapping = aes(x = RefSeqProteinID, 
+                                          y = TCGA_ID, 
+                                          fill = `Expression level (log2)`)) +
+  geom_tile()+ 
+  facet_grid(Class ~ ., 
+             scales = "free") +
+  scale_fill_gradient2(low = "blue",
+                       mid = "white",
+                       high = "red",
+                       midpoint = 0,
+                       name = "Expression \n(log2)") +
+  theme_bw(base_family = "Times",
+             base_size = 10) + 
+  theme(panel.grid = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text.x = element_text(size = 16, 
+                                   angle = 45,
+                                   hjust = 1),
+        axis.text.y = element_blank(),
+        strip.text.y = element_text(face = "bold", 
+                                    size = 12),
+        plot.title = element_text(size = 18,
+                                  face = "bold"),
+        legend.title = element_text(size = 16,
+                                    hjust = 0.5),
+        legend.text = element_text(size = 14),
+        panel.spacing.y = unit(0.1, "cm")) +
+  labs(title = "Heatmap of breast cancer genes",
+       x = "Cancer related genes",
+       y = NULL) 

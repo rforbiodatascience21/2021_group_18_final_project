@@ -8,16 +8,6 @@ library("tidyverse")
 proteomes_clean <- read_csv(file = "data/proteomes_clean.csv.gz")
 clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 
-#Genes related to breast cancer 
-
-# BRCA1 = NP_009231
-# TP53 = NP_000537
-# CHEK2 = NP_009125, NP_665861
-# PTEN = NP_000305
-# CDH1 = NP_004351
-# STK11 = NP_000446
-# ERRB2 / HER2 = NP_004439
-# GATA3 = NP_001002295
 
 # Wrangle data ------------------------------------------------------------
 
@@ -41,12 +31,22 @@ proteomes_clean_trans <- proteomes_clean_NA %>%
   pivot_wider(names_from = "RefSeqProteinID",
               values_from = "value")
 
-#Join data to get one file (inner join to make sure ID's are represented in both)
+#CLINICAL
+clinical_aug <- clinical_clean %>% 
+  rename(Class = `PAM50 mRNA` ) %>%
+  mutate(Class = factor(Class, 
+                        levels = c("Basal-like", "HER2-enriched", "Luminal A", "Luminal B", "Healthy")))
+
+
+#Join data to get one file (HEALTHY ARE REPRESENT IN THIS)
 joined_data <- proteomes_clean_trans %>%
-  inner_join(x = clinical_clean, 
+  right_join(x = clinical_aug, 
              y = proteomes_clean_trans, 
              by = "TCGA_ID") %>%
-  filter(!is.na(Gender))
+  mutate(Class = replace_na(data = Class, 
+                            replace = "Healthy")) %>%
+  mutate(Class = factor(x = Class, 
+                        levels = c("Basal-like", "HER2-enriched", "Luminal A", "Luminal B", "Healthy")))
 
 ###### Joined healthy data
 #263d3f-I
@@ -81,6 +81,8 @@ write_csv(x = joined_data,
           file = "data/joined_data.csv.gz")
 write_csv(x = joined_healthy_data,
           file = "data/joined_healthy_data.csv.gz")
+write_csv(x = proteomes_clean_NA, 
+          file = "data/proteomes_clean_NA.csv.gz")
 
 
 # Define functions --------------------------------------------------------

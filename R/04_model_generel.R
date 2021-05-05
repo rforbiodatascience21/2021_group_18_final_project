@@ -23,7 +23,7 @@ proteomes_clean %>%
 
 # Get to know your data
 nrow(joined_data) #80 observations
-ncol(joined_data) #1031 variables
+ncol(joined_data) #10315 variables
 
 # How many females and males in the data:
 joined_data %>% 
