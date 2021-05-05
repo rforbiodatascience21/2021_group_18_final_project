@@ -5,6 +5,6 @@ This project investigates breast cancer data using tools learned during the cour
 
 ## Data:
 Raw data can be found in the folder /data/_raw.
-It can be found on this link [Links](https://www.kaggle.com/piotrgrabo/breastcancerproteomes)
+It can be found [here](https://www.kaggle.com/piotrgrabo/breastcancerproteomes)
 
 ##
