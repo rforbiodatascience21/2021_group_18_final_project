@@ -45,17 +45,6 @@ clinical_clean <- clinical %>%
   select(-`Complete TCGA ID`)
 
 
-### FRACTION OF NA ###
-
-proteomes_clean <- proteomes_clean %>%
-  select(-c(GeneSymbol, "Gene Name")) %>%
-  mutate(Frac_NA = rowSums(is.na(select(.,-RefSeqProteinID)))/80)
-
-#removing them
-proteomes_clean_NA <- proteomes_clean %>%
-  filter(Frac_NA < 0.25)
-
-
 # WRITE data
 
 write_csv(x = proteomes_clean, 

@@ -6,7 +6,6 @@ library("tidyverse")
 
 # Load data ---------------------------------------------------------------
 proteomes_clean <- read_csv(file = "data/proteomes_clean.csv.gz")
-proteomes_clean_NA <- read_csv(file = "data/proteomes_clean_NA.csv.gz")
 clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 
 #Genes related to breast cancer 
@@ -21,6 +20,16 @@ clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 # GATA3 = NP_001002295
 
 # Wrangle data ------------------------------------------------------------
+
+### FRACTION OF NA ###
+#adding fraction of NA in each gene expression
+proteomes_clean <- proteomes_clean %>%
+  select(-c(GeneSymbol, "Gene Name")) %>%
+  mutate(Frac_NA = rowSums(is.na(select(.,-RefSeqProteinID)))/80)
+
+#removing them
+proteomes_clean_NA <- proteomes_clean %>%
+  filter(Frac_NA < 0.25)
 
 #Transpose data (get protein ID as columns)
 #Drops the rest of the NAs in the long version, so only pr. gene
@@ -56,7 +65,7 @@ mutate(Age_group = case_when(`Age at Initial Pathologic Diagnosis` < 30 ~ "<30",
                              60 <= `Age at Initial Pathologic Diagnosis` & `Age at Initial Pathologic Diagnosis` < 70 ~ "60-70",
                              70 <= `Age at Initial Pathologic Diagnosis` & `Age at Initial Pathologic Diagnosis` < 80 ~ "70-80",
                              `Age at Initial Pathologic Diagnosis` >= 80 ~ "80+")) %>%
-  select(Age_group, everything())
+  select(TCGA_ID,Age_group, everything())
 
 
 # Making the HER2 Final Status numeric with negaitve = 0 and positive = 1
@@ -72,6 +81,7 @@ write_csv(x = joined_data,
           file = "data/joined_data.csv.gz")
 write_csv(x = joined_healthy_data,
           file = "data/joined_healthy_data.csv.gz")
+
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")

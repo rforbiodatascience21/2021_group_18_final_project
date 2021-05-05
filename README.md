@@ -15,3 +15,14 @@ File: *clinical_data_breast_cancer.csv*
 
 File: *PAM50_proteins.csv* 
 - We decided not use this data, since we did not need the information it could provide in order to make the analysis we wanted. It is somewhat a dictionary of the genes, their names and ID's. 
+
+## Use
+In order to execute the full data analysis and generate final plots, including the presentation, the script *00doit.R* from folder */R* should be run. The presentation will appear in the folder */doc*. 
+
+## Dependencies
+Following packages has been used:
+- tidyverse
+- stringr
+- broom
+- purrr
+- UPDATE THIS WHEN WE ARE DONE
