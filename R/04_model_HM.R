@@ -83,7 +83,7 @@ ggplot(data = cancer_genes, mapping = aes(x = RefSeqProteinID,
 # Heat Map - TUMOR SIZE  ---------------------------------------------------------------
 
 #Selecting above mentioned genes, tumor size (T1, T2, T3, T4) and TCGA_ID
-cancer_genes1 <- joined_data %>% 
+cancer_genes_tumor <- joined_data %>% 
   select(TCGA_ID, 
          Tumor, 
          NP_009231, 
@@ -110,7 +110,7 @@ cancer_genes1 <- joined_data %>%
   drop_na()
 
 # The heatmap plot
-ggplot(data = cancer_genes1, mapping = aes(x = RefSeqProteinID, 
+ggplot(data = cancer_genes_tumor, mapping = aes(x = RefSeqProteinID, 
                                            y = TCGA_ID, 
                                            fill = `Expression level (log2)`)) +
   geom_tile()+ 

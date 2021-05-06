@@ -19,7 +19,13 @@ proteomes_clean <- proteomes_clean %>%
 
 #removing them
 proteomes_clean_NA <- proteomes_clean %>%
-  filter(Frac_NA < 0.25)
+  filter(Frac_NA < 0.25) 
+
+#replace NA with median of column
+proteomes_clean_NA <- proteomes_clean_NA %>%
+  mutate_at(c(2:82),~if_else(condition = is.na(.),
+                     true = median(.,na.rm = TRUE),
+                     false = .))
 
 #Transpose data (get protein ID as columns)
 #Drops the rest of the NAs in the long version, so only pr. gene
