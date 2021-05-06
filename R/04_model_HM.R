@@ -80,3 +80,4 @@ ggplot(data = cancer_genes, mapping = aes(x = RefSeqProteinID,
   labs(title = "Heatmap of breast cancer genes",
        x = "Cancer related genes",
        y = NULL) 
+

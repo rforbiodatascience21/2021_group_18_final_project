@@ -68,10 +68,11 @@ ggplot(joined_data,
 #Luminal A, Luminal B, HER2, Basal like and Normal. 
 #Each is associated with different prognoses, treatments and therapies.
 
-ggplot(data = joined_data, aes(`PAM50 mRNA`,
-                 fill = `PAM50 mRNA`)) + 
+ggplot(data = joined_data, aes(`Class`,
+                 fill = `Class`)) + 
   geom_bar() + 
   scale_fill_brewer(palette = "Blues") +
   labs(x = "Tumor type", y = "Number of patients", 
        title = "Proportion of patients with each cancer subtype", fill = "Tumor type")+
   theme_classic()
+
