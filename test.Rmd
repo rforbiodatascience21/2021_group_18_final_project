@@ -7,8 +7,7 @@ output: ioslides_presentation
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-library(readr)
-joined_data <- read_csv(file = "data/joined_data.csv.gz")
+source(file = "R/00_doit.R")
 ```
 
 ## R Markdown
@@ -37,7 +36,7 @@ plot(pressure)
 This plots shows xxxx.
 
 ## Introduction 
-- Breast Cancer Data
+- Breast Cancer
 
 
 ## Materials and methods
@@ -50,6 +49,9 @@ This plots shows xxxx.
     - Patient ID (TCGA ID)
     - Other relevant clinical observation
 
+
+## Materials and methods
+- Method: Tidyverse
 
 ## Results 
 :)
