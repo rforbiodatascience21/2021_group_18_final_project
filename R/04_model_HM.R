@@ -46,8 +46,8 @@ cancer_genes <- joined_data %>%
   mutate(Class = factor(Class, 
                         levels = c("Basal-like", "HER2-enriched", "Luminal A", "Luminal B", "Healthy"))) %>%
   mutate(RefSeqID = factor(RefSeqProteinID, 
-                           levels = c("BRCA1", "TP53", "CHEK2", "PTEN", "CDH1", "STK11", "ERRB2", "GATA3")))
-
+                           levels = c("BRCA1", "TP53", "CHEK2", "PTEN", "CDH1", "STK11", "ERRB2", "GATA3"))) %>%
+  drop_na()
 
 # The heatmap plot
 ggplot(data = cancer_genes, mapping = aes(x = RefSeqProteinID, 
@@ -69,8 +69,7 @@ ggplot(data = cancer_genes, mapping = aes(x = RefSeqProteinID,
                                    angle = 45,
                                    hjust = 1),
         axis.text.y = element_blank(),
-        strip.text.y = element_text(face = "bold", 
-                                    size = 12),
+        strip.text.y = element_text(size = 12),
         plot.title = element_text(size = 18,
                                   face = "bold"),
         legend.title = element_text(size = 16,
