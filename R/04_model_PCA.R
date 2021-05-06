@@ -14,18 +14,23 @@ pca <- proteomes_data %>%
   prcomp(center = TRUE, scale=TRUE)
 
 
-#Plot PCA rotation matrix
+#Plot PCA matrix points
+
 pca %>%
   augment(proteomes_data) %>%
-  ggplot(mapping = aes(.fittedPC1, .fittedPC2, color = Class)) +
-  geom_point(size = 0.5) +
-  scale_color_manual(
-    values = c(maligant = "red", benign = "blue", three = "green", four = "yellow", five = "purple")
-  ) +
-  theme_half_open(12) + background_grid()
+  ggplot(mapping = aes(x = .fittedPC1,
+                       y = .fittedPC2,
+                       color = Class)) +
+  geom_point()
 
 
-  
+#Column wise
+pca %>%
+  tidy(matrix = "eigenvalues")%>%
+  ggplot(mapping = aes(PC, percent)) +
+  geom_col()
+
+
 
 
 
