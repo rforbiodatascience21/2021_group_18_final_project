@@ -48,7 +48,9 @@ PCA_plot1 <- pca %>%
   theme_light()
 
 
-#Arrow style
+
+
+#Arrow style clustering, her skal der tilføjes det fra kmeans, så vi har 5 clusters
 pca %>%
   tidy(matrix = "rotation")
 
@@ -73,6 +75,10 @@ pca %>%
   theme_minimal_grid(12)
 
 
+### K-means
+library(tidymodels)
+
+#baah
 
 
 
