@@ -81,6 +81,8 @@ write_csv(x = joined_data,
           file = "data/joined_data.csv.gz")
 write_csv(x = joined_healthy_data,
           file = "data/joined_healthy_data.csv.gz")
+write_csv(x = proteomes_clean, 
+          file = "data/proteomes_clean.csv.gz")
 write_csv(x = proteomes_clean_NA, 
           file = "data/proteomes_clean_NA.csv.gz")
 
