@@ -5,11 +5,32 @@ date: "10-May-2021"
 output: ioslides_presentation
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-setwd('../')
-source(file = "R/00_doit.R")
+```{r Install, include=FALSE}
+library("tidyverse")
+library("usethis")
+library("devtools")
+library("patchwork")
+library(modelr)
+options(na.action = na.warn)
+library(lubridate)
+library(broom)
+library(purrr)
+library(vroom)
+library(stringr)
 ```
+
+```{r load of data, include=FALSE}
+setwd('../')
+source(file = "R/04_model_generel.R")
+source(file = "R/04_model_HM.R")
+source(file = "R/04_model_PCA.R")
+#source(file = "R/04_model_XXX.R")
+
+```
+
+
+
+
 
 ## R Markdown
 Jeg tænker det er meget smart at have nedenstående e.g. for slides fremadrettet. (Ved ikke hvordan man skriver en kommentar i det her haha). Nå, jeg har lavet 4 slides (der skal helt sikkert være flere, da vi skal snakke i cirka 10 min). Men, det er de requirements Leon har til præsentation. 
@@ -24,16 +45,12 @@ Som han selv skriver i præsentation: Follow the IMRAD standard scientific struc
 
 ## Slide with R Output
 
-```{r cars, echo = TRUE}
+```{r generel knowlegde, echo = TRUE}
 joined_data %>% 
   count(Gender)
 ```
 
 ## Slide with Plot
-
-```{r pressure}
-plot(pressure)
-```
 This plots shows xxxx.
 
 ## Introduction 
@@ -41,15 +58,17 @@ This plots shows xxxx.
 
 
 ## Materials and methods
-- Materials: Data
-  - 77_cancer_proteomes_CPTAC_itraq.csv
-    - Reference Sequence protein ID
-    - Gene symbol
-    - Gene name
-  - clinical_data_breast_cancer.csv
-    - Patient ID (TCGA ID)
-    - Other relevant clinical observation
+### Materials: Data
+- 77_cancer_proteomes_CPTAC_itraq.csv
+  - Reference Sequence protein ID
+  - Gene symbol
+  - Gene name
+- clinical_data_breast_cancer.csv
+  - Patient ID (TCGA ID)
+  - Other relevant clinical observation
 
+## Materials and methods
+### Methods: Tidyverse
 
 ## Results 
 :)
@@ -57,3 +76,11 @@ This plots shows xxxx.
 
 ## Discussion
 :)
+
+
+## Plot for argument of removal
+```{r fraction plot, warning=FALSE, message=FALSE,echo=FALSE}
+fractionNA_All + fractionNA_without0
+```
+
+

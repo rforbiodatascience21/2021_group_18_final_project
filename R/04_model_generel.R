@@ -9,10 +9,22 @@ joined_data <- read_csv(file = "data/joined_data.csv.gz")
 
 #### PLOT fraction NA ###
 ggplot(data = proteomes_clean,
-       mapping = aes(x = reorder(RefSeqProteinID,desc(Frac_NA)), y = Frac_NA), color = blue) +
-  geom_col() +
+       mapping = aes(x = reorder(RefSeqProteinID,desc(Frac_NA)), y = Frac_NA)) +
+  geom_col(color = "blue") +
   labs(y = "Fraction of NA in data", x = "Proteins", title = "Amount of missing data") 
 
+############### Alternative plots for Fraction NA, where it can be observed numbe of proteomes within each fraction ###
+fractionNA_All <- proteomes_clean %>%
+  ggplot(mapping = aes(x =  Frac_NA)) +
+  geom_histogram(fill = "navy") +
+  labs(y = "Number of Proteomes", x = "Fraction of NA in data", title = "Amount of missing data") 
+
+## AS 8074 are equal 0, then these are 'removed' from the plot, to give a better overview ###
+fractionNA_without0 <- proteomes_clean %>%
+  ggplot(mapping = aes(x =  Frac_NA)) +
+  geom_histogram(fill = "navy") +
+  labs(y = "Number of Proteomes", x = "Fraction of NA in data", title = "Amount of missing data") +
+  xlim(0.000000001,0.8)
 
 
 ### HOW MANY REMOVED ###
@@ -76,3 +88,8 @@ ggplot(data = joined_data, aes(`Class`,
        title = "Proportion of patients with each cancer subtype", fill = "Tumor type")+
   theme_classic()
 
+
+
+######## Saving the plots in results #####
+ggsave(filename = "results/FractionNA_withAllPoints.png", plot = fractionNA_All, width = 16, height = 9, dpi = 72)
+ggsave(filename = "results/FractionNA_without0.png", plot = fractionNA_without0, width = 16, height = 9, dpi = 72)
