@@ -191,15 +191,15 @@ slide:not(.current) .plotly.html-widget{
 
 </article></slide><slide class=""><hgroup><h2>Slide with R Output</h2></hgroup><article  id="slide-with-r-output">
 
-<pre class = 'prettyprint lang-r'>summary(cars)</pre>
+<pre class = 'prettyprint lang-r'>joined_data %&gt;% 
+  count(Gender)</pre>
 
-<pre >##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</pre>
+<pre >## # A tibble: 3 x 2
+##   Gender     n
+##   &lt;chr&gt;  &lt;int&gt;
+## 1 FEMALE    75
+## 2 MALE       2
+## 3 &lt;NA&gt;       3</pre>
 
 </article></slide><slide class=""><hgroup><h2>Slide with Plot</h2></hgroup><article  id="slide-with-plot">
 
@@ -207,11 +207,31 @@ slide:not(.current) .plotly.html-widget{
 
 </article></slide><slide class=""><hgroup><h2>Introduction</h2></hgroup><article  id="introduction">
 
-<p>:)</p>
+<ul>
+<li>Breast Cancer Data</li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Materials and methods</h2></hgroup><article  id="materials-and-methods">
 
-<p>:)</p>
+<ul>
+<li>Materials: Data
+
+<ul>
+<li>77_cancer_proteomes_CPTAC_itraq.csv
+
+<ul>
+<li>Reference Sequence protein ID</li>
+<li>Gene symbol</li>
+<li>Gene name</li>
+</ul></li>
+<li>clinical_data_breast_cancer.csv
+
+<ul>
+<li>Patient ID (TCGA ID)</li>
+<li>Other relevant clinical observation</li>
+</ul></li>
+</ul></li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Results</h2></hgroup><article  id="results">
 

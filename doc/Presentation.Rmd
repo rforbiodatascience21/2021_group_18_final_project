@@ -7,6 +7,8 @@ output: ioslides_presentation
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+setwd('../')
+source(file = "R/00_doit.R")
 ```
 
 ## R Markdown
@@ -23,7 +25,8 @@ Som han selv skriver i præsentation: Follow the IMRAD standard scientific struc
 ## Slide with R Output
 
 ```{r cars, echo = TRUE}
-summary(cars)
+joined_data %>% 
+  count(Gender)
 ```
 
 ## Slide with Plot
@@ -34,11 +37,18 @@ plot(pressure)
 This plots shows xxxx.
 
 ## Introduction 
-:)
+- Breast Cancer Data
 
 
 ## Materials and methods
-:)
+- Materials: Data
+  - 77_cancer_proteomes_CPTAC_itraq.csv
+    - Reference Sequence protein ID
+    - Gene symbol
+    - Gene name
+  - clinical_data_breast_cancer.csv
+    - Patient ID (TCGA ID)
+    - Other relevant clinical observation
 
 
 ## Results 
