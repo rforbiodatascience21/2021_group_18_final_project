@@ -71,7 +71,7 @@ ggplot(joined_data,
 ggplot(data = joined_data, aes(`Class`,
                  fill = `Class`)) + 
   geom_bar() + 
-  scale_fill_brewer(palette = "Blues") +
+  scale_fill_brewer(palette = "Spectral") +
   labs(x = "Tumor type", y = "Number of patients", 
        title = "Proportion of patients with each cancer subtype", fill = "Tumor type")+
   theme_classic()
