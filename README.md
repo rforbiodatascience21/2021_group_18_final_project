@@ -25,4 +25,6 @@ Following packages has been used:
 - stringr
 - broom
 - purrr
+- cowplot
+- broom
 - UPDATE THIS WHEN WE ARE DONE
