@@ -50,7 +50,8 @@ cancer_genes <- joined_data %>%
   drop_na()
 
 # The heatmap plot
-ggplot(data = cancer_genes, mapping = aes(x = RefSeqProteinID, 
+HM_class <- 
+  ggplot(data = cancer_genes, mapping = aes(x = RefSeqProteinID, 
                                           y = TCGA_ID, 
                                           fill = `Expression level (log2)`)) +
   geom_tile()+ 
@@ -110,7 +111,8 @@ cancer_genes_tumor <- joined_data %>%
   drop_na()
 
 # The heatmap plot
-ggplot(data = cancer_genes_tumor, mapping = aes(x = RefSeqProteinID, 
+HM_TumorSize <-
+  ggplot(data = cancer_genes_tumor, mapping = aes(x = RefSeqProteinID, 
                                            y = TCGA_ID, 
                                            fill = `Expression level (log2)`)) +
   geom_tile()+ 
@@ -139,3 +141,6 @@ ggplot(data = cancer_genes_tumor, mapping = aes(x = RefSeqProteinID,
   labs(title = "Heatmap of breast cancer genes",
        x = "Cancer related genes",
        y = NULL) 
+
+ggsave(filename = "results/HeatMap_Class.png", plot = HM_class, width = 16, height = 9, dpi = 72)
+ggsave(filename = "results/HeatMap_TumorSize.png", plot = HM_TumorSize, width = 16, height = 9, dpi = 72)

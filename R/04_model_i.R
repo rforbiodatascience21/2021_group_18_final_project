@@ -10,6 +10,14 @@ joined_data <- read_csv(file = "data/joined_data.csv.gz")
 joined_healthy_data <- read_csv(file = "data/joined_healthy_data.csv.gz")
 proteomes_clean_NA <- read_csv(file = "data/proteomes_clean_NA.csv.gz")
 
+###### Joined healthy data
+#263d3f-I
+#blcdb9-I
+#c4155b-C
+
+joined_healthy_data <- proteomes_clean_NA %>% 
+  select(`RefSeqProteinID`, `263d3f-I`, `blcdb9-I`, `c4155b-C`)
+
 #Interrogation of genes related to breast cancer
 # BRCA1 = NP_009231
 # TP53 = NP_000537

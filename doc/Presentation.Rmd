@@ -17,70 +17,138 @@ library(broom)
 library(purrr)
 library(vroom)
 library(stringr)
+library(kableExtra)
 ```
 
-```{r load of data, include=FALSE}
+```{r load of model generel to be used in introduction, include=FALSE} 
 setwd('../')
-source(file = "R/04_model_generel.R")
-source(file = "R/04_model_HM.R")
-source(file = "R/04_model_PCA.R")
-#source(file = "R/04_model_XXX.R")
-
+source(file = "R/04_model_generel.R", local = knitr::knit_global())
 ```
 
-
-
-
-
-## R Markdown
-Jeg tænker det er meget smart at have nedenstående e.g. for slides fremadrettet. (Ved ikke hvordan man skriver en kommentar i det her haha). Nå, jeg har lavet 4 slides (der skal helt sikkert være flere, da vi skal snakke i cirka 10 min). Men, det er de requirements Leon har til præsentation. 
-
-Som han selv skriver i præsentation: Follow the IMRAD standard scientific structure: Introduction, Materials and Methods, Results (And), Discussion
-
-## Slide with Bullets and requirements for the presentation
-
-- With a technical focus, but minding to communicate which-ever biological insights you arrived at
-- Should not include all your code (we will look into that at the individual examinations), but rather focus on the broader picture of what you did and include data summaries and visualisations
-- Bullet 3 
-
-## Slide with R Output
-
-```{r generel knowlegde, echo = TRUE}
-joined_data %>% 
-  count(Gender)
+# Introduction 
+## Data
+- The breast cancer consists of 4 cancer group, and 3 healthy patients as well as 
+```{r show cancer class and other relevant, echo=FALSE}
+joined_data %>%
+  group_by(`Class`, Gender) %>%
+  count()
 ```
+other relevant parameters. (We will get into these in method)
 
-## Slide with Plot
-This plots shows xxxx.
+## Goals
+- Exploration and identifying patterns of the data
+- Create visulation of the data 
+- Predict breast cancer class by looking at gene expressions
 
-## Introduction 
-- Breast Cancer Data
-
-
-## Materials and methods
-### Materials: Data
+# Materials and methods
+## Materials
+### Data
 - 77_cancer_proteomes_CPTAC_itraq.csv
   - Reference Sequence protein ID
   - Gene symbol
   - Gene name
-- clinical_data_breast_cancer.csv
+
+- Clinical_data_breast_cancer.csv
   - Patient ID (TCGA ID)
+  - Gender
+  - Cancer class
   - Other relevant clinical observation
 
-## Materials and methods
-### Methods: Tidyverse
+[Source: Kaggle](https://www.kaggle.com/piotrgrabo/breastcancerproteomes#clinical_data_breast_cancer.csv)  
+  
+## Materials
+### Extract of Raw data
+```{r load raw data, include=FALSE}
+setwd('../')
+source(file = "R/01_load.R", knitr::knit_global())
+```
 
-## Results 
-:)
+```{r show raw data, echo=FALSE}
+set.seed(77777) #added to ensure same slice_sample choose the same 4 rows each time.
+proteomes %>%
+  select(1:4) %>%
+  slice_sample(n =4) %>%
+  kable("html") %>%
+  kable_styling(font_size = 10)
+
+clinical %>%
+  select(`Complete TCGA ID`, Gender, `Age at Initial Pathologic Diagnosis`, Tumor, `PAM50 mRNA`) %>% #add flere columns if relevant
+  slice(1:4) %>%
+  kable("html") %>%
+  kable_styling(font_size = 10)
+```
+
+## Methods: Clearing of data
+### We have done some clearning of the two data sets 
+- Proteomes: 
+  - Rename, so the column names aligns with the clinical file
+  - Removing .01TCGA from every column name in to match ID's in clinical using rename() in combination with str_replace_all()
+  - Removing duplicates using select() 
+  
+- Clinical: 
+  - Aligning ID's with proteome file using sub_str()
 
 
-## Discussion
-:)
+## Methods: Wranged data
+### After the clearning, the datasets were wranged and joined
+- Proteomes: 
+  - Removing fraction NA > 0.15 using filter()
+  - Replace the remaining NAs with median of column
+  - Transpose data (get protein ID as columns)
+
+- Clinical
+  - Rename of PAM50 mRNA to Class
+
+Finally, a right_join() with x = clinical, y = proteomes, and by patient ID (TCGA_ID) was used to make the joined_data. For the joined data, the age was divided into agegroups using mutate and casewhen(). A joined_healthy_data consists on only the heathly was also made.
+
+## Methods: Packages
+- tidyverse
+  - dplyr
+  - ggplot2
+  - broom
+  - stringr
+  - tidymodels
+
+- others
+  - patchwork
+  - purrr
+  - vroom
 
 
-## Plot for argument of removal
-```{r fraction plot, warning=FALSE, message=FALSE,echo=FALSE}
+# Results
+## Removal for genes according to the fraction of NAs
+```{r load file of model generel, include=FALSE} 
+setwd('../')
+source(file = "R/04_model_generel.R", local = knitr::knit_global())
+```
+
+Lots of the represented genes expression do not contain NA vlaues. Thereby, all of them was removed from the plot, to get a better estimate of where to cut the lowest wanted fraction of NAs.  
+```{r plots of fractionNA, echo=FALSE, warning=FALSE, message=FALSE}
 fractionNA_All + fractionNA_without0
+
+proteomes_clean %>%
+  filter(Frac_NA > 0.25) %>%
+  count()
+```
+For this, we end up removing 2205 genes.
+
+## Heart map
+```{r load file of Heatmap, include=FALSE} 
+setwd('../')
+source(file = "R/04_model_HM.R", local = knitr::knit_global())
+```
+
+Two Heat maps are plotted using geom_tile() on relevant Breasts Cancer Genes. One is based on tumor size whereas the other is based on class
+```{r show HeatMap, echo=FALSE, warning=FALSE, message=FALSE}
+HM_class + HM_TumorSize
 ```
 
 
+## PCA 
+
+
+## Discussion
+- The removed duplicates were selected from an error when aligning ID's. This was done by se R filen 02 hvis relevant; HVIS NU DET ER RELEVANT AT HAVE MED.
+- Fraction of NA > 0.15 has been removed based on the plot showed in results. 
+  - Calculated by rowSums(is.na(select(.,-RefSeqProteinID)))/80)
+- Discuss the selection of cancer_genes.

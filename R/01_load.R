@@ -14,6 +14,7 @@ library(broom)
 library(purrr)
 library(vroom)
 library(stringr)
+library(tidymodels)
 
 
 # Define functions --------------------------------------------------------
