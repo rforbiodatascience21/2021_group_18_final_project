@@ -20,22 +20,15 @@ library(stringr)
 library(kableExtra)
 ```
 
-```{r load of , include=FALSE} 
+```{r load of model generel to be used in introduction, include=FALSE} 
 setwd('../')
-<<<<<<< HEAD
 source(file = "R/04_model_generel.R", local = knitr::knit_global())
-=======
-source(file = "R/04_model_generel.R")
-source(file = "R/04_model_HM.R")
-source(file = "R/04_model_PCA.R")
-
->>>>>>> db773f6217fba4cd74cc7e6c5b9a32bde5d28ff9
 ```
 
 # Introduction 
 ## Data
 - The breast cancer consists of 4 cancer group, and 3 healthy patients as well as 
-```{r cancer class, echo=FALSE}
+```{r show cancer class and other relevant, echo=FALSE}
 joined_data %>%
   group_by(`Class`, Gender) %>%
   count()
@@ -65,7 +58,7 @@ other relevant parameters. (We will get into these in method)
   
 ## Materials
 ### Extract of Raw data
-```{r raw data, include=FALSE}
+```{r load raw data, include=FALSE}
 setwd('../')
 source(file = "R/01_load.R", knitr::knit_global())
 ```
@@ -124,13 +117,13 @@ Finally, a right_join() with x = clinical, y = proteomes, and by patient ID (TCG
 
 # Results
 ## Removal for genes according to the fraction of NAs
-```{r load of , include=FALSE} 
+```{r load file of model generel, include=FALSE} 
 setwd('../')
 source(file = "R/04_model_generel.R", local = knitr::knit_global())
 ```
 
 Lots of the represented genes expression do not contain NA vlaues. Thereby, all of them was removed from the plot, to get a better estimate of where to cut the lowest wanted fraction of NAs.  
-```{r cancer class, echo=FALSE, warning=FALSE, message=FALSE}
+```{r plots of fractionNA, echo=FALSE, warning=FALSE, message=FALSE}
 fractionNA_All + fractionNA_without0
 
 proteomes_clean %>%
@@ -140,18 +133,14 @@ proteomes_clean %>%
 For this, we end up removing 2205 genes.
 
 ## Heart map
-```{r load of , include=FALSE} 
+```{r load file of Heatmap, include=FALSE} 
 setwd('../')
 source(file = "R/04_model_HM.R", local = knitr::knit_global())
 ```
 
-The Heat map is created on relevant breats cancer genes.  
-```{r cancer class, echo=FALSE, warning=FALSE, message=FALSE}
-fractionNA_All + fractionNA_without0
-
-proteomes_clean %>%
-  filter(Frac_NA > 0.25) %>%
-  count()
+Two Heat maps are plotted using geom_tile() on relevant Breasts Cancer Genes. One is based on tumor size whereas the other is based on class
+```{r show HeatMap, echo=FALSE, warning=FALSE, message=FALSE}
+HM_class + HM_TumorSize
 ```
 
 
