@@ -52,7 +52,9 @@ joined_data <- proteomes_clean_trans %>%
   mutate(Class = replace_na(data = Class, 
                             replace = "Healthy")) %>%
   mutate(Class = factor(x = Class, 
-                        levels = c("Basal-like", "HER2-enriched", "Luminal A", "Luminal B", "Healthy")))
+                        levels = c("Basal-like", "HER2-enriched", "Luminal A", "Luminal B", "Healthy"))) %>%
+  mutate(`OS event` = replace_na(data = `OS event`,
+                                 replace = 0))
 
 ###### Joined healthy data
 #263d3f-I
