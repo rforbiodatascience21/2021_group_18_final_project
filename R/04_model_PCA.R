@@ -174,17 +174,20 @@ pca_org_aug <- pca_fit_aug %>%
 pl1 <- pca_class_aug %>%
   ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = Class)) +
   geom_point() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom")+
+  labs(title = "PCA ")
 
 pl2 <- pca_class_aug_org %>%
   ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = cluster_org)) +
   geom_point() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom")+
+  labs(title = "K-means original data")
 
 pl3 <- pca_org_aug %>%
   ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = cluster_pca)) +
   geom_point() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  labs(title = "K-means PCA data")
 
 (pl1 + pl2 + pl3)
 
