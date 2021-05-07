@@ -33,7 +33,7 @@ PCA_percent1 <- pca %>%
     labels = scales::percent_format(),
     expand = expansion(mult = c(0, 0.01))) +
   theme_light() +
-  ylab("Percentage of variance explained")
+  labs(y = "Percentage of variance explained", title = "Variance explained by each PC")
 
 
 #Plot PCA matrix points
@@ -43,9 +43,10 @@ PCA_plot1 <- pca %>%
                        y = .fittedPC2,
                        color = Class)) +
   geom_point() +
-  xlab("PC1") +
-  ylab("PC2") +
-  theme_light()
+  theme_light() +
+  labs(x = "PC1", y = "PC2", title = "PCA plot of chosen cancer genes")+
+  theme(legend.key = element_rect(fill = "white", colour = "black"),
+        legend.title = element_text(face = "bold"))
 
 
 
@@ -99,7 +100,7 @@ pca2 <- proteomes_data %>%
 
 
 #Percent of variance explained in PC1-PC8
-PCA_percent2 <- pca2 %>%
+PCA_percent2 <-pca2 %>%
   tidy(matrix = "eigenvalues")%>%
   ggplot(mapping = aes(PC, percent)) +
   geom_col(fill = "blue", alpha = 0.6) +
