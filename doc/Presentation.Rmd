@@ -24,7 +24,6 @@ setwd('../')
 source(file = "R/04_model_generel.R")
 source(file = "R/04_model_HM.R")
 source(file = "R/04_model_PCA.R")
-#source(file = "R/04_model_XXX.R")
 
 ```
 
