@@ -77,9 +77,31 @@ pca %>%
 
 
 ### K-means
-library(tidymodels)
 
-#baah
+
+## prepare data for cluster 
+for_clust  <- proteomes_data %>% 
+  select(-1) ## remove first column which is gene id 
+
+### kmeans
+max_itr <-  50
+n_clust  <-  5  ## number of cluster 
+set.seed(123) ## reproduce the cluster 
+kmeans_out  <- kmeans(for_clust,n_clust,iter.max = max_itr)
+
+## add cluster info to orig matrix 
+data_with_cust_info <- proteomes_data %>% 
+  mutate(clust = paste("clust_", kmeans_out$cluster,sep = ""))
+
+
+data_with_cust_info %>% 
+  gather(key = "variable" , value = "value", -c(1,10)) %>%  ### 1 is the index of column 'geneName' and 7 is the index of column 'clust'
+  group_by(Class) %>%  
+  mutate(row_num =  1:n()) %>% 
+  ggplot(aes(x =  clust , y = value , color = Class)) +   
+  geom_point() +  
+  theme_bw()
+
 
 
 
