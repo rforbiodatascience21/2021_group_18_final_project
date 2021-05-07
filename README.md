@@ -14,10 +14,10 @@ File: *clinical_data_breast_cancer.csv*
 - Contains clinical data from the 77 cancer patients (not the 3 healthy), such as age, gender, tumor class etc. 
 
 File: *PAM50_proteins.csv* 
-- We decided not use this data, since we did not need the information it could provide in order to make the analysis we wanted. It is somewhat a dictionary of the genes, their names and ID's. 
+- We decided not use this data, since we did not need the information it could provide in order to make the analyses we wanted. It is somewhat a dictionary of the genes, their names and ID's. 
 
 ## Use
-In order to execute the full data analysis and generate final plots, including the presentation, the script *00doit.R* from folder */R* should be run. The presentation will appear in the folder */doc*. 
+In order to execute the full data analysis and generate final plots and the presentation, the script *00doit.R* from folder */R* should be run. The presentation will appear in the folder */doc*. 
 
 ## Dependencies
 Following packages has been used:
