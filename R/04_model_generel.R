@@ -8,15 +8,9 @@ clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 joined_data <- read_csv(file = "data/joined_data.csv.gz")
 
 #### PLOT fraction NA ###
-ggplot(data = proteomes_clean,
-       mapping = aes(x = reorder(RefSeqProteinID,desc(Frac_NA)), y = Frac_NA)) +
-  geom_col(color = "blue") +
-  labs(y = "Fraction of NA in data", x = "Proteins", title = "Amount of missing data") 
-
-############### Alternative plots for Fraction NA, where it can be observed numbe of proteomes within each fraction ###
 fractionNA_All <- proteomes_clean %>%
   ggplot(mapping = aes(x =  Frac_NA)) +
-  geom_histogram(fill = "navy") +
+  geom_histogram(fill = "navy", binwidth = 0.04) +
   labs(y = "Number of Proteomes", x = "Fraction of NA in data", title = "Amount of missing data") 
 
 ## AS 8074 are equal 0, then these are 'removed' from the plot, to give a better overview ###

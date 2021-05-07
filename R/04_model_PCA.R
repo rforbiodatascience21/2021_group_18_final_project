@@ -85,7 +85,7 @@ for_clust  <- proteomes_data %>%
 
 ### kmeans
 max_itr <-  50
-n_clust  <-  5  ## number of cluster 
+n_clust  <-  3  ## number of cluster 
 set.seed(123) ## reproduce the cluster 
 kmeans_out  <- kmeans(for_clust,n_clust,iter.max = max_itr)
 
@@ -101,7 +101,6 @@ data_with_cust_info %>%
   ggplot(aes(x =  clust , y = value , color = Class)) +   
   geom_point() +  
   theme_bw()
-
 
 
 
