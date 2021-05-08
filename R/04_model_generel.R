@@ -75,7 +75,9 @@ ggplot(joined_data,
 #Luminal A, Luminal B, HER2, Basal like and Normal. 
 #Each is associated with different prognoses, treatments and therapies.
 
-ggplot(data = joined_data, aes(`Class`,
+joined_data %>%
+  mutate(Class = fct_rev(fct_infreq(Class))) %>%
+  ggplot(aes(x = Class,
                  fill = `Class`)) + 
   geom_bar() + 
   scale_fill_brewer(palette = "Spectral") +
