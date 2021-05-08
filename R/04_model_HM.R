@@ -145,8 +145,6 @@ HM_TumorSize <-
        x = "Cancer related genes",
        y = NULL) 
 
-# Show heatmap
-HM_TumorSize
 
 # Write data --------------------------------------------------------------
 ggsave(filename = "results/HeatMap_Class.png", plot = HM_class, width = 16, height = 9, dpi = 72)
