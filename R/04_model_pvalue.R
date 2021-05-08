@@ -39,7 +39,7 @@ mutate(mdl = map(data,
                  ~glm(`OS event` ~ log2_expression, 
                       data = .,
                       family = binomial(link = "logit"))),
-       tidied = map(mdl,conf.int = TRUE,tidy)) %>%
+       tidied = map(mdl, conf.int = TRUE, tidy)) %>%
   unnest(tidied)
 
 
