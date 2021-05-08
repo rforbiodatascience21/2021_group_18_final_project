@@ -16,7 +16,7 @@ library("tidyverse")
 # Load data ---------------------------------------------------------------
 proteomes <- read_csv(file = "data/proteomes.csv.gz")
 proteins <- read_csv(file = "data/proteins.csv.gz")
-clinical <- read_csv((file = "data/clinical.csv.gz" ))
+clinical <- read_csv(file = "data/clinical.csv.gz")
 
 # Wrangle data ------------------------------------------------------------
 
@@ -48,7 +48,6 @@ clinical_clean <- clinical %>%
 
 
 # WRITE data
-
 write_csv(x = proteomes_clean, 
           file = "data/proteomes_clean.csv.gz")
 

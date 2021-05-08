@@ -23,8 +23,8 @@ proteomes_clean_NA <- proteomes_clean %>%
 
 #replace NA with median of column
 proteomes_clean_NA <- proteomes_clean_NA %>%
-  mutate_at(c(2:82),~if_else(condition = is.na(.),
-                     true = median(.,na.rm = TRUE),
+  mutate_at(c(2:82), ~if_else(condition = is.na(.),
+                     true = median(., na.rm = TRUE),
                      false = .))
 
 #Transpose data (get protein ID as columns)
@@ -33,15 +33,19 @@ proteomes_clean_trans <- proteomes_clean_NA %>%
   select(-Frac_NA) %>%
   pivot_longer(cols = -c("RefSeqProteinID"),
                names_to = "TCGA_ID",
-               values_to = "value" ) %>% 
+               values_to = "value") %>% 
   pivot_wider(names_from = "RefSeqProteinID",
               values_from = "value")
 
 #CLINICAL
 clinical_aug <- clinical_clean %>% 
-  rename(Class = `PAM50 mRNA` ) %>%
+  rename(Class = `PAM50 mRNA`) %>%
   mutate(Class = factor(Class, 
-                        levels = c("Basal-like", "HER2-enriched", "Luminal A", "Luminal B", "Healthy")))
+                        levels = c("Basal-like", 
+                                   "HER2-enriched", 
+                                   "Luminal A", 
+                                   "Luminal B", 
+                                   "Healthy")))
 
 
 #Join data to get one file (HEALTHY ARE REPRESENT IN THIS)
@@ -52,7 +56,11 @@ joined_data <- proteomes_clean_trans %>%
   mutate(Class = replace_na(data = Class, 
                             replace = "Healthy")) %>%
   mutate(Class = factor(x = Class, 
-                        levels = c("Basal-like", "HER2-enriched", "Luminal A", "Luminal B", "Healthy"))) %>%
+                        levels = c("Basal-like", 
+                                   "HER2-enriched", 
+                                   "Luminal A", 
+                                   "Luminal B", 
+                                   "Healthy"))) %>%
   mutate(`OS event` = replace_na(data = `OS event`,
                                  replace = 0))
 
@@ -66,7 +74,7 @@ mutate(Age_group = case_when(`Age at Initial Pathologic Diagnosis` < 30 ~ "<30",
                              60 <= `Age at Initial Pathologic Diagnosis` & `Age at Initial Pathologic Diagnosis` < 70 ~ "60-70",
                              70 <= `Age at Initial Pathologic Diagnosis` & `Age at Initial Pathologic Diagnosis` < 80 ~ "70-80",
                              `Age at Initial Pathologic Diagnosis` >= 80 ~ "80+")) %>%
-  select(TCGA_ID,Age_group, everything())
+  select(TCGA_ID, Age_group, everything())
 
 
 # Write data --------------------------------------------------------------

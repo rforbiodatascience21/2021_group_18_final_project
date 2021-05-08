@@ -7,17 +7,25 @@ proteomes_clean_NA <- read_csv(file = "data/proteomes_clean_NA.csv.gz")
 clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 joined_data <- read_csv(file = "data/joined_data.csv.gz")
 
+
 #### PLOT fraction NA ###
 fractionNA_All <- proteomes_clean %>%
   ggplot(mapping = aes(x =  Frac_NA)) +
-  geom_histogram(fill = "navy", binwidth = 0.04) +
-  labs(y = "Number of Proteomes", x = "Fraction of NA in data", title = "Amount of missing data") 
+  geom_histogram(fill = "navy", 
+                 binwidth = 0.04) +
+  labs(y = "Number of Proteomes", 
+       x = "Fraction of NA in data", 
+       title = "Amount of missing data") 
 
-## AS 8074 are equal to 0, then these are 'removed' from the plot, to give a better overview ###
+
+## AS 8074 are equal to 0, then these are 'removed' from the plot, 
+#to give a better overview ###
 fractionNA_without0 <- proteomes_clean %>%
   ggplot(mapping = aes(x =  Frac_NA)) +
   geom_histogram(fill = "navy") +
-  labs(y = "Number of Proteomes", x = "Fraction of NA in data", title = "Amount of missing data") +
+  labs(y = "Number of Proteomes", 
+       x = "Fraction of NA in data", 
+       title = "Amount of missing data") +
   xlim(0.000000001,0.8)
 
 
@@ -58,7 +66,8 @@ ggplot(joined_data,
                      y = `Age at Initial Pathologic Diagnosis`, 
                      fill = Gender)) +
   geom_boxplot(alpha = 0.5) +
-  labs(x = "Tumor classification", title = "Age divided on tumor class")+
+  labs(x = "Tumor classification", 
+       title = "Age divided on tumor class") +
   theme_classic()
 
 # Scatterplot of cancer stage vs tumor size filled by metastasis if positive or negative:
@@ -67,7 +76,8 @@ ggplot(joined_data,
                      y = Tumor, 
                      color = `Metastasis-Coded`)) +
   geom_point() +
-  labs() + theme(legend.position = "bottom")
+  labs() + 
+  theme(legend.position = "bottom")
 
 
 # Plot of how many patients have each type of cancer. 
@@ -81,7 +91,8 @@ joined_data %>%
                  fill = `Class`)) + 
   geom_bar() + 
   scale_fill_brewer(palette = "Spectral") +
-  labs(x = "Tumor type", y = "Number of patients", 
+  labs(x = "Tumor type", 
+       y = "Number of patients", 
        title = "Proportion of patients with each cancer subtype", 
        fill = "Tumor type") +
   theme_classic()

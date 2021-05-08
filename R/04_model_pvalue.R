@@ -43,21 +43,11 @@ proteomes_func <- proteomes_nested %>%
   unnest(tidying)
 
 
-
-
-
 #proteomes_func <- proteomes_nested %>%
 #  mutate(event = map(data, "OS event"), 
 #         log2 = map(data, "log2_expression"))
 
 
-
-
-
-
-
-
 proteomes_func <- proteomes_func %>%
   mutate(identified_as = case_when(p.value > 0.05 ~"Non-significant",
                                    p.value < 0.05 ~ "Significant"))
-

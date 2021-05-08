@@ -16,7 +16,10 @@ proteomes_clean_NA <- read_csv(file = "data/proteomes_clean_NA.csv.gz")
 #c4155b-C
 
 joined_healthy_data <- proteomes_clean_NA %>% 
-  select(`RefSeqProteinID`, `263d3f-I`, `blcdb9-I`, `c4155b-C`)
+  select(`RefSeqProteinID`, 
+         `263d3f-I`, 
+         `blcdb9-I`, 
+         `c4155b-C`)
 
 #Interrogation of genes related to breast cancer
 # BRCA1 = NP_009231
@@ -64,12 +67,19 @@ Sample_Tumor_and_Healthy <- full_join(joined_healthy_longer,Tumor_sample_long)
 
 ############ Heatmap ############
 Sample_Tumor_and_Healthy %>% 
-ggplot(mapping = aes(x = TCGA_ID, y = RefSeqProteinID, fill = value)) +
+ggplot(mapping = aes(x = TCGA_ID, 
+                     y = RefSeqProteinID, 
+                     fill = value)) +
   geom_tile(alpha=0.9) +
   theme_minimal() +
-  scale_fill_gradient2(low = "blue", mid = "white", high = "red") +
-  theme(axis.text.x=element_text(angle=45, vjust = 1, hjust = 1), 
-        legend.position = "right", aspect.ratio = 1)
+  scale_fill_gradient2(low = "blue", 
+                       mid = "white", 
+                       high = "red") +
+  theme(axis.text.x=element_text(angle=45, 
+                                 vjust = 1, 
+                                 hjust = 1), 
+        legend.position = "right", 
+        aspect.ratio = 1)
 #Kan man på en måde opdele dem så dem der er T1 kommmer først, så kommer T3 også de healthy?
 #Så man kan se expressions ved siden af hinanden, måske lave tekst i toppen?
 
@@ -108,24 +118,32 @@ Sample_Tumor_and_Healthy_wide <- Sample_Tumor_and_Healthy_long %>%
 
 pca_fit <- Sample_Tumor_and_Healthy_wide %>%
   select(where(is.numeric)) %>% # retain only numeric columns
-  prcomp(center = TRUE, scale = TRUE) # do PCA on scaled data
+  prcomp(center = TRUE, 
+         scale = TRUE) # do PCA on scaled data
 
 #The below code takes the pca values and extracts the rotation matrix
 pca_fit %>%
   tidy(matrix = "rotation")
 
 #Code below makes the arrows
-arrow_style <- arrow(angle = 20, ends = "first", type = "closed", 
+arrow_style <- arrow(angle = 20, 
+                     ends = "first", 
+                     type = "closed", 
                      length = grid::unit(8, "pt"))
 
 #Plot PCA rotation matrix
 pca_fit %>%
   tidy(matrix = "rotation") %>%
-  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>%
+  pivot_wider(names_from = "PC", 
+              names_prefix = "PC", 
+              values_from = "value") %>%
   ggplot(aes(PC1, PC2)) +
-  geom_segment(xend = 0, yend = 0, arrow = arrow_style) +
+  geom_segment(xend = 0, 
+               yend = 0, 
+               arrow = arrow_style) +
   geom_text(aes(label = column),
-            hjust = 1, nudge_x = -0.02, 
+            hjust = 1, 
+            nudge_x = -0.02, 
             color = "#904C2F") +
   coord_fixed() + # fix aspect ratio to 1:1
   theme_minimal_grid(12)

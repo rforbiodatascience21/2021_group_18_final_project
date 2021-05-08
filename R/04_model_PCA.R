@@ -20,20 +20,23 @@ proteomes_data <- joined_data %>%
 
 pca <- proteomes_data %>%
   select(where(is.numeric)) %>%
-  prcomp(center = TRUE, scale=TRUE)
+  prcomp(center = TRUE, 
+         scale=TRUE)
 
 
 #Percent of variance explained in PC1-PC8
 PCA_percent1 <- pca %>%
   tidy(matrix = "eigenvalues")%>%
   ggplot(mapping = aes(PC, percent)) +
-  geom_col(fill = "blue", alpha = 0.6) +
+  geom_col(fill = "blue", 
+           alpha = 0.6) +
   scale_x_continuous(breaks = 1:8) +
   scale_y_continuous(
     labels = scales::percent_format(),
     expand = expansion(mult = c(0, 0.01))) +
   theme_light() +
-  labs(y = "Percentage of variance explained", title = "Variance explained by each PC")
+  labs(y = "Percentage of variance explained", 
+       title = "Variance explained by each PC")
 
 
 #Plot PCA matrix points
@@ -44,8 +47,10 @@ PCA_plot1 <- pca %>%
                        color = Class)) +
   geom_point() +
   theme_light() +
-  labs(x = "PC1", y = "PC2", title = "PCA plot of chosen cancer genes")+
-  theme(legend.key = element_rect(fill = "white", colour = "black"),
+  labs(x = "PC1", y = "PC2", 
+       title = "PCA plot of chosen cancer genes")+
+  theme(legend.key = element_rect(fill = "white", 
+                                  colour = "black"),
         legend.title = element_text(face = "bold"))
 
 
@@ -57,21 +62,28 @@ pca %>%
 
 # define arrow style for plotting
 arrow_style <- arrow(
-  angle = 20, ends = "first", type = "closed", length = grid::unit(8, "pt")
+  angle = 20, ends = "first", 
+  type = "closed", 
+  length = grid::unit(8, "pt")
 )
 
 # plot rotation matrix
 pca %>%
   tidy(matrix = "rotation") %>%
-  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>%
+  pivot_wider(names_from = "PC", 
+              names_prefix = "PC", 
+              values_from = "value") %>%
   ggplot(aes(PC1, PC2)) +
-  geom_segment(xend = 0, yend = 0, arrow = arrow_style) +
+  geom_segment(xend = 0, yend = 0, 
+               arrow = arrow_style) +
   geom_text(
     aes(label = column),
-    hjust = 1, nudge_x = -0.02, 
+    hjust = 1, 
+    nudge_x = -0.02, 
     color = "#904C2F"
   ) +
-  xlim(-1.25, .5) + ylim(-.5, 1) +
+  xlim(-1.25, .5) + 
+  ylim(-.5, 1) +
   coord_fixed() + # fix aspect ratio to 1:1
   theme_minimal_grid(12)
 
@@ -99,10 +111,11 @@ pca2 <- proteomes_data %>%
 
 
 #Percent of variance explained in PC1-PC8
-PCA_percent2 <-pca2 %>%
+PCA_percent2 <- pca2 %>%
   tidy(matrix = "eigenvalues")%>%
   ggplot(mapping = aes(PC, percent)) +
-  geom_col(fill = "blue", alpha = 0.6) +
+  geom_col(fill = "blue", 
+           alpha = 0.6) +
   scale_x_continuous(breaks = 1:8) +
   scale_y_continuous(
     labels = scales::percent_format(),
@@ -147,7 +160,8 @@ proteomes_class <- joined_data %>%
 # PCA on cancergenes
 pca_class <- proteomes_class %>%
   select(where(is.numeric)) %>%
-  prcomp(center = TRUE, scale=TRUE)
+  prcomp(center = TRUE, 
+         scale=TRUE)
 
 # Augment pca with class
 pca_class_aug <- pca_class %>%
@@ -176,19 +190,25 @@ pca_org_aug <- pca_fit_aug %>%
 #Defining three plots - one with pca, second with kmeans of original data
 # third with kmeans of pca data
 pl1 <- pca_class_aug %>%
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = Class)) +
+  ggplot(aes(x = .fittedPC1, 
+             y = .fittedPC2, 
+             colour = Class)) +
   geom_point() +
   theme(legend.position = "bottom")+
   labs(title = "PCA ")
 
 pl2 <- pca_class_aug_org %>%
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = cluster_org)) +
+  ggplot(aes(x = .fittedPC1, 
+             y = .fittedPC2, 
+             colour = cluster_org)) +
   geom_point() +
   theme(legend.position = "bottom")+
   labs(title = "K-means original data")
 
 pl3 <- pca_org_aug %>%
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = cluster_pca)) +
+  ggplot(aes(x = .fittedPC1, 
+             y = .fittedPC2, 
+             colour = cluster_pca)) +
   geom_point() +
   theme(legend.position = "bottom") +
   labs(title = "K-means PCA data")

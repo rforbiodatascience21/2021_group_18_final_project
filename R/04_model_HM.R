@@ -40,22 +40,41 @@ cancer_genes <- joined_data %>%
          "ERRB2" = "NP_004439",
          "GATA3" = "NP_001002295") %>%
   # Create long data for heatmap
-  pivot_longer(cols = c("BRCA1", "TP53", "CHEK2", "PTEN", "CDH1", "STK11", "ERRB2", "GATA3"), 
+  pivot_longer(cols = c("BRCA1", 
+                        "TP53", 
+                        "CHEK2", 
+                        "PTEN", 
+                        "CDH1", 
+                        "STK11", 
+                        "ERRB2", 
+                        "GATA3"), 
                names_to = "RefSeqProteinID",
                values_to = "Expression level (log2)") %>% 
   # Set factors and levels for the plot
   mutate(Class = factor(Class, 
-                        levels = c("Basal-like", "HER2-enriched", "Luminal A", "Luminal B", "Healthy"))) %>%
+                        levels = c("Basal-like", 
+                                   "HER2-enriched", 
+                                   "Luminal A", 
+                                   "Luminal B", 
+                                   "Healthy"))) %>%
   mutate(RefSeqID = factor(RefSeqProteinID, 
-                           levels = c("BRCA1", "TP53", "CHEK2", "PTEN", "CDH1", "STK11", "ERRB2", "GATA3"))) %>%
+                           levels = c("BRCA1", 
+                                      "TP53", 
+                                      "CHEK2", 
+                                      "PTEN", 
+                                      "CDH1", 
+                                      "STK11", 
+                                      "ERRB2", 
+                                      "GATA3"))) %>%
   drop_na()
 
 # The heatmap plot
 HM_class <- 
-  ggplot(data = cancer_genes, mapping = aes(x = RefSeqProteinID, 
-                                          y = TCGA_ID, 
-                                          fill = `Expression level (log2)`)) +
-  geom_tile()+ 
+  ggplot(data = cancer_genes, 
+         mapping = aes(x = RefSeqProteinID,
+                       y = TCGA_ID, 
+                       fill = `Expression level (log2)`)) +
+  geom_tile() + 
   facet_grid(Class ~ ., 
              scales = "free") +
   scale_fill_gradient2(low = "blue",
@@ -108,16 +127,24 @@ cancer_genes_tumor <- joined_data %>%
          "ERRB2" = "NP_004439",
          "GATA3" = "NP_001002295") %>%
   # Create long data for heatmap
-  pivot_longer(cols = c("BRCA1", "TP53", "CHEK2", "PTEN", "CDH1", "STK11", "ERRB2", "GATA3"), 
+  pivot_longer(cols = c("BRCA1", 
+                        "TP53", 
+                        "CHEK2", 
+                        "PTEN", 
+                        "CDH1", 
+                        "STK11", 
+                        "ERRB2", 
+                        "GATA3"), 
                names_to = "RefSeqProteinID",
                values_to = "Expression level (log2)") %>% 
   drop_na()
 
 # The heatmap plot
 HM_TumorSize <-
-  ggplot(data = cancer_genes_tumor, mapping = aes(x = RefSeqProteinID, 
-                                           y = TCGA_ID, 
-                                           fill = `Expression level (log2)`)) +
+  ggplot(data = cancer_genes_tumor, 
+         mapping = aes(x = RefSeqProteinID,
+                       y = TCGA_ID,
+                       fill = `Expression level (log2)`)) +
   geom_tile()+ 
   facet_grid(Tumor ~ ., 
              scales = "free") +
