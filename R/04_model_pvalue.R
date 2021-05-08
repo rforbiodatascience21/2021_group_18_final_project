@@ -44,31 +44,15 @@ proteomes_func <- proteomes_nested %>%
 
 
 
-proteomes_func <- proteomes_nested %>%
-  unnest(data)
+
+
+#proteomes_func <- proteomes_nested %>%
+#  mutate(event = map(data, "OS event"), 
+#         log2 = map(data, "log2_expression"))
 
 
 
 
-#%>%
-  glm("OS event" ~ log2_expression,
-      data = proteomes_func,
-      family = binomial(link = "logit"))
-
-# **Q1: What are the coefficients for the intercept and your gene?**\\
-# Svar: intercept; -0.737, g2E09; -2.184
-# ```{r}
-# gene <- gravier_data %>% 
-#   glm(outcome ~ g2E09,
-#       data = .,
-#       family = binomial(link = "logit"))
-# ```
-# 
-# **Q2: What is the p-value for your gene?**\\
-# ```{r}
-# library(broom)
-# tidy(gene)
-# ```
 
 
 
