@@ -79,7 +79,6 @@ pca %>%
 ### K-means
 library(tidymodels)
 
-#baah
 
 
 
@@ -190,7 +189,6 @@ pl3 <- pca_org_aug %>%
   labs(title = "K-means PCA data")
 
 (pl1 + pl2 + pl3)
-
 
 
 # Write data --------------------------------------------------------------
