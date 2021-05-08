@@ -84,6 +84,6 @@ ggplot(data = joined_data, aes(`Class`,
 
 
 
-######## Saving the plots in results #####
+# Write data --------------------------------------------------------------
 ggsave(filename = "results/FractionNA_withAllPoints.png", plot = fractionNA_All, width = 16, height = 9, dpi = 72)
 ggsave(filename = "results/FractionNA_without0.png", plot = fractionNA_without0, width = 16, height = 9, dpi = 72)

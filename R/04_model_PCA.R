@@ -124,7 +124,7 @@ PCA_plot2 <- pca2 %>%
 
 
 
-#### K-MEANS ####
+# K MEANS --------------------------------------------------------------
 
 #Defining k (number of center in k-means)
 k <- 5
