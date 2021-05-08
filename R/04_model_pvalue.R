@@ -45,7 +45,12 @@ proteomes_func <- proteomes_nested %>%
 
 
 proteomes_func <- proteomes_nested %>%
-  pluck("data") %>%
+  unnest(data)
+
+
+
+
+#%>%
   glm("OS event" ~ log2_expression,
       data = proteomes_func,
       family = binomial(link = "logit"))
