@@ -35,12 +35,35 @@ proteomes_nested <- joined_data %>%
 
 
 proteomes_func <- proteomes_nested %>%
-mutate(mdl = map(data,
+  mutate(mdl = map(data,
                  ~glm(`OS event` ~ log2_expression, 
                       data = .,
                       family = binomial(link = "logit"))),
-       tidied = map(mdl, conf.int = TRUE, tidy)) %>%
-  unnest(tidied)
+       tidying = map(mdl, conf.int = TRUE, tidy)) %>%
+  unnest(tidying)
+
+
+proteomes_func <- proteomes_nested %>%
+  glm(`OS event` ~ log2_expression,
+      data = .,
+      family = binomial(link = "logit"))
+
+# **Q1: What are the coefficients for the intercept and your gene?**\\
+# Svar: intercept; -0.737, g2E09; -2.184
+# ```{r}
+# gene <- gravier_data %>% 
+#   glm(outcome ~ g2E09,
+#       data = .,
+#       family = binomial(link = "logit"))
+# ```
+# 
+# **Q2: What is the p-value for your gene?**\\
+# ```{r}
+# library(broom)
+# tidy(gene)
+# ```
+
+
 
 
 proteomes_func <- proteomes_func %>%

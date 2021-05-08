@@ -126,7 +126,12 @@ PCA_plot2 <- pca2 %>%
 # K MEANS --------------------------------------------------------------
 
 #Defining k (number of center in k-means)
-k <- 5
+#k is equal to the number of unique classes
+k <- joined_data %>% 
+  select (Class) %>% 
+  unique() %>%
+  pull() %>% 
+  length()
 
 #Choosing cancer genes and tumor class
 proteomes_class <- joined_data %>%
