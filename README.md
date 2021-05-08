@@ -27,5 +27,6 @@ Following packages has been used:
 - purrr
 - cowplot
 - broom
+- patchwork
 - UPDATE THIS WHEN WE ARE DONE
 

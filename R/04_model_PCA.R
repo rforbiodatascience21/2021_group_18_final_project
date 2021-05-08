@@ -78,7 +78,7 @@ pca %>%
 
 ### K-means
 library(tidymodels)
-
+library(patchwork)
 
 
 
