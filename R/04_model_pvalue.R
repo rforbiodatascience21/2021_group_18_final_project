@@ -43,9 +43,11 @@ proteomes_func <- proteomes_nested %>%
   unnest(tidying)
 
 
+
 proteomes_func <- proteomes_nested %>%
-  glm(`OS event` ~ log2_expression,
-      data = .,
+  pluck("data") %>%
+  glm("OS event" ~ log2_expression,
+      data = proteomes_func,
       family = binomial(link = "logit"))
 
 # **Q1: What are the coefficients for the intercept and your gene?**\\
