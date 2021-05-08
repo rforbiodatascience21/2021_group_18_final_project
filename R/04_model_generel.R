@@ -13,7 +13,7 @@ fractionNA_All <- proteomes_clean %>%
   geom_histogram(fill = "navy", binwidth = 0.04) +
   labs(y = "Number of Proteomes", x = "Fraction of NA in data", title = "Amount of missing data") 
 
-## AS 8074 are equal 0, then these are 'removed' from the plot, to give a better overview ###
+## AS 8074 are equal to 0, then these are 'removed' from the plot, to give a better overview ###
 fractionNA_without0 <- proteomes_clean %>%
   ggplot(mapping = aes(x =  Frac_NA)) +
   geom_histogram(fill = "navy") +
@@ -25,6 +25,7 @@ fractionNA_without0 <- proteomes_clean %>%
 proteomes_clean %>%
   filter(Frac_NA > 0.25) %>%
   count()
+#2205 removed
 
 
 # Get to know your data
@@ -79,7 +80,8 @@ ggplot(data = joined_data, aes(`Class`,
   geom_bar() + 
   scale_fill_brewer(palette = "Spectral") +
   labs(x = "Tumor type", y = "Number of patients", 
-       title = "Proportion of patients with each cancer subtype", fill = "Tumor type")+
+       title = "Proportion of patients with each cancer subtype", 
+       fill = "Tumor type") +
   theme_classic()
 
 
