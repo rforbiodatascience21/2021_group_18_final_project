@@ -97,7 +97,7 @@ PCA_plot2 <- pca2 %>%
 
 
 
-# K MEANS --------------------------------------------------------------
+# K MEANS FOR TUMOR CLASS --------------------------------------------------------------
 
 #Defining k (number of center in k-means)
 #k is equal to the number of unique classes
@@ -175,7 +175,6 @@ pl3 <- pca_org_aug %>%
   labs(title = "K-means PCA data")
 
 (pl1 + pl2 + pl3)
-
 
 # Write data --------------------------------------------------------------
 ggsave(filename = "results/PCA_percent.png", plot = PCA_percent1, width = 16, height = 9, dpi = 72)
