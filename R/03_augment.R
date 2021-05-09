@@ -5,7 +5,7 @@ rm(list = ls())
 library("tidyverse")
 
 # Load data ---------------------------------------------------------------
-proteomes_clean <- read_csv(file = "data/proteomes_clean.csv.gz")
+proteomes_clean <- read_csv(file = "data/proteomes_clean1.csv.gz")
 clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 
 

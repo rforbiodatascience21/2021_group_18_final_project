@@ -1,7 +1,7 @@
 ---
-title: "Frontpage of presentation"
-author: "Mie, Naja, Sille, Sofia"
-date: "10-May-2021"
+title: "Final presentation of R for bioscience analysing dataset of breast cancer"
+author: "Mie Bjork, Naja Bahrenscheer, Sille Hendriksen, Sofia Otero"
+date: "12-May-2021"
 output: ioslides_presentation
 ---
 
@@ -26,19 +26,31 @@ source(file = "R/04_model_generel.R", local = knitr::knit_global())
 ```
 
 # Introduction 
-## Data
-- The breast cancer data consists of 4 cancer groups, and 3 healthy patients as well as 
+## Overview of data
+- Plots and other grouping/analysis will shown to give an overview of the data. 
 ```{r show cancer class and other relevant, echo=FALSE}
 joined_data %>%
   group_by(`Class`, Gender) %>%
   count()
 ```
-other relevant parameters. (We will get into these in method)
+
+## Tumor vs Gender
+```{r show tumor gender and other relevant, echo=FALSE}
+tumor_gender
+```
+## Age at diagnosis
+```{r show Age at diagnosis, echo=FALSE}
+age_diagnosis
+```
+
+## Subtype of breast cancer
+```{r show Subtype of cancer, echo=FALSE}
+cancer_subtype
+```
 
 ## Goals
 - Exploration and identifying patterns in the data
 - Create visualization of the data 
-- Predict breast cancer class by looking at specific gene expressions
 
 # Materials and methods
 ## Materials
@@ -54,10 +66,11 @@ other relevant parameters. (We will get into these in method)
   - Cancer class
   - Other relevant clinical observation
 
+- See next slide for extract of raw data
+
 [Source: Kaggle](https://www.kaggle.com/piotrgrabo/breastcancerproteomes#clinical_data_breast_cancer.csv)  
   
-## Materials
-### Extract of Raw data
+## Materials: Extract of raw data
 ```{r load raw data, include=FALSE}
 setwd('../')
 source(file = "R/01_load.R", knitr::knit_global())
@@ -101,19 +114,21 @@ clinical %>%
 
 Finally, a right_join() with x = clinical, y = proteomes, and by patient ID (TCGA_ID) was used to make the joined_data. For the joined data, the age was divided into agegroups using mutate and casewhen(). A joined_healthy_data consists on only the heathly was also made.
 
-## Methods: Packages
-- tidyverse
-  - dplyr
-  - ggplot2
-  - broom
-  - stringr
-  - tidymodels
+## Materials: Extract of clean data
+```{r load clean data, include=FALSE}
+setwd('../')
+source(file = "R/03_augment.R", knitr::knit_global())
+```
 
-- others
-  - patchwork
-  - purrr
-  - vroom
-  - kableExtra
+```{r show clean data, echo=FALSE}
+set.seed(759677) #added to ensure same slice_sample choose the same 4 rows each time.
+joined_data %>%
+  select(c(1:3,100:102)) %>%
+  slice_sample(n =4) %>%
+  kable("html") %>%
+  kable_styling(font_size = 10)
+
+```
 
 # Results
 ## Removal for genes according to the fraction of NAs
@@ -132,7 +147,7 @@ proteomes_clean %>%
   count()
 ```
 
-## Heart map
+## Heat map
 ```{r load file of Heatmap, include=FALSE} 
 setwd('../')
 source(file = "R/04_model_HM.R", local = knitr::knit_global())
@@ -144,11 +159,22 @@ HM_class + HM_TumorSize
 ```
 
 
-## PCA 
+## PCA and K-means
+```{r load file of PCA, include=FALSE} 
+setwd('../')
+source(file = "R/04_model_PCA.R", local = knitr::knit_global())
+```
 
+Three PCA  are plotted using geom_tile() on relevant Breasts Cancer Genes. One is based on tumor size whereas the other is based on class
+```{r show PCA , echo=FALSE, warning=FALSE, message=FALSE}
+(pl1 + pl2 + pl3)
+```
 
-## Discussion
+# Discussion
+## Fraction of Na
 - The removed duplicates were selected from an error when aligning ID's. This was done by se R filen 02 hvis relevant; HVIS NU DET ER RELEVANT AT HAVE MED.
 - Fraction of NA > 0.15 has been removed based on the plot showed in results. 
   - Calculated by rowSums(is.na(select(.,-RefSeqProteinID)))/80)
 - Discuss the selection of cancer_genes.
+
+## Selection of cancer_genes
