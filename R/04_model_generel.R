@@ -15,7 +15,9 @@ fractionNA_All <- proteomes_clean %>%
                  binwidth = 0.04) +
   labs(y = "Number of Proteomes", 
        x = "Fraction of NA in data", 
-       title = "Amount of missing data") 
+       title = "Amount of missing data",
+       subtitle = "Including all genes")+
+  theme_minimal()
 
 
 ## AS 8074 are equal to 0, then these are 'removed' from the plot, 
@@ -25,7 +27,9 @@ fractionNA_without0 <- proteomes_clean %>%
   geom_histogram(fill = "navy") +
   labs(y = "Number of Proteomes", 
        x = "Fraction of NA in data", 
-       title = "Amount of missing data") +
+       title = "Amount of missing data",
+       subtitle = "Genes with NA fraction above 0.0")+
+  theme_minimal() +
   xlim(0.000000001,0.8)
 
 
@@ -51,17 +55,19 @@ joined_data %>%
 
 #Count in age group
 joined_data %>% 
+  filter(Class != "Healthy") %>%
   count(Age_group)
 
 # The age at initial pathologic diagnosis
-ggplot(data = joined_data,
+age_diagnosis <- ggplot(data = joined_data %>%
+         filter(Class != "Healthy"),
        mapping = aes(x = Age_group, fill = Gender)) +
   geom_bar(alpha = 0.7) +
   labs(x = "Age group", y = "Number of patients", title = "Age at diagnosis")+
   theme_classic()
 
 # Scatterplot of age vs tumor filled by gender:
-ggplot(joined_data,
+tumor_gender <- ggplot(joined_data,
        mapping = aes(x = Tumor,
                      y = `Age at Initial Pathologic Diagnosis`, 
                      fill = Gender)) +
@@ -85,7 +91,7 @@ ggplot(joined_data,
 #Luminal A, Luminal B, HER2, Basal like and Normal. 
 #Each is associated with different prognoses, treatments and therapies.
 
-joined_data %>%
+cancer_subtype <- joined_data %>%
   mutate(Class = fct_rev(fct_infreq(Class))) %>%
   ggplot(aes(x = Class,
                  fill = `Class`)) + 

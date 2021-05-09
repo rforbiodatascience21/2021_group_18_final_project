@@ -54,7 +54,7 @@ PCA_plot <- pca %>%
         legend.title = element_text(face = "bold"))
 
 
-
+PCA_percent
 ### Tumor
 proteomes_data2 <- joined_data %>%
   select(Tumor, NP_009231, 
