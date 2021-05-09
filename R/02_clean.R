@@ -49,7 +49,7 @@ clinical_clean <- clinical %>%
 
 # WRITE data
 write_csv(x = proteomes_clean, 
-          file = "data/proteomes_clean.csv.gz")
+          file = "data/proteomes_clean1.csv.gz")
 
 
 write_csv(x = clinical_clean, 
