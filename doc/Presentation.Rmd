@@ -27,7 +27,7 @@ source(file = "R/04_model_generel.R", local = knitr::knit_global())
 
 # Introduction 
 ## Data
-- The breast cancer consists of 4 cancer group, and 3 healthy patients as well as 
+- The breast cancer data consists of 4 cancer groups, and 3 healthy patients as well as 
 ```{r show cancer class and other relevant, echo=FALSE}
 joined_data %>%
   group_by(`Class`, Gender) %>%
@@ -36,9 +36,9 @@ joined_data %>%
 other relevant parameters. (We will get into these in method)
 
 ## Goals
-- Exploration and identifying patterns of the data
-- Create visulation of the data 
-- Predict breast cancer class by looking at gene expressions
+- Exploration and identifying patterns in the data
+- Create visualization of the data 
+- Predict breast cancer class by looking at specific gene expressions
 
 # Materials and methods
 ## Materials
