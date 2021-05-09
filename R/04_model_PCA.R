@@ -147,7 +147,6 @@ pca_org_aug <- pca_fit_aug %>%
   augment(pca_class_aug_org) %>% 
   rename(cluster_pca = .cluster)
 
-pca_kmeans(Class)
 
 #Defining three plots - one with pca, second with kmeans of original data
 # third with kmeans of pca data
