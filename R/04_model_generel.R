@@ -67,13 +67,14 @@ age_diagnosis <- ggplot(data = joined_data %>%
   theme_classic()
 
 # Scatterplot of age vs tumor filled by gender:
-tumor_gender <- ggplot(joined_data,
+tumor_gender <- ggplot(joined_data %>%
+                         filter(Class != "Healthy"),
        mapping = aes(x = Tumor,
                      y = `Age at Initial Pathologic Diagnosis`, 
                      fill = Gender)) +
   geom_boxplot(alpha = 0.5) +
   labs(x = "Tumor classification", 
-       title = "Age divided on tumor class") +
+       title = "Age divided on tumor size") +
   theme_classic()
 
 # Scatterplot of cancer stage vs tumor size filled by metastasis if positive or negative:
