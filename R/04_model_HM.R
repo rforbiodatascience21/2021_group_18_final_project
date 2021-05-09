@@ -98,6 +98,7 @@ HM_class <-
         legend.text = element_text(size = 14),
         panel.spacing.y = unit(0.1, "cm")) +
   labs(title = "Heatmap of breast cancer genes",
+       subtitle = "Based on tumor class",
        x = "Cancer related genes",
        y = NULL) 
 
@@ -169,6 +170,7 @@ HM_TumorSize <-
         legend.text = element_text(size = 14),
         panel.spacing.y = unit(0.1, "cm")) +
   labs(title = "Heatmap of breast cancer genes",
+       subtitle = "Based on tumor size",
        x = "Cancer related genes",
        y = NULL) 
 
