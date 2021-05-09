@@ -13,6 +13,7 @@ fractionNA_All <- proteomes_clean %>%
   ggplot(mapping = aes(x =  Frac_NA)) +
   geom_histogram(fill = "navy", 
                  binwidth = 0.04) +
+  geom_vline(xintercept = 0.25, color = "red", linetype = "dashed")+
   labs(y = "Number of Proteomes", 
        x = "Fraction of NA in data", 
        title = "Amount of missing data",
@@ -25,6 +26,7 @@ fractionNA_All <- proteomes_clean %>%
 fractionNA_without0 <- proteomes_clean %>%
   ggplot(mapping = aes(x =  Frac_NA)) +
   geom_histogram(fill = "navy") +
+  geom_vline(xintercept = 0.25, color = "red", linetype = "dashed")+
   labs(y = "Number of Proteomes", 
        x = "Fraction of NA in data", 
        title = "Amount of missing data",
