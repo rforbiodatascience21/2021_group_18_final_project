@@ -78,9 +78,11 @@ pl1 <- pca_class_aug %>%
              colour = Class)) +
   geom_point() +
   theme(legend.position = "bottom")+
-  labs(title = "PCA ") +
-  xlab("PC1") +
-  ylab("PC2") 
+  labs(title = "PCA ",
+       x = "PC1", y = "PC2" ) +
+  guides(colour = guide_legend(title.position = "top",
+                                           nrow = 2,
+                                           byrow = TRUE))
 
 pl2 <- pca_class_aug_org %>%
   ggplot(aes(x = .fittedPC1, 
@@ -88,9 +90,11 @@ pl2 <- pca_class_aug_org %>%
              colour = cluster_org)) +
   geom_point() +
   theme(legend.position = "bottom")+
-  labs(title = "K-means original data") +
-  xlab("PC1") +
-  ylab("PC2") 
+  labs(title = "K-means original data",
+       x = "PC1", y = "PC2" ) +
+  guides(colour = guide_legend(title.position = "top",
+                               nrow = 2,
+                               byrow = TRUE))
 
 pl3 <- pca_org_aug %>%
   ggplot(aes(x = .fittedPC1, 
@@ -98,9 +102,11 @@ pl3 <- pca_org_aug %>%
              colour = cluster_pca)) +
   geom_point() +
   theme(legend.position = "bottom") +
-  labs(title = "K-means PCA data") +
-  xlab("PC1") +
-  ylab("PC2") 
+  labs(title = "K-means PCA data",
+       x = "PC1", y = "PC2" ) +
+  guides(colour = guide_legend(title.position = "top",
+                               nrow = 2,
+                               byrow = TRUE))
 
 (pl1 + pl2 + pl3)
 
