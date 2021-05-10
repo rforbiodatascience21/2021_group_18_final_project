@@ -185,5 +185,5 @@ conf_int_sig <- ggplot(data = proteomes_func_sig,
 
 # Write data --------------------------------------------------------------
 ggsave(filename = "results/manhplot.png", plot = manhplot, width = 16, height = 9, dpi = 72)
-ggsave(filename = "results/conf_int.png", plot = manhplot, width = 16, height = 9, dpi = 72)
-ggsave(filename = "results/conf_int_sig.png", plot = manhplot, width = 16, height = 9, dpi = 72)
+ggsave(filename = "results/conf_int.png", plot = conf_int, width = 16, height = 9, dpi = 72)
+ggsave(filename = "results/conf_int_sig.png", plot = conf_int_sig, width = 16, height = 9, dpi = 72)
