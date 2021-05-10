@@ -36,7 +36,7 @@ source(file = "R/04_model_generel.R", local = knitr::knit_global())
 [Source: Kaggle](https://www.kaggle.com/piotrgrabo/breastcancerproteomes#clinical_data_breast_cancer.csv)  
 
 ## Github overview
-#![Overview](../results/pl1.png)
+#![Overview](../results/GitOverview.png)
 
 # Materials and methods
 ## Materials: Extract of raw data
@@ -187,7 +187,7 @@ proteomes_func_sig %>%
 
 ```
 
-## P-values
+## Manhattan plot
 ```{r show p value plot , echo=FALSE, warning=FALSE, message=FALSE}
 manhplot
 ```
