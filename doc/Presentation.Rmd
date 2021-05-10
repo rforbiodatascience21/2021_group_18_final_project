@@ -1,6 +1,6 @@
 ---
 title: "Inspection and visualization of breast cancer data"
-author: "Mie Bjork, Naja Bahrenscheer, Sille Hendriksen, Sofia Otero"
+author: "Mie Björk, Naja Bahrenscheer, Sille Hendriksen, Sofia Otero"
 date: "12-May-2021"
 output: ioslides_presentation
 ---
@@ -29,9 +29,9 @@ source(file = "R/04_model_generel.R", local = knitr::knit_global())
 ## Overview of data
 - Plots and other analysis of the data. 
 - **File**: 77_cancer_proteomes_CPTAC_itraq.csv
-  - Contains gene expression data (12553 observations) from 77 cancer patients and 3 healthy persons.
+  - Gene expression data from 77 cancer patients and 3 healthy persons.
 - **File**: clinical_data_breast_cancer.csv
-  - Contains clinical data from the 77 cancer patients (not the 3 healthy), such as age, gender, tumor class etc.
+  - Clinical data from the 77 cancer patients
   
 [Source: Kaggle](https://www.kaggle.com/piotrgrabo/breastcancerproteomes#clinical_data_breast_cancer.csv)  
 
