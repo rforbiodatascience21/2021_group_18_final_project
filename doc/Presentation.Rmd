@@ -20,11 +20,6 @@ library(stringr)
 library(kableExtra)
 ```
 
-```{r load of model generel to be used in introduction, include=FALSE} 
-setwd('../')
-source(file = "R/04_model_generel.R", local = knitr::knit_global())
-```
-
 # Introduction 
 ## Overview of data
 - **File**: 77_cancer_proteomes_CPTAC_itraq.csv
