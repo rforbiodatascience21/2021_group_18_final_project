@@ -4,7 +4,6 @@ rm(list = ls())
 # Load data ---------------------------------------------------------------
 proteomes_clean <- read_csv(file = "data/proteomes_clean.csv.gz")
 proteomes_clean_NA <- read_csv(file = "data/proteomes_clean_NA.csv.gz")
-clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 joined_data <- read_csv(file = "data/joined_data.csv.gz")
 
 
