@@ -140,16 +140,13 @@ joined_data %>%
 
 
 ## Heat map
-
 ![](../results/HeatMaps.png)
 
 
 ## PCA percent
-
 ![](../results/PCA_percent.png)
 
 ## PCA and K-means
-
 ![](../results/PCAkMeans.png)
 
 ## Linear model extract
@@ -169,13 +166,10 @@ proteomes_func_sig %>%
 ```
 
 ## Manhattan plot
-
 ![](../results/manhplot.png)
 
 ## Confidence interval plots
-```{r show Conf int plots , echo=FALSE, warning=FALSE, message=FALSE}
-conf_int + conf_int_sig 
-```
+![](../results/conf_int_plots.png)
 
 # Discussion
 ## Fraction of Na
