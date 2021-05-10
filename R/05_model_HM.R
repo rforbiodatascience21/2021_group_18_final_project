@@ -65,8 +65,7 @@ cancer_genes <- joined_data %>%
                                       "CDH1", 
                                       "STK11", 
                                       "ERRB2", 
-                                      "GATA3"))) %>%
-  drop_na()
+                                      "GATA3")))
 
 # The heatmap plot
 HM_class <- 
@@ -137,8 +136,7 @@ cancer_genes_tumor <- joined_data %>%
                         "ERRB2", 
                         "GATA3"), 
                names_to = "RefSeqProteinID",
-               values_to = "Expression level (log2)") %>% 
-  drop_na()
+               values_to = "Expression level (log2)")
 
 # The heatmap plot
 HM_TumorSize <-
