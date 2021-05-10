@@ -128,6 +128,7 @@ joined_data %>%
 
 
 ## Extract relevant breast cancer genes
+<font size="3">
 8 genes are selected \
 - BRCA1 = breast cancer type 1 susceptibility protein isoform 2 \
 - TP53 = cellular tumor antigen p53 isoform a \
@@ -137,7 +138,7 @@ joined_data %>%
 - STK11 = serine/threonine-protein kinase STK11 \
 - ERRB2 / HER2 = receptor tyrosine-protein kinase erbB-2 isoform a precursor \
 - GATA3 = trans-acting T-cell-specific transcription factor GATA-3 isoform 1\
-
+</font>
 
 ## Heat map
 ![](../results/HeatMaps.png)
