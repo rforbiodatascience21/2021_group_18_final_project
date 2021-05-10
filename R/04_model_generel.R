@@ -64,9 +64,9 @@ joined_data %>%
   count(Age_group)
 
 # The age at initial pathologic diagnosis
-age_diagnosis <- ggplot(data = joined_data %>%
-         filter(Class != "Healthy"),
-       mapping = aes(x = Age_group, 
+age_diagnosis <- joined_data %>%
+  filter(Class != "Healthy") %>%
+  ggplot(mapping = aes(x = Age_group, 
                      fill = Gender)) +
   geom_bar(alpha = 0.7) +
   labs(x = "Age group", 
@@ -75,9 +75,9 @@ age_diagnosis <- ggplot(data = joined_data %>%
   theme_classic()
 
 # Scatterplot of age vs tumor filled by gender:
-tumor_gender <- ggplot(joined_data %>%
-                         filter(Class != "Healthy"),
-       mapping = aes(x = Tumor,
+tumor_gender <- joined_data %>%
+  filter(Class != "Healthy") %>%
+  ggplot(mapping = aes(x = Tumor,
                      y = `Age at Initial Pathologic Diagnosis`, 
                      fill = Gender)) +
   geom_boxplot(alpha = 0.5) +
@@ -88,7 +88,7 @@ tumor_gender <- ggplot(joined_data %>%
 # Plot of how many patients have each type of cancer. 
 cancer_subtype <- joined_data %>%
   mutate(Class = fct_rev(fct_infreq(Class))) %>%
-  ggplot(aes(x = Class,
+  ggplot(mapping = aes(x = Class,
                  fill = `Class`)) + 
   geom_bar() + 
   scale_fill_brewer(palette = "Spectral") +
