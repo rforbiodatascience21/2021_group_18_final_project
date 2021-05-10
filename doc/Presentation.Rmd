@@ -177,30 +177,31 @@ proteomes_func_sig %>%
 - Limit at 25% ~ 17% genes removed \
 - Limit at 0% ~ 36% genes removed \
 
-**Replacement by median**\
+### Replacement by median**\
 - Avoid NA values \
+\
 - Not necessary to remove either person or whole gene \
+\
 - Does not skew the data\
 
 
-## Selection of cancer_genes
+## Selection of cancer genes
+- Small subset of data \
+- Improvement for future: identify significant genes across whole dataset\
+- Findings: HER2/ERRB2 gene significant in Manhattan plot
 
- \
-BRCA1 = NP_009231 \
-TP53 = NP_000537 \
-CHEK2 = NP_009125, NP_665861 \
-PTEN = NP_000305 \
-CDH1 = NP_004351 \
-STK11 = NP_000446 \
-ERRB2/HER2 = NP_004439 \
-GATA3 = NP_001002295 \
+![](../results/manhplot.png)
 
-### Compare healthy and cancer diagnosed patients.
-Only 3 healthy people.
+## Additional thoughts
 
-## Protein data set
-- Not useful
-- Consists of Genesymbol, RefSeqProteinID, Species, Gene Name
+### Comparison between healthy and diseased \
+- Used in PCA analysis and K-means \
+- Only 3 individuals (no clinical data) \
+\
 
+### Deselection of dataset \
+- "Dictionary" of proteins \
+- Not usefull for our approach \
+- Could have been used to "translate" RefSeqProteinID's
 
-# Thank you for listining. 
+# Thank you for listening 
