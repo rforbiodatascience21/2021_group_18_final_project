@@ -43,12 +43,30 @@ proteomes_func <- proteomes_nested %>%
        tidying = map(mdl, conf.int = TRUE, tidy)) %>%
   unnest(tidying)
 
-
-#proteomes_func <- proteomes_nested %>%
-#  mutate(event = map(data, "OS event"), 
-#         log2 = map(data, "log2_expression"))
-
-
 proteomes_func <- proteomes_func %>%
+  filter(term == "log2_expression")
+
+proteomes_func_sig <- proteomes_func %>%
   mutate(identified_as = case_when(p.value > 0.05 ~"Non-significant",
                                    p.value < 0.05 ~ "Significant"))
+
+proteomes_func_sig <- proteomes_func_sig %>%
+  mutate(neg_log10_p = -log10(p.value))
+
+
+manhplot <- ggplot(proteomes_func_sig, 
+                   mapping = aes(x = reorder(RefSeqProteinID, desc(neg_log10_p)), 
+                                 y = neg_log10_p, 
+                                 color = identified_as)) +
+  geom_point(alpha = 0.75, size = 2) +
+  geom_hline(yintercept = -log10(0.05), linetype = "dashed") + 
+  labs(x = "Gene", 
+       y = "Minus log 10(p)") + 
+  theme_classic(base_family = "Avenir", base_size = 8) +
+  theme( 
+    legend.position = "bottom",
+    panel.border = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    axis.text.x = element_text(angle = 45, size = 4, vjust = 0.5)
+  )
