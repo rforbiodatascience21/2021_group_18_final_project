@@ -1,6 +1,6 @@
 cancer_genes <-
   c("NP_009231", 
-"NP_000537", 
+  "NP_000537", 
 "NP_009125", 
 "NP_000305", 
 "NP_004351", 
@@ -25,7 +25,8 @@ proteomes_clean_long <- proteomes_clean_NA %>%
 
 
 proteomes_nested <- joined_data %>%
-  select("TCGA_ID",`OS event`) %>%
+  select("TCGA_ID",
+         `OS event`) %>%
   full_join(y = proteomes_clean_long,
             by = "TCGA_ID") %>% 
   select(-TCGA_ID) %>%
