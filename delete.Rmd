@@ -1,9 +1,0 @@
----
-title: "Inspection and visualization of breast cancer data"
-author: "Mie Bjork, Naja Bahrenscheer, Sille Hendriksen, Sofia Otero"
-date: "12-May-2021"
-output: ioslides_presentation
----
-
-## Github overview
-#![Overview](results/HeatMap_Class.png)
