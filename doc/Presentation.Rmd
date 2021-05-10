@@ -122,17 +122,17 @@ joined_data %>%
 
 
 ## Extract relevant breast cancer genes
-<font size="3">
-8 genes are selected from the [American Cancer Society](https://www.cancer.org/cancer/breast-cancer/risk-and-prevention/breast-cancer-risk-factors-you-cannot-change.html?fbclid=IwAR3_gy68xITNknN36n2uay179hfmhxMrP7UejZKIe5EgtE_1TFGVZQPnaKA)  
-- BRCA1 = breast cancer type 1 susceptibility protein isoform 2 \
-- TP53 = cellular tumor antigen p53 isoform a \
-- CHEK2 = serine/threonine-protein kinase Chk2 isoform a \
-- PTEN = phosphatidylinositol 3,4,5-trisphosphate 3-phosphatase \
-- CDH1 = cadherin-1 preproprotein \
-- STK11 = serine/threonine-protein kinase STK11 \
-- ERRB2 / HER2 = receptor tyrosine-protein kinase erbB-2 isoform a precursor \
-- GATA3 = trans-acting T-cell-specific transcription factor GATA-3 isoform 1\
-</font>
+  | Gene     | Description |
+  | --------- | -----:|
+  | BRCA1       | breast cancer type 1 susceptibility protein isoform 2 |
+  | TP53        |   cellular tumor antigen p53 isoform a  |
+  | CHEK2       |    serine/threonine-protein kinase Chk2 isoform a |
+  | PTEN        |    phosphatidylinositol 3,4,5-trisphosphate 3-phosphatase |
+  | CDH1        |    cadherin-1 preproprotein |
+  | STK11       |    serine/threonine-protein kinase STK11 |
+  | ERRB2/HER2  |    receptor tyrosine-protein kinase erbB-2 isoform a precursor |
+  | GATA3       |    trans-acting T-cell-specific transcription factor GATA-3 isoform 1 |
+[Source: American Cancer Society](https://www.cancer.org/cancer/breast-cancer/risk-and-prevention/breast-cancer-risk-factors-you-cannot-change.html?fbclid=IwAR3_gy68xITNknN36n2uay179hfmhxMrP7UejZKIe5EgtE_1TFGVZQPnaKA)  
 
 ## Heat map
 ![](../results/HeatMaps.png)
@@ -151,20 +151,14 @@ source(file = "R/07_model_pvalue.R", local = knitr::knit_global())
 ```
 
 ```{r show extract of protoemes , echo=FALSE, warning=FALSE, message=FALSE}
-set.seed(759677) #added to ensure same slice_sample choose the same 4 rows each time.
-proteomes_func_sig %>%
+proteomes_func_cancer %>%
   select(c(1,8:12)) %>%
-  slice_sample(n =4) %>%
   kable("html") %>%
   kable_styling(font_size = 10)
-
 ```
 
 ## Manhattan plot
 ![](../results/manhplot.png)
-
-## Confidence interval plots
-![](../results/conf_int_plots.png)
 
 # Discussion
 ## Handling of NA values
