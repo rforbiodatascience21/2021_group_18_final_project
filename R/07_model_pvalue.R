@@ -106,6 +106,15 @@ proteomes_func_cancer <- proteomes_func_cancer %>%
                                    p.value < 0.05 ~ "Significant")) %>%
   mutate(neg_log10_p = -log10(p.value))
 
+# Selecting variables for presentation
+proteomes_statistics <- proteomes_func_cancer %>%
+  select(RefSeqProteinID,
+         statistic,
+         p.value, 
+         conf.low, 
+         conf.high, 
+         identified_as,
+         neg_log10_p)
 
 # Making manhattan plot combining cancer genes and random genes
 manhplot <- ggplot(proteomes_func, 
@@ -203,3 +212,5 @@ conf_int_sig <- ggplot(data = proteomes_func_sig,
 # Write data --------------------------------------------------------------
 ggsave(filename = "results/manhplot.png", plot = manhplot, width = 10, height = 5, dpi = 72)
 ggsave(filename = "results/conf_int_plots.png", plot = conf_int + conf_int_sig, width = 10, height = 5, dpi = 72)
+write_csv(x = proteomes_statistics, 
+          file = "data/proteomes_statistics.csv.gz")
