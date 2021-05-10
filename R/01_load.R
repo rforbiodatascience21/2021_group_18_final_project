@@ -17,10 +17,6 @@ library(stringr)
 library(tidymodels)
 
 
-# Define functions --------------------------------------------------------
-source(file = "R/99_project_functions.R")
-
-
 # Load data ---------------------------------------------------------------
 proteomes <- read_csv("data/_raw/77_cancer_proteomes_CPTAC_itraq.csv")
 clinical <- read_csv("data/_raw/clinical_data_breast_cancer.csv")
@@ -35,5 +31,3 @@ write_csv(x = clinical,
 
 write_csv(x = proteins, 
           file = "data/proteins.csv.gz")
-
-
