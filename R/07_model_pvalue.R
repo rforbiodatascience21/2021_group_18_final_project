@@ -81,3 +81,6 @@ manhplot <- ggplot(proteomes_func_sig,
     panel.grid.minor.x = element_blank(),
     axis.text.x = element_text(angle = 45, size = 4, vjust = 0.5)
   )
+
+# Write data --------------------------------------------------------------
+ggsave(filename = "results/manhplot.png", plot = manhplot, width = 16, height = 9, dpi = 72)
