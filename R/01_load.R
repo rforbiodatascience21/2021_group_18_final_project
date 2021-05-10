@@ -3,22 +3,14 @@ rm(list = ls())
 
 
 # Load libraries ----------------------------------------------------------
-library("tidyverse")
-library("usethis")
-library("devtools")
-library("patchwork")
+library(tidyverse)
+library(patchwork)
 library(modelr)
-options(na.action = na.warn)
-library(lubridate)
 library(broom)
 library(purrr)
 library(vroom)
 library(stringr)
-library(tidymodels)
-
-
-# Define functions --------------------------------------------------------
-source(file = "R/99_project_functions.R")
+library(kableExtra)
 
 
 # Load data ---------------------------------------------------------------
@@ -35,5 +27,3 @@ write_csv(x = clinical,
 
 write_csv(x = proteins, 
           file = "data/proteins.csv.gz")
-
-

@@ -1,15 +1,6 @@
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
 
-#####
-#PCA
-#Heat map
-#K-means
-#Generelle plots for at vise data
-#Linear models og p-værdi
-#Cluster analysis
-#####
-
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
 
@@ -37,9 +28,9 @@ proteomes_clean <- proteomes_clean %>%
 proteomes_clean <- proteomes_clean %>% 
   rename_with( ~ str_replace_all(.,"\\..*",""))
 
-#### CLINICAL ####
 
-#Aligning ID's with ID's in proteome file
+#### CLINICAL ####
+#Aligning ID's with ID's in proteomes file
 clinical_clean <- clinical %>%
   mutate(TCGA_ID = str_sub(`Complete TCGA ID`, 
                            start = 6,
@@ -47,11 +38,9 @@ clinical_clean <- clinical %>%
   select(-`Complete TCGA ID`)
 
 
-# WRITE data
+# Write data --------------------------------------------------------------
 write_csv(x = proteomes_clean, 
           file = "data/proteomes_clean1.csv.gz")
 
-
 write_csv(x = clinical_clean, 
           file = "data/clinical_clean.csv.gz")
-

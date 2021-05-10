@@ -81,7 +81,3 @@ write_csv(x = proteomes_clean,
           file = "data/proteomes_clean.csv.gz")
 write_csv(x = proteomes_clean_NA, 
           file = "data/proteomes_clean_NA.csv.gz")
-
-
-# Define functions --------------------------------------------------------
-source(file = "R/99_project_functions.R")
