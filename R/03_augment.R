@@ -1,8 +1,6 @@
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
 
-# Load libraries ----------------------------------------------------------
-library("tidyverse")
 
 # Load data ---------------------------------------------------------------
 proteomes_clean <- read_csv(file = "data/proteomes_clean1.csv.gz")
