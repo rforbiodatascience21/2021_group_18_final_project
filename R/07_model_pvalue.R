@@ -111,8 +111,6 @@ proteomes_statistics <- proteomes_func_cancer %>%
   select(RefSeqProteinID,
          statistic,
          p.value, 
-         conf.low, 
-         conf.high, 
          identified_as,
          neg_log10_p)
 
