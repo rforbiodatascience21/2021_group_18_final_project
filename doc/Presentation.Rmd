@@ -1,5 +1,5 @@
 ---
-title: "Final presentation of R for bioscience analysing dataset of breast cancer"
+title: "Inspection and visualization of breast cancer data"
 author: "Mie Bjork, Naja Bahrenscheer, Sille Hendriksen, Sofia Otero"
 date: "12-May-2021"
 output: ioslides_presentation
@@ -27,63 +27,36 @@ source(file = "R/04_model_generel.R", local = knitr::knit_global())
 
 # Introduction 
 ## Overview of data
-- Plots and other grouping/analysis will shown to give an overview of the data. 
-```{r show cancer class and other relevant, echo=FALSE}
-joined_data %>%
-  group_by(`Class`, Gender) %>%
-  count()
-```
+- Plots and other analysis of the data. 
+- **File**: 77_cancer_proteomes_CPTAC_itraq.csv
+  - Contains gene expression data (12553 observations) from 77 cancer patients and 3 healthy persons.
+- **File**: clinical_data_breast_cancer.csv
+  - Contains clinical data from the 77 cancer patients (not the 3 healthy), such as age, gender, tumor class etc.
+  
+[Source: Kaggle](https://www.kaggle.com/piotrgrabo/breastcancerproteomes#clinical_data_breast_cancer.csv)  
 
-## Tumor vs Gender
-```{r show tumor gender and other relevant, echo=FALSE}
-tumor_gender
-```
-## Age at diagnosis
-```{r show Age at diagnosis, echo=FALSE}
-age_diagnosis
-```
-
-## Subtype of breast cancer
-```{r show Subtype of cancer, echo=FALSE}
-cancer_subtype
-```
-
-## Goals
-- Exploration and identifying patterns in the data
-- Create visualization of the data 
+## Nice to have Github overview. Not need to have
 
 # Materials and methods
-## Materials
-### Data
-- 77_cancer_proteomes_CPTAC_itraq.csv
-  - Reference Sequence protein ID
-  - Gene symbol
-  - Gene name
-
-- Clinical_data_breast_cancer.csv
-  - Patient ID (TCGA ID)
-  - Gender
-  - Cancer class
-  - Other relevant clinical observation
-
-- See next slide for extract of raw data
-
-[Source: Kaggle](https://www.kaggle.com/piotrgrabo/breastcancerproteomes#clinical_data_breast_cancer.csv)  
-  
 ## Materials: Extract of raw data
 ```{r load raw data, include=FALSE}
 setwd('../')
 source(file = "R/01_load.R", knitr::knit_global())
 ```
 
-```{r show raw data, echo=FALSE}
+**Proteomes**
+```{r show raw data proteomes, echo=FALSE}
 set.seed(77777) #added to ensure same slice_sample choose the same 4 rows each time.
 proteomes %>%
   select(1:4) %>%
   slice_sample(n =4) %>%
   kable("html") %>%
   kable_styling(font_size = 10)
+```
 
+**Clinical**
+```{r show raw data clinical, echo=FALSE}
+set.seed(77777) #added to ensure same slice_sample choose the same 4 rows each time.
 clinical %>%
   select(`Complete TCGA ID`, Gender, `Age at Initial Pathologic Diagnosis`, Tumor, `PAM50 mRNA`) %>% #add flere columns if relevant
   slice(1:4) %>%
@@ -91,28 +64,29 @@ clinical %>%
   kable_styling(font_size = 10)
 ```
 
-## Methods: Clearing of data
-### We have done some clearning of the two data sets 
-- Proteomes: 
-  - Rename, so the column names aligns with the clinical file
-  - Removing .01TCGA from every column name in to match ID's in clinical using rename() in combination with str_replace_all()
+
+## Methods: Cleaning of data
+### We have done some cleaning of the two data sets 
+- **Proteomes**: 
+  - Rename, so the column names align with the clinical file
+  - Removing .01TCGA from every column name to match ID's in clinical using rename() in combination with str_replace_all()
   - Removing duplicates using select() 
   
-- Clinical: 
+- **Clinical**: 
   - Aligning ID's with proteome file using sub_str()
 
 
-## Methods: Wranged data
-### After the clearning, the datasets were wranged and joined
-- Proteomes: 
-  - Removing fraction NA > 0.15 using filter()
+## Methods: Wrangle data
+### After the cleaning, the datasets were wrangled and joined
+- **Proteomes**: 
+  - Removing fraction NA > 0.25 using filter()
   - Replace the remaining NAs with median of column
   - Transpose data (get protein ID as columns)
 
-- Clinical
+- **Clinical**:
   - Rename of PAM50 mRNA to Class
 
-Finally, a right_join() with x = clinical, y = proteomes, and by patient ID (TCGA_ID) was used to make the joined_data. For the joined data, the age was divided into agegroups using mutate and casewhen(). A joined_healthy_data consists on only the heathly was also made.
+Finally, a right_join() with x = clinical, y = proteomes, and by TCGA_ID (patient ID) was used to make the joined_data. For the joined data, the age was divided into age_groups using mutate and casewhen().
 
 ## Materials: Extract of clean data
 ```{r load clean data, include=FALSE}
@@ -120,14 +94,20 @@ setwd('../')
 source(file = "R/03_augment.R", knitr::knit_global())
 ```
 
+**joined data**
 ```{r show clean data, echo=FALSE}
 set.seed(759677) #added to ensure same slice_sample choose the same 4 rows each time.
 joined_data %>%
-  select(c(1:3,100:102)) %>%
+  select(c(1:3,8,22)) %>%
   slice_sample(n =4) %>%
   kable("html") %>%
   kable_styling(font_size = 10)
 
+joined_data %>%
+  select(100:105) %>%
+  slice_sample(n =4) %>%
+  kable("html") %>%
+  kable_styling(font_size = 10)
 ```
 
 # Results
@@ -139,13 +119,29 @@ source(file = "R/04_model_generel.R", knitr::knit_global())
 fractionNA_All + fractionNA_without0
 ```
 
-## Removal for genes according to the fraction of NAs comments
-Lots of the represented genes expression do not contain NA vlaues. Thereby, all of them was removed from the plot, to get a better estimate of where to cut the lowest wanted fraction of NAs.For this, we end up removing 2205 genes.
+## Fjernes. Removal for genes according to the fraction of NAs comments
+Lots of the represented genes expression do not contain NA vlaues. Thereby, all of them was removed from the plot on the right, to get a better estimate of where to cut the lowest wanted fraction of NAs.For this, we end up removing 2205 genes.
 ```{r removed FracNA, echo=FALSE, warning=FALSE, message=FALSE} 
 proteomes_clean %>%
   filter(Frac_NA > 0.25) %>%
   count()
 ```
+
+## Tumor vs Gender
+```{r show tumor gender and other relevant, echo=FALSE}
+tumor_gender
+```
+
+## Age at diagnosis
+```{r show Age at diagnosis, echo=FALSE}
+age_diagnosis
+```
+
+## Subtype of breast cancer
+```{r show Subtype of cancer, echo=FALSE}
+cancer_subtype
+```
+
 
 ## Heat map
 ```{r load file of Heatmap, include=FALSE} 
@@ -158,23 +154,45 @@ Two Heat maps are plotted using geom_tile() on relevant Breasts Cancer Genes. On
 HM_class + HM_TumorSize
 ```
 
-
-## PCA and K-means
+## PCA percents
 ```{r load file of PCA, include=FALSE} 
 setwd('../')
 source(file = "R/04_model_PCA.R", local = knitr::knit_global())
 ```
 
-Three PCA  are plotted using geom_tile() on relevant Breasts Cancer Genes. One is based on tumor size whereas the other is based on class
+```{r show PCA procents , echo=FALSE, warning=FALSE, message=FALSE}
+PCA_percent
+```
+
+## PCA and K-means
+Three plots of PCA, K-means org. data and K-means PCA data
 ```{r show PCA , echo=FALSE, warning=FALSE, message=FALSE}
-(pl1 + pl2 + pl3)
+(pl1 + pl2 + pl3) 
 ```
 
 # Discussion
 ## Fraction of Na
-- The removed duplicates were selected from an error when aligning ID's. This was done by se R filen 02 hvis relevant; HVIS NU DET ER RELEVANT AT HAVE MED.
-- Fraction of NA > 0.15 has been removed based on the plot showed in results. 
-  - Calculated by rowSums(is.na(select(.,-RefSeqProteinID)))/80)
-- Discuss the selection of cancer_genes.
+- Fraction of NA > 0.25 has been removed based on the plot showed in results. 
+  - Calculated by
+    - rowSums(is.na(select(.,-RefSeqProteinID)))/80)
 
 ## Selection of cancer_genes
+###Interrogation of genes related to breast cancer
+BRCA1 = NP_009231
+TP53 = NP_000537
+CHEK2 = NP_009125, NP_665861
+PTEN = NP_000305
+CDH1 = NP_004351
+STK11 = NP_000446
+ERRB2/HER2 = NP_004439
+GATA3 = NP_001002295
+
+### It could have been interstering to compare healthy and cancer diagnosed patients.
+Only 3 healthy people.
+
+## Protein data set
+- Not useful
+- Consists of Genesymbol, RefSeqProteinID, Species, Gene Name
+
+
+# Thank you for listining. 
