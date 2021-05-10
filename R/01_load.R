@@ -3,13 +3,9 @@ rm(list = ls())
 
 
 # Load libraries ----------------------------------------------------------
-library("tidyverse")
-library("usethis")
-library("devtools")
-library("patchwork")
+library(tidyverse)
+library(patchwork)
 library(modelr)
-options(na.action = na.warn)
-library(lubridate)
 library(broom)
 library(purrr)
 library(vroom)
