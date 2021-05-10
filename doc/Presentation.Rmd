@@ -36,7 +36,7 @@ source(file = "R/04_model_generel.R", local = knitr::knit_global())
 [Source: Kaggle](https://www.kaggle.com/piotrgrabo/breastcancerproteomes#clinical_data_breast_cancer.csv)  
 
 ## Github overview
-#![Overview](../results/GitOverview.png)
+#![](../results/GitOverview.png)
 
 # Materials and methods
 ## Materials: Extract of raw data
@@ -114,28 +114,18 @@ joined_data %>%
 
 # Results
 ## Removal for genes according to the fraction of NAs
-```{r load and plot FracNA, echo=FALSE, warning=FALSE, message=FALSE} 
-setwd('../')
-source(file = "R/04_model_generel.R", knitr::knit_global())
-
-fractionNA_All + fractionNA_without0
-```
+![](../results/FractionNA.png)
 
 ## Age at diagnosis
-```{r show Age at diagnosis, echo=FALSE}
-age_diagnosis
-```
+![](../results/age_diagnosis.png)
+
 
 ## Tumor, age at diagnosis and gender
-```{r show tumor gender and other relevant, echo=FALSE}
-tumor_gender
-```
-
+![](../results/tumor_gender.png)
 
 ## Subtype of breast cancer
-```{r show Subtype of cancer, echo=FALSE}
-cancer_subtype
-```
+![](../results/cancer_subtype.png)
+
 
 ## Extract relevant breast cancer genes
 8 genes are selected \
@@ -150,29 +140,17 @@ cancer_subtype
 
 
 ## Heat map
-```{r load file of Heatmap, include=FALSE} 
-setwd('../')
-source(file = "R/05_model_HM.R", local = knitr::knit_global())
-```
 
-```{r show HeatMap, echo=FALSE, warning=FALSE, message=FALSE}
-HM_class + HM_TumorSize
-```
+![](../results/HeatMaps.png)
 
-## PCA percents
-```{r load file of PCA, include=FALSE} 
-setwd('../')
-source(file = "R/06_model_PCA.R", local = knitr::knit_global())
-```
 
-```{r show PCA procents , echo=FALSE, warning=FALSE, message=FALSE}
-PCA_percent
-```
+## PCA percent
+
+![](../results/PCA_percent.png)
 
 ## PCA and K-means
-```{r show PCA , echo=FALSE, warning=FALSE, message=FALSE}
-(pl1 + pl2 + pl3) 
-```
+
+![](../results/PCAkMeans.png)
 
 ## Linear model extract
 ```{r load file of pvalues, include=FALSE} 
@@ -191,9 +169,8 @@ proteomes_func_sig %>%
 ```
 
 ## Manhattan plot
-```{r show p value plot , echo=FALSE, warning=FALSE, message=FALSE}
-manhplot
-```
+
+![](../results/manhplot.png)
 
 ## Confidence interval plots
 ```{r show Conf int plots , echo=FALSE, warning=FALSE, message=FALSE}
