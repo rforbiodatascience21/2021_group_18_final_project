@@ -9,10 +9,12 @@ joined_data <- read_csv(file = "data/joined_data.csv.gz")
 
 #### PLOT fraction NA ###
 fractionNA_All <- proteomes_clean %>%
-  ggplot(mapping = aes(x =  Frac_NA)) +
+  ggplot(mapping = aes(x = Frac_NA)) +
   geom_histogram(fill = "navy", 
                  binwidth = 0.04) +
-  geom_vline(xintercept = 0.25, color = "red", linetype = "dashed")+
+  geom_vline(xintercept = 0.25, 
+             color = "red", 
+             linetype = "dashed")+
   labs(y = "Number of Proteomes", 
        x = "Fraction of NA in data", 
        title = "Amount of missing data",
@@ -23,15 +25,17 @@ fractionNA_All <- proteomes_clean %>%
 ## AS 8074 are equal to 0, then these are 'removed' from the plot, 
 #to give a better overview ###
 fractionNA_without0 <- proteomes_clean %>%
-  ggplot(mapping = aes(x =  Frac_NA)) +
+  ggplot(mapping = aes(x =Frac_NA)) +
   geom_histogram(fill = "navy") +
-  geom_vline(xintercept = 0.25, color = "red", linetype = "dashed")+
+  geom_vline(xintercept = 0.25, 
+             color = "red", 
+             linetype = "dashed")+
   labs(y = "Number of Proteomes", 
        x = "Fraction of NA in data", 
        title = "Amount of missing data",
        subtitle = "Genes with NA fraction above 0.0")+
   theme_minimal() +
-  xlim(0.000000001,0.8)
+  xlim(0.000000001, 0.8)
 
 
 ### HOW MANY REMOVED ###
@@ -62,9 +66,12 @@ joined_data %>%
 # The age at initial pathologic diagnosis
 age_diagnosis <- ggplot(data = joined_data %>%
          filter(Class != "Healthy"),
-       mapping = aes(x = Age_group, fill = Gender)) +
+       mapping = aes(x = Age_group, 
+                     fill = Gender)) +
   geom_bar(alpha = 0.7) +
-  labs(x = "Age group", y = "Number of patients", title = "Age at diagnosis")+
+  labs(x = "Age group", 
+       y = "Number of patients", 
+       title = "Age at diagnosis") +
   theme_classic()
 
 # Scatterplot of age vs tumor filled by gender:

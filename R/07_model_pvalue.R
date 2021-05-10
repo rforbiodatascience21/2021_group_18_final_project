@@ -74,7 +74,9 @@ proteomes_func <- sample_100_genes_nested %>%
                    ~glm(HER2_binary ~ log2_expression, 
                         data = .,
                         family = binomial(link = "logit"))),
-         tidying = map(mdl, conf.int = TRUE, tidy)) %>%
+         tidying = map(mdl, 
+                       conf.int = TRUE, 
+                       tidy)) %>%
   unnest(tidying)
 
 # Same for cancer data
@@ -83,7 +85,9 @@ proteomes_func_cancer <- sample_cancer_genes_nested %>%
                    ~glm(HER2_binary ~ log2_expression, 
                         data = .,
                         family = binomial(link = "logit"))),
-         tidying = map(mdl, conf.int = TRUE, tidy)) %>%
+         tidying = map(mdl, 
+                       conf.int = TRUE, 
+                       tidy)) %>%
   unnest(tidying)
 
 
@@ -109,24 +113,29 @@ manhplot <- ggplot(proteomes_func,
                                              desc(neg_log10_p)), 
                                  y = neg_log10_p, 
                                  color = identified_as)) +
-  geom_point(alpha = 0.25, size = 3) +
+  geom_point(alpha = 0.25, 
+             size = 3) +
   geom_point(data = proteomes_func_cancer,
              mapping = aes(x = reorder(RefSeqProteinID, 
                                        desc(neg_log10_p)), 
                            y = neg_log10_p,
                            fill = identified_as))+
-  geom_hline(yintercept = -log10(0.05), linetype = "dashed") + 
+  geom_hline(yintercept = -log10(0.05), 
+             linetype = "dashed") + 
   labs(x = "Gene", 
        y = "Minus log 10(p)",
        title = "Manhattan plot of 100 genes",
        subtitle = "Including 8 cancer genes and 92 random selected genes.\nFaded = random genes") + 
-  theme_classic(base_family = "Avenir", base_size = 10) +
+  theme_classic(base_family = "Avenir", 
+                base_size = 10) +
   theme( 
     legend.position = "bottom",
     panel.border = element_blank(),
     panel.grid.major.x = element_blank(),
     panel.grid.minor.x = element_blank(),
-    axis.text.x = element_text(angle = 45, size = 6, vjust = 0.5)
+    axis.text.x = element_text(angle = 45, 
+                               size = 6, 
+                               vjust = 0.5)
   )
 
 
@@ -135,20 +144,25 @@ conf_int <- ggplot(proteomes_func,
                                  y = reorder(RefSeqProteinID, 
                                              desc(estimate)),
                                  color = identified_as)) +
-  geom_point(alpha = 0.75, size = 2) +
-  geom_vline(xintercept = 0, linetype = "dashed") +
+  geom_point(alpha = 0.75, 
+             size = 2) +
+  geom_vline(xintercept = 0, 
+             linetype = "dashed") +
   geom_errorbarh(aes(xmin = conf.low,
                      xmax = conf.high,
                      height = 0.2)) +
   labs(y = "RefSeqProteinID", 
        title = "Confidence interval plot with effect directions",
        subtitle = "Including 8 cancer genes and 92 random selected genes") +
-  theme_classic(base_family = "Avenir", base_size = 10) +
+  theme_classic(base_family = "Avenir", 
+                base_size = 10) +
   theme(legend.position = "bottom",
         panel.border = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
-        axis.text.x = element_text(angle = 45, size = 6, vjust = 0.5)
+        axis.text.x = element_text(angle = 45, 
+                                   size = 6, 
+                                   vjust = 0.5)
   )
 
 # Filtering to only get significant proteomes
@@ -174,13 +188,16 @@ conf_int_sig <- ggplot(data = proteomes_func_sig,
   labs(y = "RefSeqProteinID", 
        title = "Confidence interval plot with effect directions - only significant",
        subtitle = "Only significant genes")+
-  theme_classic(base_family = "Avenir", base_size = 8) +
+  theme_classic(base_family = "Avenir", 
+                base_size = 8) +
   theme(
     legend.position = "bottom",
     panel.border = element_blank(),
     panel.grid.major.x = element_blank(),
     panel.grid.minor.x = element_blank(),
-    axis.text.x = element_text(angle = 45, size = 4, vjust = 0.5)
+    axis.text.x = element_text(angle = 45, 
+                               size = 4, 
+                               vjust = 0.5)
   )
 
 # Write data --------------------------------------------------------------

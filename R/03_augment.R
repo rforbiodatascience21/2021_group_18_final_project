@@ -12,7 +12,8 @@ clinical_clean <- read_csv(file = "data/clinical_clean.csv.gz")
 ### FRACTION OF NA ###
 #adding fraction of NA in each gene expression
 proteomes_clean <- proteomes_clean %>%
-  select(-c(GeneSymbol, "Gene Name")) %>%
+  select(-c(GeneSymbol, 
+            "Gene Name")) %>%
   mutate(Frac_NA = rowSums(is.na(select(.,-RefSeqProteinID)))/80)
 
 #removing them
@@ -39,7 +40,7 @@ proteomes_clean_trans <- proteomes_clean_NA %>%
               values_from = "value")
 
 
-#Join data to get one file (HEALTHY ARE REPRESENT IN THIS)
+#Join data to get one file (HEALTHY ARE REPRESENTED IN THIS)
 joined_data <- proteomes_clean_trans %>%
   right_join(x = clinical_clean, 
              y = proteomes_clean_trans, 
@@ -70,7 +71,10 @@ joined_data <- joined_data %>%
   mutate(HER2_binary = case_when(`HER2 Final Status` == "Positive" ~ 1,
                                  `HER2 Final Status` == "Negative" ~ 0,
                                  `HER2 Final Status` == "Equivocal" ~ 1)) %>%
-  select(TCGA_ID, Age_group, HER2_binary, everything())
+  select(TCGA_ID, 
+         Age_group, 
+         HER2_binary, 
+         everything())
 
 
 # Write data --------------------------------------------------------------

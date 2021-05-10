@@ -85,7 +85,7 @@ pl1 <- pca_class_aug %>%
   theme(legend.position = "bottom") +
   labs(title = "PCA ",
        x = "PC1", 
-       y = "PC2" ) +
+       y = "PC2") +
   guides(colour = guide_legend(title.position = "top",
                                            nrow = 2,
                                            byrow = TRUE))
@@ -98,7 +98,7 @@ pl2 <- pca_class_aug_org %>%
   theme(legend.position = "bottom") +
   labs(title = "K-means original data",
        x = "PC1", 
-       y = "PC2" ) +
+       y = "PC2") +
   guides(colour = guide_legend(title.position = "top",
                                nrow = 2,
                                byrow = TRUE))
@@ -111,7 +111,7 @@ pl3 <- pca_org_aug %>%
   theme(legend.position = "bottom") +
   labs(title = "K-means PCA data",
        x = "PC1", 
-       y = "PC2" ) +
+       y = "PC2") +
   guides(colour = guide_legend(title.position = "top",
                                nrow = 2,
                                byrow = TRUE))
