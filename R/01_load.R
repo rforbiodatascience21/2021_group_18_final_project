@@ -14,7 +14,7 @@ library(broom)
 library(purrr)
 library(vroom)
 library(stringr)
-library(tidymodels)
+library(kableExtra)
 
 
 # Load data ---------------------------------------------------------------
