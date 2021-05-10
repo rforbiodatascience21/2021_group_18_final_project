@@ -9,6 +9,9 @@ cancer_genes <-
 "NP_001002295")
 
 random_genes <- proteomes_clean_NA %>%
+  select(-c(`263d3f-I`, 
+            `blcdb9-I`, 
+            `c4155b-C`)) %>%
   select(-Frac_NA) %>%
   pivot_longer(cols = -c("RefSeqProteinID"),
                names_to = "TCGA_ID",
@@ -17,6 +20,9 @@ random_genes <- proteomes_clean_NA %>%
 
 
 proteomes_clean_long <- proteomes_clean_NA %>%
+  select(-c(`263d3f-I`, 
+            `blcdb9-I`, 
+            `c4155b-C`)) %>%
   select(-Frac_NA) %>%
   pivot_longer(cols = -c("RefSeqProteinID"),
                 names_to = "TCGA_ID",
@@ -26,7 +32,7 @@ proteomes_clean_long <- proteomes_clean_NA %>%
 
 proteomes_nested <- joined_data %>%
   select("TCGA_ID",
-         `OS event`) %>%
+         "HER2_binary") %>%
   full_join(y = proteomes_clean_long,
             by = "TCGA_ID") %>% 
   select(-TCGA_ID) %>%
@@ -37,7 +43,7 @@ proteomes_nested <- joined_data %>%
 
 proteomes_func <- proteomes_nested %>%
   mutate(mdl = map(data,
-                 ~glm(`OS event` ~ log2_expression, 
+                 ~glm(HER2_binary ~ log2_expression, 
                       data = .,
                       family = binomial(link = "logit"))),
        tidying = map(mdl, conf.int = TRUE, tidy)) %>%
