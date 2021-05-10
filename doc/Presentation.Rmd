@@ -139,14 +139,14 @@ cancer_subtype
 
 ## Extract relevant breast cancer genes
 8 genes are selected \
-- BRCA1 = \
-- TP53 = \
-- CHEK2 = \
-- PTEN = \
-- CDH1 = \
-- STK11 = \
-- ERRB2 = \
-- GATA3 = \
+- BRCA1 = breast cancer type 1 susceptibility protein isoform 2 \
+- TP53 = cellular tumor antigen p53 isoform a \
+- CHEK2 = serine/threonine-protein kinase Chk2 isoform a \
+- PTEN = phosphatidylinositol 3,4,5-trisphosphate 3-phosphatase \
+- CDH1 = cadherin-1 preproprotein \
+- STK11 = serine/threonine-protein kinase STK11 \
+- ERRB2 / HER2 = receptor tyrosine-protein kinase erbB-2 isoform a precursor \
+- GATA3 = trans-acting T-cell-specific transcription factor GATA-3 isoform 1\
 
 
 ## Heat map
