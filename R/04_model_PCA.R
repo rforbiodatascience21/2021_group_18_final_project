@@ -17,7 +17,8 @@ k <- joined_data %>%
 
 #Choosing cancer genes and tumor class
 proteomes_class <- joined_data %>%
-  select(Class, NP_009231, 
+  select(Class, 
+         NP_009231, 
          NP_000537, 
          NP_009125, 
          NP_000305, 
@@ -29,18 +30,21 @@ proteomes_class <- joined_data %>%
 # PCA on cancergenes
 pca_class <- proteomes_class %>%
   select(where(is.numeric)) %>%
-  prcomp(center = TRUE, scale=TRUE)
+  prcomp(center = TRUE, 
+         scale = TRUE)
 
 #Percent of variance explained in PC1-PC8
 PCA_percent <- pca_class %>%
   tidy(matrix = "eigenvalues")%>%
-  ggplot(mapping = aes(PC, percent)) +
+  ggplot(mapping = aes(PC, 
+                       percent)) +
   geom_col(fill = "blue", 
            alpha = 0.6) +
   scale_x_continuous(breaks = 1:8) +
   scale_y_continuous(
     labels = scales::percent_format(),
-    expand = expansion(mult = c(0, 0.01))) +
+    expand = expansion(mult = c(0, 
+                                0.01))) +
   theme_light() +
   labs(y = "Percentage of variance explained", 
        title = "Variance explained by each PC")
@@ -61,7 +65,8 @@ pca_class_aug_org <- pca_class_org %>%
 
 # Making k-means of pca data
 pca_fit_aug <- pca_class_aug_org %>%
-  select(.fittedPC1, .fittedPC2) %>%
+  select(.fittedPC1, 
+         .fittedPC2) %>%
   kmeans(centers = k)
 
 # Augment of pca and original data
@@ -77,9 +82,10 @@ pl1 <- pca_class_aug %>%
              y = .fittedPC2, 
              colour = Class)) +
   geom_point() +
-  theme(legend.position = "bottom")+
+  theme(legend.position = "bottom") +
   labs(title = "PCA ",
-       x = "PC1", y = "PC2" ) +
+       x = "PC1", 
+       y = "PC2" ) +
   guides(colour = guide_legend(title.position = "top",
                                            nrow = 2,
                                            byrow = TRUE))
@@ -89,9 +95,10 @@ pl2 <- pca_class_aug_org %>%
              y = .fittedPC2, 
              colour = cluster_org)) +
   geom_point() +
-  theme(legend.position = "bottom")+
+  theme(legend.position = "bottom") +
   labs(title = "K-means original data",
-       x = "PC1", y = "PC2" ) +
+       x = "PC1", 
+       y = "PC2" ) +
   guides(colour = guide_legend(title.position = "top",
                                nrow = 2,
                                byrow = TRUE))
@@ -103,7 +110,8 @@ pl3 <- pca_org_aug %>%
   geom_point() +
   theme(legend.position = "bottom") +
   labs(title = "K-means PCA data",
-       x = "PC1", y = "PC2" ) +
+       x = "PC1", 
+       y = "PC2" ) +
   guides(colour = guide_legend(title.position = "top",
                                nrow = 2,
                                byrow = TRUE))
