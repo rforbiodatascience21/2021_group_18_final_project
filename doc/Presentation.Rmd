@@ -173,29 +173,35 @@ proteomes_func_sig %>%
 ![](../results/conf_int_plots.png)
 
 # Discussion
-## Fraction of Na
-- Fraction of NA > 0.25 has been removed based on the plot showed in results. 
-  - Calculated by
-    - rowSums(is.na(select(.,-RefSeqProteinID)))/80)
+## Handling of NA values
+- Limit at 25% ~ 17% genes removed \
+- Limit at 0% ~ 36% genes removed \
+
+### Replacement by median**\
+- Avoid NA values \
+\
+- Not necessary to remove either person or whole gene \
+\
+- Does not skew the data\
 
 
-## Selection of cancer_genes
-### Interrogation of genes related to breast cancer \
-BRCA1 = NP_009231 \
-TP53 = NP_000537 \
-CHEK2 = NP_009125, NP_665861 \
-PTEN = NP_000305 \
-CDH1 = NP_004351 \
-STK11 = NP_000446 \
-ERRB2/HER2 = NP_004439 \
-GATA3 = NP_001002295 \
+## Selection of cancer genes
+- Small subset of data \
+- Improvement for future: identify significant genes across whole dataset\
+- Findings: HER2/ERRB2 gene significant in Manhattan plot
 
-### Compare healthy and cancer diagnosed patients.
-Only 3 healthy people.
+![](../results/manhplot.png)
 
-## Protein data set
-- Not useful
-- Consists of Genesymbol, RefSeqProteinID, Species, Gene Name
+## Additional thoughts
 
+### Comparison between healthy and diseased \
+- Used in PCA analysis and K-means \
+- Only 3 individuals (no clinical data) \
+\
 
-# Thank you for listining. 
+### Deselection of dataset \
+- "Dictionary" of proteins \
+- Not usefull for our approach \
+- Could have been used to "translate" RefSeqProteinID's
+
+# Thank you for listening 

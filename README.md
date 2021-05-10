@@ -27,9 +27,10 @@ Following packages has been used:
 - broom
 - purrr
 - cowplot
-- broom
 - patchwork
-- UPDATE THIS WHEN WE ARE DONE
+- kableExtra
+- modelr
+- vroom
 
 ## Group members
 - Naja Bahrenscheer (najabahren)
