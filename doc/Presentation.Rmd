@@ -155,7 +155,6 @@ setwd('../')
 source(file = "R/05_model_HM.R", local = knitr::knit_global())
 ```
 
-Two Heat maps are plotted using geom_tile() on relevant Breasts Cancer Genes. One is based on tumor size whereas the other is based on class
 ```{r show HeatMap, echo=FALSE, warning=FALSE, message=FALSE}
 HM_class + HM_TumorSize
 ```
@@ -171,7 +170,6 @@ PCA_percent
 ```
 
 ## PCA and K-means
-Three plots of PCA, K-means org. data and K-means PCA data
 ```{r show PCA , echo=FALSE, warning=FALSE, message=FALSE}
 (pl1 + pl2 + pl3) 
 ```
