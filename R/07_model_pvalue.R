@@ -114,7 +114,7 @@ manhplot <- ggplot(proteomes_func,
                                  y = neg_log10_p, 
                                  color = identified_as)) +
   geom_point(alpha = 0.25, size = 3) +
-  geom_point(data = proteomes_func_sig_cancer,
+  geom_point(data = proteomes_func_cancer,
              mapping = aes(x = reorder(RefSeqProteinID, 
                                        desc(neg_log10_p)), 
                            y = neg_log10_p,
