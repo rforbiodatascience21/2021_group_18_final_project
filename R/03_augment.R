@@ -50,10 +50,7 @@ joined_data <- proteomes_clean_trans %>%
                                    "HER2-enriched", 
                                    "Luminal A", 
                                    "Luminal B", 
-                                   "Healthy"))) %>%
-  mutate(`OS event` = replace_na(data = `OS event`,
-                                 replace = 0))
-
+                                   "Healthy"))) 
 
 # Add age group to persons
 joined_data <- joined_data %>%
