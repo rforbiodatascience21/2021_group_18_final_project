@@ -121,23 +121,16 @@ source(file = "R/04_model_generel.R", knitr::knit_global())
 fractionNA_All + fractionNA_without0
 ```
 
-## Fjernes. Removal for genes according to the fraction of NAs comments
-Lots of the represented genes expression do not contain NA vlaues. Thereby, all of them was removed from the plot on the right, to get a better estimate of where to cut the lowest wanted fraction of NAs.For this, we end up removing 2205 genes.
-```{r removed FracNA, echo=FALSE, warning=FALSE, message=FALSE} 
-proteomes_clean %>%
-  filter(Frac_NA > 0.25) %>%
-  count()
-```
-
-## Tumor vs Gender
-```{r show tumor gender and other relevant, echo=FALSE}
-tumor_gender
-```
-
 ## Age at diagnosis
 ```{r show Age at diagnosis, echo=FALSE}
 age_diagnosis
 ```
+
+## Tumor, age at diagnosis and gender
+```{r show tumor gender and other relevant, echo=FALSE}
+tumor_gender
+```
+
 
 ## Subtype of breast cancer
 ```{r show Subtype of cancer, echo=FALSE}
