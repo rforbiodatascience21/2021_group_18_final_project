@@ -2,9 +2,7 @@
 title: "Inspection and visualization of breast cancer data"
 author: "Mie Björk, Naja Bahrenscheer, Sille Hendriksen, Sofia Otero"
 date: "12-May-2021"
-output:
-  beamer_presentation: default
-  ioslides_presentation: default
+output: ioslides_presentation
 ---
 
 ```{r Install, include=FALSE}
