@@ -35,7 +35,8 @@ source(file = "R/04_model_generel.R", local = knitr::knit_global())
   
 [Source: Kaggle](https://www.kaggle.com/piotrgrabo/breastcancerproteomes#clinical_data_breast_cancer.csv)  
 
-## Nice to have Github overview. Not need to have
+## Github overview
+#![Overview](../results/pl1.png)
 
 # Materials and methods
 ## Materials: Extract of raw data
@@ -94,17 +95,17 @@ setwd('../')
 source(file = "R/03_augment.R", knitr::knit_global())
 ```
 
-**joined data**
+**Joined data**
 ```{r show clean data, echo=FALSE}
 set.seed(759677) #added to ensure same slice_sample choose the same 4 rows each time.
 joined_data %>%
-  select(c(1:3,8,22)) %>%
+  select(c(1:4,9,23)) %>%
   slice_sample(n =4) %>%
   kable("html") %>%
   kable_styling(font_size = 10)
 
 joined_data %>%
-  select(100:105) %>%
+  select(100:106) %>%
   slice_sample(n =4) %>%
   kable("html") %>%
   kable_styling(font_size = 10)
@@ -146,7 +147,7 @@ cancer_subtype
 ## Heat map
 ```{r load file of Heatmap, include=FALSE} 
 setwd('../')
-source(file = "R/04_model_HM.R", local = knitr::knit_global())
+source(file = "R/05_model_HM.R", local = knitr::knit_global())
 ```
 
 Two Heat maps are plotted using geom_tile() on relevant Breasts Cancer Genes. One is based on tumor size whereas the other is based on class
@@ -157,7 +158,7 @@ HM_class + HM_TumorSize
 ## PCA percents
 ```{r load file of PCA, include=FALSE} 
 setwd('../')
-source(file = "R/04_model_PCA.R", local = knitr::knit_global())
+source(file = "R/06_model_PCA.R", local = knitr::knit_global())
 ```
 
 ```{r show PCA procents , echo=FALSE, warning=FALSE, message=FALSE}
@@ -168,6 +169,27 @@ PCA_percent
 Three plots of PCA, K-means org. data and K-means PCA data
 ```{r show PCA , echo=FALSE, warning=FALSE, message=FALSE}
 (pl1 + pl2 + pl3) 
+```
+
+## Linear model extract
+```{r load file of pvalues, include=FALSE} 
+setwd('../')
+source(file = "R/07_model_pvalue.R", local = knitr::knit_global())
+```
+
+```{r show extract of protoemes , echo=FALSE, warning=FALSE, message=FALSE}
+set.seed(759677) #added to ensure same slice_sample choose the same 4 rows each time.
+proteomes_func_sig %>%
+  select(c(1,8:12)) %>%
+  slice_sample(n =4) %>%
+  kable("html") %>%
+  kable_styling(font_size = 10)
+
+```
+
+## P-values
+```{r show p value plot , echo=FALSE, warning=FALSE, message=FALSE}
+manhplot
 ```
 
 # Discussion
