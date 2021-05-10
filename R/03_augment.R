@@ -28,7 +28,6 @@ proteomes_clean_NA <- proteomes_clean_NA %>%
                      false = .))
 
 #Transpose data (get protein ID as columns)
-#Drops the rest of the NAs in the long version, so only pr. gene
 proteomes_clean_trans <- proteomes_clean_NA %>%
   select(-Frac_NA) %>%
   pivot_longer(cols = -c("RefSeqProteinID"),
@@ -37,22 +36,13 @@ proteomes_clean_trans <- proteomes_clean_NA %>%
   pivot_wider(names_from = "RefSeqProteinID",
               values_from = "value")
 
-#CLINICAL
-clinical_aug <- clinical_clean %>% 
-  rename(Class = `PAM50 mRNA`) %>%
-  mutate(Class = factor(Class, 
-                        levels = c("Basal-like", 
-                                   "HER2-enriched", 
-                                   "Luminal A", 
-                                   "Luminal B", 
-                                   "Healthy")))
-
 
 #Join data to get one file (HEALTHY ARE REPRESENT IN THIS)
 joined_data <- proteomes_clean_trans %>%
-  right_join(x = clinical_aug, 
+  right_join(x = clinical_clean, 
              y = proteomes_clean_trans, 
              by = "TCGA_ID") %>%
+  rename(Class = `PAM50 mRNA`) %>%
   mutate(Class = replace_na(data = Class, 
                             replace = "Healthy")) %>%
   mutate(Class = factor(x = Class, 

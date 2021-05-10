@@ -51,12 +51,6 @@ cancer_genes <- joined_data %>%
                names_to = "RefSeqProteinID",
                values_to = "Expression level (log2)") %>% 
   # Set factors and levels for the plot
-  mutate(Class = factor(Class, 
-                        levels = c("Basal-like", 
-                                   "HER2-enriched", 
-                                   "Luminal A", 
-                                   "Luminal B", 
-                                   "Healthy"))) %>%
   mutate(RefSeqID = factor(RefSeqProteinID, 
                            levels = c("BRCA1", 
                                       "TP53", 
