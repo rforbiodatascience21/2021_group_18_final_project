@@ -49,17 +49,7 @@ cancer_genes <- joined_data %>%
                         "ERRB2", 
                         "GATA3"), 
                names_to = "RefSeqProteinID",
-               values_to = "Expression level (log2)") %>% 
-  # Set factors and levels for the plot
-  mutate(RefSeqID = factor(RefSeqProteinID, 
-                           levels = c("BRCA1", 
-                                      "TP53", 
-                                      "CHEK2", 
-                                      "PTEN", 
-                                      "CDH1", 
-                                      "STK11", 
-                                      "ERRB2", 
-                                      "GATA3")))
+               values_to = "Expression level (log2)")
 
 # The heatmap plot
 HM_class <- 
