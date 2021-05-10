@@ -1,23 +1,12 @@
 cancer_genes <-
   c("NP_009231", 
   "NP_000537", 
-"NP_009125", 
-"NP_000305", 
-"NP_004351", 
-"NP_000446",
-"NP_004439",
-"NP_001002295")
-
-random_genes <- proteomes_clean_NA %>%
-  select(-c(`263d3f-I`, 
-            `blcdb9-I`, 
-            `c4155b-C`)) %>%
-  select(-Frac_NA) %>%
-  pivot_longer(cols = -c("RefSeqProteinID"),
-               names_to = "TCGA_ID",
-               values_to = "log2_expression" ) %>%
-  sample_n(92) 
-
+  "NP_009125", 
+  "NP_000305", 
+  "NP_004351", 
+  "NP_000446",
+  "NP_004439",
+  "NP_001002295")
 
 proteomes_clean_long <- proteomes_clean_NA %>%
   select(-c(`263d3f-I`, 
@@ -26,14 +15,19 @@ proteomes_clean_long <- proteomes_clean_NA %>%
   select(-Frac_NA) %>%
   pivot_longer(cols = -c("RefSeqProteinID"),
                 names_to = "TCGA_ID",
-                values_to = "log2_expression" ) %>%
-  filter(RefSeqProteinID == cancer_genes) 
+                values_to = "log2_expression")
+  
+proteomes_clean_long <- proteomes_clean_long %>%
+  filter(RefSeqProteinID == "NP_009231" | RefSeqProteinID == "NP_000537"
+         | RefSeqProteinID == "NP_009125" | RefSeqProteinID == "NP_000305"
+         | RefSeqProteinID == "NP_004351" | RefSeqProteinID == "NP_000446"
+         | RefSeqProteinID == "NP_004439" | RefSeqProteinID == "NP_001002295")
 
 
 proteomes_nested <- joined_data %>%
   select("TCGA_ID",
          "HER2_binary") %>%
-  full_join(y = proteomes_clean_long,
+  right_join(y = proteomes_clean_long,
             by = "TCGA_ID") %>% 
   select(-TCGA_ID) %>%
   group_by(RefSeqProteinID) %>%
