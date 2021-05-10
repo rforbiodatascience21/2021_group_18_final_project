@@ -171,7 +171,7 @@ proteomes_func_sig %>%
 - Limit at 25% ~ 17% genes removed \
 - Limit at 0% ~ 36% genes removed \
 
-### Replacement by median**\
+### **Replacement by median**\
 - Avoid NA values \
 \
 - Not necessary to remove either person or whole gene \
@@ -188,12 +188,12 @@ proteomes_func_sig %>%
 
 ## Additional thoughts
 
-### Comparison between healthy and diseased \
+### **Comparison between healthy and diseased** \
 - Used in PCA analysis and K-means \
 - Only 3 individuals (no clinical data) \
 \
 
-### Deselection of dataset \
+### **Deselection of dataset** \
 - "Dictionary" of proteins \
 - Not usefull for our approach \
 - Could have been used to "translate" RefSeqProteinID's
