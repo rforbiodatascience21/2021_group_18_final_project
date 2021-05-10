@@ -158,4 +158,4 @@ HM_TumorSize <-
 
 
 # Write data --------------------------------------------------------------
-ggsave(filename = "results/HeatMaps.png", plot = HM_class + HM_TumorSize, width = 16, height = 9, dpi = 72)
+ggsave(filename = "results/HeatMaps.png", plot = HM_class + HM_TumorSize, width = 10, height = 5, dpi = 72)

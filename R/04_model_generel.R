@@ -93,7 +93,7 @@ cancer_subtype <- joined_data %>%
 
 
 # Write data --------------------------------------------------------------
-ggsave(filename = "results/FractionNA.png", plot = fractionNA_All + fractionNA_without0, width = 16, height = 9, dpi = 72)
-ggsave(filename = "results/age_diagnosis.png", plot = age_diagnosis, width = 16, height = 9, dpi = 72)
-ggsave(filename = "results/tumor_gender.png", plot = tumor_gender, width = 16, height = 9, dpi = 72)
-ggsave(filename = "results/cancer_subtype.png", plot = cancer_subtype, width = 16, height = 9, dpi = 72)
+ggsave(filename = "results/FractionNA.png", plot = fractionNA_All + fractionNA_without0, width = 10, height = 5, dpi = 72)
+ggsave(filename = "results/age_diagnosis.png", plot = age_diagnosis, width = 10, height = 5, dpi = 72)
+ggsave(filename = "results/tumor_gender.png", plot = tumor_gender, width = 10, height = 5, dpi = 72)
+ggsave(filename = "results/cancer_subtype.png", plot = cancer_subtype,width = 10, height = 5, dpi = 72)
