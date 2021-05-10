@@ -76,6 +76,13 @@ mutate(Age_group = case_when(`Age at Initial Pathologic Diagnosis` < 30 ~ "<30",
                              `Age at Initial Pathologic Diagnosis` >= 80 ~ "80+")) %>%
   select(TCGA_ID, Age_group, everything())
 
+# Add binary numbers to HER2 status
+joined_data <- joined_data %>%
+  mutate(HER2_binary = case_when(`HER2 Final Status` == "Positive" ~ 1,
+                                 `HER2 Final Status` == "Negative" ~ 0,
+                                 `HER2 Final Status` == "Equivocal" ~ 1)) %>%
+  select(TCGA_ID, Age_group, HER2_binary, everything())
+
 
 # Write data --------------------------------------------------------------
 write_csv(x = joined_data, 
