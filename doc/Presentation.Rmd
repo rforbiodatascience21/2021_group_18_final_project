@@ -37,7 +37,10 @@ library(kableExtra)
 ## Materials: Extract of raw data
 ```{r load raw data, include=FALSE}
 setwd('../')
-source(file = "R/01_load.R", knitr::knit_global())
+clinical <- read_csv(file = "data/clinical.csv.gz")
+proteomes <- read_csv(file = "data/proteomes.csv.gz")
+joined_data <- read_csv(file = "data/joined_data.csv.gz")
+proteomes_statistics <- read_csv(file = "data/proteomes_statistics.csv.gz")
 ```
 
 **Proteomes**
@@ -80,10 +83,6 @@ clinical %>%
 
 
 ## Materials: Extract of clean data
-```{r load clean data, include=FALSE}
-setwd('../')
-source(file = "R/03_augment.R", knitr::knit_global())
-```
 
 **Joined data**
 ```{r show clean data, echo=FALSE}
@@ -140,17 +139,10 @@ joined_data %>%
 ![](../results/PCAkMeans.png)
 
 ## Linear model extract
-```{r load file of pvalues, include=FALSE} 
-setwd('../')
-source(file = "R/07_model_pvalue.R", local = knitr::knit_global())
+```{r show linear, echo=FALSE}
+proteomes_statistics
 ```
 
-```{r show extract of protoemes , echo=FALSE, warning=FALSE, message=FALSE}
-proteomes_func_cancer %>%
-  select(c(1,8:12)) %>%
-  kable("html") %>%
-  kable_styling(font_size = 10)
-```
 
 ## Manhattan plot
 ![](../results/manhplot.png)
