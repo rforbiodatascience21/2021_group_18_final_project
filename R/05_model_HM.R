@@ -52,9 +52,8 @@ cancer_genes <- joined_data %>%
                values_to = "Expression level (log2)")
 
 # The heatmap plot
-HM_class <- 
-  ggplot(data = cancer_genes, 
-         mapping = aes(x = RefSeqProteinID,
+HM_class <- cancer_genes %>% 
+  ggplot(mapping = aes(x = RefSeqProteinID,
                        y = TCGA_ID, 
                        fill = `Expression level (log2)`)) +
   geom_tile() + 
@@ -73,7 +72,7 @@ HM_class <-
                                    angle = 45,
                                    hjust = 1),
         axis.text.y = element_blank(),
-        strip.text.y = element_text(size = 12),
+        strip.text.y = element_text(size = 6.5),
         plot.title = element_text(size = 18,
                                   face = "bold"),
         legend.title = element_text(size = 16,
@@ -123,9 +122,8 @@ cancer_genes_tumor <- joined_data %>%
                values_to = "Expression level (log2)")
 
 # The heatmap plot
-HM_TumorSize <-
-  ggplot(data = cancer_genes_tumor, 
-         mapping = aes(x = RefSeqProteinID,
+HM_TumorSize <- cancer_genes_tumor  %>% 
+  ggplot(mapping = aes(x = RefSeqProteinID,
                        y = TCGA_ID,
                        fill = `Expression level (log2)`)) +
   geom_tile()+ 
