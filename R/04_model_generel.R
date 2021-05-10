@@ -78,16 +78,6 @@ tumor_gender <- ggplot(joined_data %>%
        title = "Age divided on tumor size") +
   theme_classic()
 
-# Scatterplot of cancer stage vs tumor size filled by metastasis if positive or negative:
-ggplot(joined_data,
-       mapping = aes(x = `AJCC Stage`,
-                     y = Tumor, 
-                     color = `Metastasis-Coded`)) +
-  geom_point() +
-  labs() + 
-  theme(legend.position = "bottom")
-
-
 # Plot of how many patients have each type of cancer. 
 #Breast cancer is generally classified into five molecular subtypes: 
 #Luminal A, Luminal B, HER2, Basal like and Normal. 
@@ -106,7 +96,9 @@ cancer_subtype <- joined_data %>%
   theme_classic()
 
 
-
 # Write data --------------------------------------------------------------
 ggsave(filename = "results/FractionNA_withAllPoints.png", plot = fractionNA_All, width = 16, height = 9, dpi = 72)
 ggsave(filename = "results/FractionNA_without0.png", plot = fractionNA_without0, width = 16, height = 9, dpi = 72)
+ggsave(filename = "results/age_diagnosis.png", plot = age_diagnosis, width = 16, height = 9, dpi = 72)
+ggsave(filename = "results/tumor_gender.png", plot = tumor_gender, width = 16, height = 9, dpi = 72)
+ggsave(filename = "results/cancer_subtype.png", plot = cancer_subtype, width = 16, height = 9, dpi = 72)
