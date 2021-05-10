@@ -119,4 +119,5 @@ pl3 <- pca_org_aug %>%
 (pl1 + pl2 + pl3)
 
 # Write data --------------------------------------------------------------
+ggsave(filename = "results/PCA_percent.png", plot = PCA_percent, width = 10, height = 5, dpi = 72)
 ggsave(filename = "results/PCAkMeans.png", plot = pl1 + pl2 + pl3, width = 10, height = 5, dpi = 72)
