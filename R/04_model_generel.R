@@ -79,10 +79,6 @@ tumor_gender <- ggplot(joined_data %>%
   theme_classic()
 
 # Plot of how many patients have each type of cancer. 
-#Breast cancer is generally classified into five molecular subtypes: 
-#Luminal A, Luminal B, HER2, Basal like and Normal. 
-#Each is associated with different prognoses, treatments and therapies.
-
 cancer_subtype <- joined_data %>%
   mutate(Class = fct_rev(fct_infreq(Class))) %>%
   ggplot(aes(x = Class,
