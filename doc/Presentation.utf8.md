@@ -356,4 +356,4 @@ output: ioslides_presentation
 - Not usefull for our approach \
 - Could have been used to "translate" RefSeqProteinID's
 
-# Thank you for listening 
+# Thank you for listening.
