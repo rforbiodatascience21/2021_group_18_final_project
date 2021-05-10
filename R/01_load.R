@@ -10,6 +10,7 @@ library(broom)
 library(purrr)
 library(vroom)
 library(stringr)
+library(cowplot)
 library(kableExtra)
 
 

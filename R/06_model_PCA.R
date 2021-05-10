@@ -53,12 +53,12 @@ PCA_percent <- pca_class %>%
 pca_class_aug <- pca_class %>%
   augment(proteomes_class)
 
-# Making k-means of original data
+# Making k-means of original data - plot 1
 pca_class_org <- pca_class_aug %>%
   select(contains("NP")) %>%
   kmeans(centers = k)
 
-# Augment with pca
+# Augment with pca - plot 2
 pca_class_aug_org <- pca_class_org %>%
   augment(pca_class_aug) %>% 
   rename(cluster_org = .cluster)
@@ -69,7 +69,7 @@ pca_fit_aug <- pca_class_aug_org %>%
          .fittedPC2) %>%
   kmeans(centers = k)
 
-# Augment of pca and original data
+# Augment of pca and original data - plot 3
 pca_org_aug <- pca_fit_aug %>%
   augment(pca_class_aug_org) %>% 
   rename(cluster_pca = .cluster)
@@ -115,8 +115,6 @@ pl3 <- pca_org_aug %>%
   guides(colour = guide_legend(title.position = "top",
                                nrow = 2,
                                byrow = TRUE))
-
-(pl1 + pl2 + pl3)
 
 # Write data --------------------------------------------------------------
 ggsave(filename = "results/PCA_percent.png", plot = PCA_percent, width = 10, height = 5, dpi = 72)
