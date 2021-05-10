@@ -17,8 +17,12 @@ proteomes_clean <- proteomes_clean %>%
 
 #removing them
 proteomes_clean_NA <- proteomes_clean %>%
-  filter(Frac_NA < 0.25) 
+  filter(Frac_NA < 0.25)
 
+
+proteomes_clean %>%
+  filter(Frac_NA > 0) %>%
+  count()
 #replace NA with median of column
 proteomes_clean_NA <- proteomes_clean_NA %>%
   mutate_at(c(2:82), ~if_else(condition = is.na(.),

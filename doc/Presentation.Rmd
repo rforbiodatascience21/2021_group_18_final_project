@@ -173,14 +173,19 @@ proteomes_func_sig %>%
 ![](../results/conf_int_plots.png)
 
 # Discussion
-## Fraction of Na
-- Fraction of NA > 0.25 has been removed based on the plot showed in results. 
-  - Calculated by
-    - rowSums(is.na(select(.,-RefSeqProteinID)))/80)
+## Handling of NA values
+- Limit at 25% ~ 17% genes removed \
+- Limit at 0% ~ 36% genes removed \
+
+**Replacement by median**\
+- Avoid NA values \
+- Not necessary to remove either person or whole gene \
+- Does not skew the data\
 
 
 ## Selection of cancer_genes
-### Interrogation of genes related to breast cancer \
+
+ \
 BRCA1 = NP_009231 \
 TP53 = NP_000537 \
 CHEK2 = NP_009125, NP_665861 \
