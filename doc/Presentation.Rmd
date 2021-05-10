@@ -137,6 +137,17 @@ tumor_gender
 cancer_subtype
 ```
 
+## Extract relevant breast cancer genes
+8 genes are selected \
+- BRCA1 = \
+- TP53 = \
+- CHEK2 = \
+- PTEN = \
+- CDH1 = \
+- STK11 = \
+- ERRB2 = \
+- GATA3 = \
+
 
 ## Heat map
 ```{r load file of Heatmap, include=FALSE} 
