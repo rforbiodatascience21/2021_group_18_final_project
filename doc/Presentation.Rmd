@@ -27,16 +27,16 @@ source(file = "R/04_model_generel.R", local = knitr::knit_global())
 
 # Introduction 
 ## Overview of data
-- Plots and other analysis of the data. 
 - **File**: 77_cancer_proteomes_CPTAC_itraq.csv
   - Gene expression data from 77 cancer patients and 3 healthy persons.
+  
 - **File**: clinical_data_breast_cancer.csv
   - Clinical data from the 77 cancer patients
   
 [Source: Kaggle](https://www.kaggle.com/piotrgrabo/breastcancerproteomes#clinical_data_breast_cancer.csv)  
 
 ## Github overview
-#![](../results/GitOverview.png)
+![](../results/GitOverview.png)
 
 # Materials and methods
 ## Materials: Extract of raw data
@@ -67,14 +67,8 @@ clinical %>%
 
 
 ## Methods: Cleaning of data
-### We have done some cleaning of the two data sets 
-- **Proteomes**: 
-  - Rename, so the column names align with the clinical file
-  - Removing .01TCGA from every column name to match ID's in clinical using rename() in combination with str_replace_all()
-  - Removing duplicates using select() 
-  
-- **Clinical**: 
-  - Aligning ID's with proteome file using sub_str()
+### We had to clean the data in order to use it for analysis 
+![](../results/Clean_data.png)
 
 
 ## Methods: Wrangle data
