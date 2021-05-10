@@ -7,13 +7,13 @@ This project investigates breast cancer data using tools learned during the cour
 Raw data can be found in the folder /data/_raw and otherwise on this [link](https://www.kaggle.com/piotrgrabo/breastcancerproteomes). 
 
 It contains three data files, but we chose only to use two of them:
-File: *77_cancer_proteomes_CPTAC_itraq.csv* 
+**File**: *77_cancer_proteomes_CPTAC_itraq.csv* 
 - Contains gene expression data (12553 observations) from 77 cancer patients and 3 healthy persons. 
 
-File: *clinical_data_breast_cancer.csv* 
+**File**: *clinical_data_breast_cancer.csv* 
 - Contains clinical data from the 77 cancer patients (not the 3 healthy), such as age, gender, tumor class etc. 
 
-File: *PAM50_proteins.csv* 
+**File**: *PAM50_proteins.csv* 
 - We decided not use this data, since we did not need the information it could provide in order to make the analyses we wanted. It is somewhat a dictionary of the genes, their names and ID's. 
 
 ## Use
@@ -30,3 +30,8 @@ Following packages has been used:
 - patchwork
 - UPDATE THIS WHEN WE ARE DONE
 
+## Group members
+- Naja Bahrenscheer (najabahren)
+- Sille Hendriksen (xxxsille)
+- Sofia Otero (SofiaOtero)
+- Mie Björk (MieDB)
