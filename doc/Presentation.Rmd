@@ -82,12 +82,13 @@ clinical %>%
 - **Proteomes**: 
   - Removing fraction NA > 0.25 using filter()
   - Replace the remaining NAs with median of column
-  - Transpose data (get protein ID as columns)
+  - Transpose data (get RefSeqProteinID as columns)
 
-- **Clinical**:
-  - Rename of PAM50 mRNA to Class
+- **Joining**:
+  - Right_join by TCGA_IDs in proteomes file
+    - 28 patients were dropped, 3 healthy patients
+  - Age group, HER2 as binary, replace_na() in class
 
-Finally, a right_join() with x = clinical, y = proteomes, and by TCGA_ID (patient ID) was used to make the joined_data. For the joined data, the age was divided into age_groups using mutate and casewhen().
 
 ## Materials: Extract of clean data
 ```{r load clean data, include=FALSE}
@@ -105,7 +106,7 @@ joined_data %>%
   kable_styling(font_size = 10)
 
 joined_data %>%
-  select(100:106) %>%
+  select(100:105) %>%
   slice_sample(n =4) %>%
   kable("html") %>%
   kable_styling(font_size = 10)
@@ -190,6 +191,11 @@ proteomes_func_sig %>%
 ## Manhattan plot
 ```{r show p value plot , echo=FALSE, warning=FALSE, message=FALSE}
 manhplot
+```
+
+## Confidence interval plots
+```{r show Conf int plots , echo=FALSE, warning=FALSE, message=FALSE}
+conf_int + conf_int_sig 
 ```
 
 # Discussion
